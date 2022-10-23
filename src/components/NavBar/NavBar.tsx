@@ -1,4 +1,4 @@
-import { createElement, FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import useOutsideMenu from '../../hooks/useOutsideMenu';
 import './NavBar.scss';
 
@@ -23,6 +23,7 @@ const NavBar: FC<IProps> = ({ links, title }) => {
     if (div.offsetWidth > 50 && !refWidth) setRefWidth(div.offsetWidth);
 
     div.style.width = isShow ? `${refWidth}px` : '50px';
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isShow]);
 
   return (

@@ -17,6 +17,7 @@ const useOutsideMenu = (
 
     bodyEl.style.paddingRight = isShow ? `${lockWidth}px` : '0px';
     isShow ? bodyEl.classList.add('hidden') : bodyEl.classList.remove('hidden');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isShow]);
 
   const handleClickOutside = ({ target }: Event) => {
