@@ -1,0 +1,49 @@
+$transition: 0.4s;
+
+.list {
+    position: fixed;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all $transition linear;
+    & ~ &__shadow {
+        position: fixed;
+        z-index: 90;
+        top: 0%;
+        left: 0%;
+        width: 100vw;
+        height: 100%;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0);
+        scale: 0;
+        border-radius: 50%;
+        transition: 
+            scale ($transition * 0.8) linear, 
+            border-radius ($transition * 0.66) linear,
+            background-color ($transition * 0.6) linear;
+    }
+    &.active ~ &__shadow {
+        background-color: rgba(0, 0, 0, 0.7);
+        scale: 1;
+        border-radius: 0rem;
+    }
+    &.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+    &__body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem 3rem;
+        background: rgb(231, 118, 118);
+        padding: 2.5rem 2rem;
+        border-radius: 1rem;
+    }
+}
+body ~ .list.active {
+    overflow: hidden;
+}

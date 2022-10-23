@@ -1,0 +1,67 @@
+$transition: 0.4s;
+$color: rgba(255, 255, 255, 0.8);
+
+.navbar {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    background-color: rgba(56, 163, 196, 0.829);
+    color: rgba(0, 0, 0, 0);
+    overflow: hidden;
+    border-right: 1px solid rgba(0, 0, 0, 0.144);
+    height: 100%;
+    transition: all 0.4s linear, color 0.05s linear;
+    &.active {
+        color: $color;
+    }
+    button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 0.5rem 0.7rem;
+        text-align: center;
+        background: transparent;
+        color: $color;
+        border: 1px solid #fff;
+        border-radius: 1rem;
+    }
+    & ~ &__blur {
+        position: fixed;
+        z-index: 90;
+        top: 0%;
+        left: 0%;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0);
+        backdrop-filter: blur(2px);
+        transform: translate(-100%, -100%);
+        border-radius: 50%;
+        transition: 
+        transform ($transition * 0.8) linear, 
+        border-radius ($transition * 0.66) linear,
+        background-color ($transition * 0.6) linear;
+    }
+    &.active ~ &__blur {
+        background-color: rgba(0, 0, 0, 0.7);
+        transform: translate(0, 0);
+        border-radius: 0rem;
+    }
+
+    &__body {
+        padding: 2rem 20px 1rem 50px;
+    }
+    &__title {
+        font-size: 20px;
+        text-transform: capitalize;
+        letter-spacing: 1px;
+    }
+    &-links {
+        &__link {
+            margin-bottom: 1rem;
+            cursor: pointer;
+            letter-spacing: 1px;
+            font-size: 18px;
+        }
+    }
+}
