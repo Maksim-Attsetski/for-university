@@ -5,7 +5,6 @@ import { IWork } from '../../types';
 import './Home.scss';
 
 const Home = (props: any) => {
-  // const links: string[] = useMemo(() => ['Home', 'About us', 'Logout'], []);
   const workList: IWork[] = useMemo(() => works, []);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalTime, setTotalTime] = useState<number>(0);
@@ -21,7 +20,6 @@ const Home = (props: any) => {
 
   return (
     <div className='container'>
-      {/* <NavBar links={links} title='custom menu' /> */}
       <div className='content'>
         <h2>hello</h2>
       </div>
