@@ -1,0 +1,2 @@
+*{box-sizing:border-box;margin:0;padding:0}body{background-color:hsla(29,78%,75%,.432);max-width:100vw;min-height:200vh;overflow-x:hidden}body.hidden{overflow:hidden}button{cursor:pointer;padding:.5rem 1.5rem}img{max-width:500px;object-fit:cover}:focus{outline:none}.container{margin:0 auto;max-width:clamp(300px,90vw,1000px)}.content{align-items:center;display:flex;gap:.5rem 3rem;justify-content:center}
+/*# sourceMappingURL=main.fa4e1e8d.css.map*/

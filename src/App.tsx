@@ -1,13 +1,12 @@
 import { useMemo, useState } from 'react';
 import './App.scss';
-import { NavBar } from './components';
 import { works } from './data';
 import { IWork } from './types';
 
 type totalWork = number | 'Все сделано';
 
 const App = () => {
-  const links: string[] = useMemo(() => ['Home', 'About us', 'Logout'], []);
+  // const links: string[] = useMemo(() => ['Home', 'About us', 'Logout'], []);
   const workList: IWork[] = useMemo(() => works, []);
   const [totalPrice, setTotalPrice] = useState<totalWork>(0);
   const [totalTime, setTotalTime] = useState<totalWork>(0);
