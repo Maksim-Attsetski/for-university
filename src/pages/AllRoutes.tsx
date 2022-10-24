@@ -1,24 +1,15 @@
-import { useMemo } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from '../components';
+import { routes } from '../data';
 import { About, Home, NotFound } from '../pages';
 
 const AllRoutes = () => {
-  const routeNames = useMemo(
-    () => ({
-      home: '/',
-      notFound: '/*',
-      about: '/about',
-    }),
-    []
-  );
-
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
-        <Route path={routeNames.home} element={<Home />} />
-        <Route path={routeNames.about} element={<About />} />
-        <Route path={routeNames.notFound} element={<NotFound />} />
+        <Route path={routes.home} element={<Home />} />
+        <Route path={routes.about} element={<About />} />
+        <Route path={routes.notFound} element={<NotFound />} />
       </Route>
     </Routes>
   );
