@@ -1,19 +1,27 @@
 import { FC, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useOutsideMenu from '../../hooks/useOutsideMenu';
+import { routeNames } from '../../types';
 import './NavBar.scss';
+
+interface ILink {
+  to: routeNames;
+  name: string;
+}
 
 interface IProps {
   title: string | null;
-  links: string[];
+  links: ILink[];
 }
 
 const NavBar: FC<IProps> = ({ links, title }) => {
   const { isShow, setIsShow, ref } = useOutsideMenu();
   const [refWidth, setRefWidth] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   const handleClickNavbarLink = async (link: string) => {
     setIsShow(false);
-    alert(link);
+    navigate(link);
   };
 
   useEffect(() => {
@@ -37,8 +45,8 @@ const NavBar: FC<IProps> = ({ links, title }) => {
           <br />
           <div className='navbar-links'>
             {links.map(link => (
-              <div key={link} className='navbar-links__link' onClick={() => handleClickNavbarLink(link)}>
-                {link}
+              <div key={link.to} className='navbar-links__link' onClick={() => handleClickNavbarLink(link.to)}>
+                {link.name}
               </div>
             ))}
           </div>
