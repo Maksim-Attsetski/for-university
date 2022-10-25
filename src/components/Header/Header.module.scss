@@ -1,0 +1,10 @@
+
+.header {
+    @apply fixed top-0 left-0 right-0 py-4 bg-white 
+}
+.link {
+    @apply text-2xl mr-5 mb-3;
+}
+.active {
+    color: rgb(104, 183, 214);
+}
