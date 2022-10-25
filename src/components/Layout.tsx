@@ -6,6 +6,9 @@ const Layout: FC = () => {
   return (
     <div>
       <Header />
+      <br />
+      <br />
+      <br />
       <main>
         <Outlet />
       </main>

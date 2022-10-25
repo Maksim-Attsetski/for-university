@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import { WorkToast, Work } from '../../components';
 import { works } from '../../data';
 import { IWork } from '../../types';
@@ -30,7 +30,7 @@ const Home = () => {
       <WorkToast data={{ totalPrice, totalTime }} isVisible={isVisible} setIsVisible={setIsVisible} />
       <hr />
       <br />
-      <div>Выберите на какой работе вы остановились</div>
+      <div className='text-2xl font-bold'>Выберите на какой работе вы остановились</div>
       <br />
       {workList.map((work, i) => (
         <Work key={i} work={work} renderBtn={i + 1 !== workList.length} selectWorkStatus={selectWorkStatus} />

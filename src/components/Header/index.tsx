@@ -19,12 +19,13 @@ const Header = () => {
       { to: routes.home, name: 'Главная', isActive: checkIsActive(routes.home) },
       { to: routes.about, name: 'О проекте', isActive: checkIsActive(routes.about) },
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [pathname]
   );
 
   return (
-    <header>
-      <div className='container'>
+    <header className={s.header}>
+      <div className={'container'}>
         {links.map(({ to, name, isActive }) => (
           <Link key={to} to={to} className={`${isActive ? s.active : ''} ${s.link}`}>
             {name}

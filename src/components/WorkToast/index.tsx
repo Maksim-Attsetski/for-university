@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useEffect } from 'react';
 import s from './WorkToast.module.scss';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -19,6 +19,7 @@ const WorkToast: FC<IProps> = ({ isVisible, setIsVisible, data }) => {
     return () => {
       clearTimeout(timer);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible]);
 
   // const animation = useMemo(() => ({}), [isVisible]);
