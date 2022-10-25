@@ -29,7 +29,7 @@ const Home = (props: any) => {
       <div>Выберите на какой работе вы остановились</div>
       <br />
       {workList.map((work, i) => (
-        <div key={work._id} style={{ display: 'flex', justifyContent: 'space-between', margin: '1rem' }}>
+        <div key={work.name} style={{ display: 'flex', justifyContent: 'space-between', margin: '1rem' }}>
           <div>
             <div>
               {work.order}. {work.name}
