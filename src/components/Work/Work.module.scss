@@ -1,0 +1,8 @@
+
+.work {
+    @apply flex justify-between m-4 bg-white px-8 py-3 rounded-xl;
+}
+
+.title {
+    @apply max-w-[50vw] font-bold text-xl;
+}
