@@ -14,8 +14,14 @@ const Home = () => {
   const selectWorkStatus = (order: number) => {
     const futureWorks: IWork[] = workList.filter(work => work.order > order);
 
-    const curPrice: number = futureWorks.reduce((prev, cur) => (prev += cur.price), 0);
-    const curTime: number = futureWorks.reduce((prev, cur) => (prev += cur.time), 0);
+    const curPrice: number = futureWorks.reduce(
+      (prev, cur) => (prev += cur.activeWork ? cur.activeWork.price : cur.price),
+      0
+    );
+    const curTime: number = futureWorks.reduce(
+      (prev, cur) => (prev += cur.activeWork ? cur.activeWork.time : cur.time),
+      0
+    );
     setTotalPrice(curPrice);
     setTotalTime(curTime);
     setIsVisible(true);
