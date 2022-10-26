@@ -1,1 +1,1 @@
-export type routeNames = '/' | '/about' | '/exchangeRate' | '/*';
+export type routeNames = '/' | '/about' | '/auth' | '/exchangeRate' | '/*';

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { Route, Routes } from 'react-router-dom';
-import { About, Home, NotFound } from '../';
+import { About, Home, NotFound, Auth } from '../';
 
 import { Layout } from '../../components';
 import { routes } from '../../data';
@@ -11,6 +11,7 @@ const PrivateRoutes: FC = () => {
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route path={routes.home} element={<Home />} />
+        <Route path={routes.auth} element={<Auth />} />
         <Route path={routes.about} element={<About />} />
         <Route path={routes.notFound} element={<NotFound />} />
       </Route>
