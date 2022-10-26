@@ -1,18 +1,18 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { WorkToast, Work } from '../../components';
-import { works } from '../../data';
+import { useTypedSelector } from '../../hooks/redux';
 import { IWork } from '../../types';
 
 import './Home.scss';
 
 const Home = () => {
-  const workList: IWork[] = useMemo(() => works, []);
+  const { works } = useTypedSelector(state => state.works);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalTime, setTotalTime] = useState<number>(0);
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const selectWorkStatus = (order: number) => {
-    const futureWorks: IWork[] = workList.filter(work => work.order > order);
+    const futureWorks: IWork[] = works.filter(work => work.order > order);
 
     const curPrice: number = futureWorks.reduce(
       (prev, cur) => (prev += cur.activeWork ? cur.activeWork.price : cur.price),
@@ -38,8 +38,8 @@ const Home = () => {
       <br />
       <div className='text-2xl font-bold'>Выберите на какой работе вы остановились</div>
       <br />
-      {workList.map((work, i) => (
-        <Work key={i} work={work} renderBtn={i + 1 !== workList.length} selectWorkStatus={selectWorkStatus} />
+      {works.map((work, i) => (
+        <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
       ))}
       <br />
       <br />
