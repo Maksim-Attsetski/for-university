@@ -1,6 +1,9 @@
-import { useState } from 'react';
-import { WorkToast, Work } from '../../components';
+import { useEffect, useState } from 'react';
+
+import axios from 'axios';
 import { useTypedSelector } from '../../hooks/redux';
+
+import { WorkToast, Work } from '../../components';
 import { IWork } from '../../types';
 
 import './Home.scss';
@@ -29,9 +32,6 @@ const Home = () => {
 
   return (
     <div className='container content'>
-      <div>
-        <h2>hello</h2>
-      </div>
       <br />
       <WorkToast data={{ totalPrice, totalTime }} isVisible={isVisible} setIsVisible={setIsVisible} />
       <hr />

@@ -9,10 +9,8 @@
 }
 body {
     max-width: 100vw;
-    min-height: 200vh;
     overflow-x: hidden;
     background: rgb(211, 211, 211);
-
     &.hidden {
         overflow: hidden;
     }

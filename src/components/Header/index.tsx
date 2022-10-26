@@ -18,6 +18,7 @@ const Header = () => {
     () => [
       { to: routes.home, name: 'Главная', isActive: checkIsActive(routes.home) },
       { to: routes.about, name: 'О проекте', isActive: checkIsActive(routes.about) },
+      { to: routes.exchangeRate, name: 'Курсы валют', isActive: checkIsActive(routes.exchangeRate) },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [pathname]
