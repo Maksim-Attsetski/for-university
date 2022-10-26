@@ -1,7 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import workReducer from './slices/work';
+import authReducer from './slices/auth';
+import appReducer from './slices/app';
 
 const rootReducer = combineReducers({
+  app: appReducer,
+  auth: authReducer,
   works: workReducer,
 });
 
