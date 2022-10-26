@@ -1,12 +1,12 @@
 import { FC } from 'react';
 
 import { Route, Routes } from 'react-router-dom';
-import { About, Home, NotFound, ExchangeRate } from '../pages';
+import { About, Home, NotFound, ExchangeRate } from '../';
 
-import { Layout } from '../components';
-import { routes } from '../data';
+import { Layout } from '../../components';
+import { routes } from '../../data';
 
-const AllRoutes: FC = () => {
+const PublicRoutes: FC = () => {
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
@@ -19,4 +19,4 @@ const AllRoutes: FC = () => {
   );
 };
 
-export default AllRoutes;
+export default PublicRoutes;

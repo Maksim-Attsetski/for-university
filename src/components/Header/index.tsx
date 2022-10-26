@@ -26,12 +26,15 @@ const Header = () => {
 
   return (
     <header className={s.header}>
-      <div className={'container'}>
-        {links.map(({ to, name, isActive }) => (
-          <Link key={to} to={to} className={`${isActive ? s.active : ''} ${s.link}`}>
-            {name}
-          </Link>
-        ))}
+      <div className={'container ' + s.headerBody}>
+        <div>
+          {links.map(({ to, name, isActive }) => (
+            <Link key={to} to={to} className={`${isActive ? s.active : ''} ${s.link}`}>
+              {name}
+            </Link>
+          ))}
+        </div>
+        <div className={s.account}></div>
       </div>
     </header>
   );

@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 
-import axios from 'axios';
 import { useTypedSelector } from '../../hooks/redux';
 
 import { WorkToast, Work } from '../../components';
@@ -8,7 +7,7 @@ import { IWork } from '../../types';
 
 import './Home.scss';
 
-const Home = () => {
+const Home: FC = () => {
   const { works } = useTypedSelector(state => state.works);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalTime, setTotalTime] = useState<number>(0);
