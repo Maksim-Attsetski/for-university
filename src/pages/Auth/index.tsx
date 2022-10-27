@@ -19,7 +19,6 @@ const Auth: FC = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [form, setForm] = useState<IForm>({} as IForm);
   const { isLoading, appLoading } = useTypedSelector(state => state.app);
-  const { currentUser } = useTypedSelector(state => state.auth);
 
   const navigate = useNavigate();
   const { action } = useActions();
