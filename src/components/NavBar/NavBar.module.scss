@@ -2,37 +2,20 @@ $transition: 0.4s;
 $color: rgba(0, 0, 0, 0.8);
 
 .navbar {
-    position: fixed;
-    z-index: 100;
-    top: 0;
-    left: 0;
-    overflow: hidden;
+    @apply fixed z-50 top-0 left-0 overflow-hidden text-transparent;
     transition: all $transition linear, color $transition * 0.1 linear;
-    color: transparent;
     &.active {
         color: #fff;
     }
     button {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        padding: 0.5rem 0.7rem;
-        text-align: center;
-        background: transparent;
+        @apply absolute top-[10px] left-[10px] py-2 px-3 text-center bg-transparent rounded-2xl; 
         color: $color;
         border: 1px solid $color;
-        border-radius: 1rem;
     }
     & ~ .navbar__blur {
-        position: fixed;
-        z-index: 90;
-        top: 0%;
-        left: 0%;
-        width: 100vw;
-        height: 100vh;
+        @apply fixed z-40 top-0 left-0 w-screen h-screen rounded-full;
         backdrop-filter: blur(2px);
         transform: translate(-100%, -100%);
-        border-radius: 50%;
         transition: 
         transform ($transition * 0.8) linear, 
         border-radius ($transition * 0.66) linear,
