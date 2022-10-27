@@ -1,6 +1,5 @@
 import './App.scss';
 import { Loader } from './components';
-import { useTypedSelector } from './hooks/redux';
 import { useAuth } from './hooks/useAuth';
 import { AllRoutes } from './pages';
 
