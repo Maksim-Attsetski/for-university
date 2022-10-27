@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
-import { useTypedDispatch } from '../../hooks/redux';
-import { updateWorkAC } from '../../redux/slices/work';
+import { useActions } from '../../hooks/useActions';
 import { IWork } from '../../types';
 import s from './Work.module.scss';
 
@@ -13,12 +12,12 @@ interface IProps {
 
 const Work: FC<IProps> = ({ work, renderBtn, selectWorkStatus, workClass = '' }) => {
   const [activeWork, setActiveWork] = useState<IWork>(work);
-  const dispatch = useTypedDispatch();
+  const { action } = useActions();
 
   const onChangeActiveWork = (currentWork: IWork) => {
     setActiveWork(currentWork);
     const data: IWork = { ...work, activeWork: currentWork };
-    dispatch(updateWorkAC({ data, workName: work.name }));
+    action.updateWorkAC({ data, workName: work.name });
   };
 
   return (

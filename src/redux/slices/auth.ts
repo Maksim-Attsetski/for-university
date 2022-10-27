@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from 'firebase/auth';
 
 interface IState {
-  auth: boolean;
+  isAuth: boolean;
   currentUser: User | null;
 }
 
 const initialState: IState = {
-  auth: false,
+  isAuth: false,
   currentUser: null,
 };
 
@@ -16,12 +16,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setAuth: (state: IState, action: PayloadAction<boolean>) => {
-      state.auth = action.payload;
-      localStorage.setItem('auth', JSON.stringify(action.payload));
+      state.isAuth = action.payload;
     },
     setUser: (state: IState, action: PayloadAction<User | null>) => {
       state.currentUser = action.payload;
-      localStorage.setItem('currentUser', JSON.stringify(action.payload));
     },
   },
 });
