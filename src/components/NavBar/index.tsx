@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOutsideMenu from '../../hooks/useOutsideMenu';
 import { routeNames } from '../../types';
-import './NavBar.scss';
+import s from './NavBar.module.scss';
 
 interface ILink {
   to: routeNames;
@@ -36,23 +36,22 @@ const NavBar: FC<IProps> = ({ links, title }) => {
 
   return (
     <>
-      <div ref={ref} className={`navbar ${isShow ? 'active' : ''}`}>
+      <div ref={ref} className={`${s.navbar} ${isShow ? s.active : ''}`}>
         <button onClick={() => setIsShow(prev => !prev)}>{isShow ? 'O' : 'X'}</button>
         <br />
-        <div className='navbar__body'>
-          {title && <h3 className='navbar__title'>{title}</h3>}
+        <div className={s.navbar__body}>
+          {title && <h3 className={s.navbar__title}>{title}</h3>}
           <br />
-          <br />
-          <div className='navbar-links'>
+          <div className={s.navbarLinks}>
             {links.map(link => (
-              <div key={link.to} className='navbar-links__link' onClick={() => handleClickNavbarLink(link.to)}>
+              <div key={link.to} className={s.navbarLinks__link} onClick={() => handleClickNavbarLink(link.to)}>
                 {link.name}
               </div>
             ))}
           </div>
         </div>
       </div>
-      <div className='navbar__blur' />
+      <div className={s.navbar__blur} />
     </>
   );
 };

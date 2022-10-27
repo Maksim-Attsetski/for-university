@@ -1,6 +1,8 @@
 import Home from './Home';
 import About from './About';
-import AllRoutes from './AllRoutes';
 import NotFound from './NotFound';
+import ExchangeRate from './ExchangeRate';
+import AllRoutes from './AllRoutes';
+import Auth from './Auth';
 
-export { Home, About, AllRoutes, NotFound };
+export { Home, About, AllRoutes, NotFound, ExchangeRate, Auth };

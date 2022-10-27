@@ -9,11 +9,9 @@
 }
 body {
     max-width: 100vw;
-    min-height: 200vh;
     overflow-x: hidden;
     background: rgb(211, 211, 211);
-
-    &.hidden {
+    &.hiddenBody {
         overflow: hidden;
     }
 }
@@ -31,4 +29,17 @@ img {
 .container {
     max-width: clamp(300px, 90vw, 1000px);;
     margin: 0 auto;
+}
+
+.links {
+    display: none;
+    @media (min-width: 769px) {
+        display: block;
+    }
+}
+.burger {
+    display: none;
+    @media (max-width: 768px) {
+        display: block;
+    }
 }
