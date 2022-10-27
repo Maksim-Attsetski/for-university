@@ -22,8 +22,6 @@ const WorkToast: FC<IProps> = ({ isVisible, setIsVisible, data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible]);
 
-  // const animation = useMemo(() => ({}), [isVisible]);
-
   return (
     <AnimatePresence initial={false}>
       {isVisible ? (
