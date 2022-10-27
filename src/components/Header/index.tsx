@@ -5,6 +5,7 @@ import { auth } from '../../firebase';
 import { useTypedSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/useActions';
 import { routeNames } from '../../types';
+import NavBar from '../NavBar';
 import s from './Header.module.scss';
 
 interface ILink {
@@ -15,7 +16,7 @@ interface ILink {
 
 const Header = () => {
   const { pathname } = useLocation();
-  const { currentUser, isAuth } = useTypedSelector(state => state.auth);
+  const { isAuth } = useTypedSelector(state => state.auth);
   const { appLoading, isLoading } = useTypedSelector(state => state.app);
   const { action } = useActions();
   const navigate = useNavigate();
@@ -56,12 +57,15 @@ const Header = () => {
   return (
     <header className={s.header}>
       <div className={'container ' + s.headerBody}>
-        <div>
+        <div className='links'>
           {links.map(({ to, name, isActive }) => (
             <Link key={to} to={to} className={`${isActive ? s.active : ''} ${s.link}`}>
               {name}
             </Link>
           ))}
+        </div>
+        <div className='burger'>
+          <NavBar links={links} title='Наш сайт' />
         </div>
         {(!appLoading || !isLoading) && (
           <div className={s.account} onClick={onLogOut}>
