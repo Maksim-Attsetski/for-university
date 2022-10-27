@@ -26,11 +26,19 @@ const Auth: FC = () => {
 
   const onAuth = async () => {
     try {
+      console.log(Object.values(form));
+      const values = Object.values(form);
+      if (!values.every(el => !!el) || values.length < 3) return;
       action.setIsLoading(true);
 
       const res = isLogin
         ? await signInWithEmailAndPassword(auth, form.email, form.pass)
         : await createUserWithEmailAndPassword(auth, form.email, form.pass);
+
+      !isLogin &&
+        updateProfile(res.user, {
+          displayName: form.name,
+        });
 
       action.setUser(res.user);
       navigate(routes.home);
@@ -42,41 +50,19 @@ const Auth: FC = () => {
     }
   };
 
-  const onUpdateName = async () => {
-    try {
-      action.setIsLoading(true);
-      if (!currentUser) return;
+  // updateEmail(auth.currentUser, "user@example.com").
 
-      // updateEmail(auth.currentUser, "user@example.com").
+  // const newPassword = getASecureRandomPassword();
+  // updatePassword(user, newPassword)
 
-      // const newPassword = getASecureRandomPassword();
-      // updatePassword(user, newPassword)
-
-      // deleteUser(user)
-
-      updateProfile(currentUser, {
-        displayName: form.name,
-        //  photoURL:
-      });
-
-      navigate(routes.home);
-      setForm({ email: '', name: '', pass: '' });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      action.setIsLoading(false);
-    }
-  };
+  // deleteUser(user)
 
   return isLoading || appLoading ? (
     <div>Loading...</div>
   ) : (
     <div className='container'>
       <br />
-      <Input setText={name => setForm({ ...form, name })} text={form.name} placeholder='Name' required />
-      <button onClick={onUpdateName}>Обновить имя</button>
-      <hr />
-      <br />
+      <Input setText={name => setForm({ ...form, name })} text={form.name} placeholder='Your name' required />
       <br />
       <h2 onClick={() => setIsLogin(prev => !prev)}>{isLogin ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}</h2>
       <br />

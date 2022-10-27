@@ -24,14 +24,17 @@ const Header = () => {
 
   const links: ILink[] = useMemo(
     () => {
-      const allRoutes = [
+      const allRoutes: ILink[] = [
         { to: routes.home, name: 'Главная', isActive: checkIsActive(routes.home) },
         { to: routes.about, name: 'О проекте', isActive: checkIsActive(routes.about) },
       ];
 
-      return isAuth
-        ? [...allRoutes, { to: routes.exchangeRate, name: 'Курсы валют', isActive: checkIsActive(routes.exchangeRate) }]
-        : [...allRoutes];
+      const privateRoutes: ILink[] = [
+        { to: routes.exchangeRate, name: 'Курсы валют', isActive: checkIsActive(routes.exchangeRate) },
+        { to: routes.profile, name: 'Профиль', isActive: checkIsActive(routes.profile) },
+      ];
+
+      return isAuth ? [...allRoutes, ...privateRoutes] : [...allRoutes];
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [pathname]

@@ -4,5 +4,6 @@ import NotFound from './NotFound';
 import ExchangeRate from './ExchangeRate';
 import AllRoutes from './AllRoutes';
 import Auth from './Auth';
+import Profile from './Profile';
 
-export { Home, About, AllRoutes, NotFound, ExchangeRate, Auth };
+export { Home, About, AllRoutes, NotFound, ExchangeRate, Auth, Profile };
