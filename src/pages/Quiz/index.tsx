@@ -1,6 +1,7 @@
-import { FC, useState } from 'react';
-import { Work, WorkToast } from '../../components';
+import { FC, useMemo, useState } from 'react';
+import { Title, Work, WorkToast } from '../../components';
 import { useTypedSelector } from '../../hooks/redux';
+import { useActions } from '../../hooks/useActions';
 import { IWork } from '../../types';
 
 // import s from './Quiz.module.scss';
@@ -10,6 +11,7 @@ const Quiz: FC = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalTime, setTotalTime] = useState<number>(0);
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const { action } = useActions();
 
   const selectWorkStatus = (order: number) => {
     const futureWorks: IWork[] = works.filter(work => work.order > order);
@@ -27,6 +29,30 @@ const Quiz: FC = () => {
     setIsVisible(true);
   };
 
+  const separatedWorks = useMemo(() => {
+    action.setIsLoading(true);
+
+    // 'excavation' | 'foundation' | 'walls' | 'overlap' | 'opening' | 'roof';
+    const excavationWorks = works.filter(work => work.type === 'excavation');
+    const foundationWorks = works.filter(work => work.type === 'foundation');
+    const wallsWorks = works.filter(work => work.type === 'walls');
+    const overlapWorks = works.filter(work => work.type === 'overlap');
+    const openingWorks = works.filter(work => work.type === 'opening');
+    const roofWorks = works.filter(work => work.type === 'roof');
+
+    action.setIsLoading(false);
+
+    return {
+      excavationWorks,
+      foundationWorks,
+      wallsWorks,
+      overlapWorks,
+      openingWorks,
+      roofWorks,
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [works]);
+
   return (
     <div className='container content'>
       <br />
@@ -35,7 +61,28 @@ const Quiz: FC = () => {
       <br />
       <div className='text-2xl font-bold'>Выберите на какой работе вы остановились</div>
       <br />
-      {works.map((work, i) => (
+      <Title text='Землянные работы' className='my-2' />
+      {separatedWorks.excavationWorks.map((work, i) => (
+        <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
+      ))}
+      <Title text='Фундамент' className='my-2' />
+      {separatedWorks.foundationWorks.map((work, i) => (
+        <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
+      ))}
+      <Title text='Стенки, перегородки' className='my-2' />
+      {separatedWorks.wallsWorks.map((work, i) => (
+        <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
+      ))}
+      <Title text='Перекрытия' className='my-2' />
+      {separatedWorks.overlapWorks.map((work, i) => (
+        <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
+      ))}
+      <Title text='Проёмы' className='my-2' />
+      {separatedWorks.openingWorks.map((work, i) => (
+        <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
+      ))}
+      <Title text='Кровля' className='my-2' />
+      {separatedWorks.roofWorks.map((work, i) => (
         <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
       ))}
       <br />
