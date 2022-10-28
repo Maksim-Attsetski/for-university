@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { Title } from '../../components';
+
 import { useTypedSelector } from '../../hooks/redux';
 
 import './Home.scss';
@@ -10,8 +12,15 @@ const Home: FC = () => {
   return (
     <div className='container content'>
       <br />
-      {isAuth ? <p>Привет, {currentUser ? currentUser.displayName : 'Нет имени'}</p> : <p>Вы не авторизованы</p>}
-      <br />
+      <Title
+        text={
+          isAuth
+            ? currentUser
+              ? `Привет, ${currentUser.displayName}`
+              : `Привет, кто-то без имени`
+            : `Вы не авторизованы`
+        }
+      />
       <p>Здесь будет что-то интересное о нашем сайте</p>
     </div>
   );

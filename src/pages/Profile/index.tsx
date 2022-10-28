@@ -28,7 +28,7 @@ const Profile: FC = () => {
   return (
     <div>
       <div className='container'>
-        <div>Profile</div>
+        <div>Профиль</div>
         {currentUser?.displayName && <div>Имя: {currentUser?.displayName}</div>}
         {currentUser?.email && <div>Email: {currentUser?.email}</div>}
         <button onClick={onDeleteAccount}>Удалить аккаунт</button>

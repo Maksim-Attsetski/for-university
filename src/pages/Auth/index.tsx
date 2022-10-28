@@ -25,19 +25,17 @@ const Auth: FC = () => {
 
   const onAuth = async () => {
     try {
-      console.log(Object.values(form));
-      const values = Object.values(form);
-      if (!values.every(el => !!el) || values.length < 3) return;
+      const firstCondition = Object.values(form).every(el => !!el) && !isLogin;
+      const secondCondition = isLogin && form.email.length > 0 && form.pass.length > 0;
+
+      if (!firstCondition && !secondCondition) return;
       action.setIsLoading(true);
 
       const res = isLogin
         ? await signInWithEmailAndPassword(auth, form.email, form.pass)
         : await createUserWithEmailAndPassword(auth, form.email, form.pass);
 
-      !isLogin &&
-        updateProfile(res.user, {
-          displayName: form.name,
-        });
+      !isLogin && updateProfile(res.user, { displayName: form.name || 'xxx' });
 
       action.setUser(res.user);
       navigate(routes.home);

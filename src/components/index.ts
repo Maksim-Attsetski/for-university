@@ -6,5 +6,6 @@ import WorkToast from './WorkToast';
 import Input from './Input';
 import Loader from './Loader';
 import Button from './Button';
+import Title from './Title';
 
-export { Button, NavBar, Popup, Layout, Work, WorkToast, Input, Loader };
+export { Title, Button, NavBar, Popup, Layout, Work, WorkToast, Input, Loader };
