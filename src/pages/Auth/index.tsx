@@ -8,6 +8,8 @@ import { routes } from '../../data';
 import { useActions } from '../../hooks/useActions';
 import { Button, Input } from '../../components';
 
+import s from './Auth.module.scss';
+
 interface IForm {
   email: string;
   pass: string;
@@ -57,23 +59,27 @@ const Auth: FC = () => {
   return (
     <div className='container'>
       <br />
-      <h2 onClick={() => setIsLogin(prev => !prev)}>{isLogin ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}</h2>
-      <br />
-      <hr />
-      <br />
-      {!isLogin && (
-        <>
-          <Input setText={name => setForm({ ...form, name })} text={form.name} placeholder='Your name' required />
-          <br />
-          <br />
-        </>
-      )}
-      <Input setText={email => setForm({ ...form, email })} text={form.email} placeholder='Email' required />
-      <br />
-      <br />
-      <Input setText={pass => setForm({ ...form, pass })} text={form.pass} placeholder='Pass' required />
-      <br />
-      <Button onClick={onAuth} text={isLogin ? 'Войти' : 'Зарегаться'} />
+      <form className={s.authForm}>
+        {!isLogin && (
+          <Input setText={name => setForm({ ...form, name })} text={form.name} placeholder='Введи своё имя' required />
+        )}
+        <Input
+          type='email'
+          setText={email => setForm({ ...form, email })}
+          text={form.email}
+          placeholder='Email'
+          required
+        />
+        <Input isPass setText={pass => setForm({ ...form, pass })} text={form.pass} placeholder='Пароль' required />
+      </form>
+      <hr className='my-4' />
+      <div className={s.buttonsContainer}>
+        <Button onClick={onAuth} text={isLogin ? 'Войти' : 'Зарегаться'} />
+        <Button
+          text={isLogin ? 'Нет аккаунта? Создай' : 'Уже есть аккаунт? Войди'}
+          onClick={() => setIsLogin(prev => !prev)}
+        />
+      </div>
     </div>
   );
 };

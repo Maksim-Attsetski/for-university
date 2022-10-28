@@ -11,6 +11,8 @@ const Home: FC = () => {
     <div className='container content'>
       <br />
       {isAuth ? <p>Привет, {currentUser ? currentUser.displayName : 'Нет имени'}</p> : <p>Вы не авторизованы</p>}
+      <br />
+      <p>Здесь будет что-то интересное о нашем сайте</p>
     </div>
   );
 };

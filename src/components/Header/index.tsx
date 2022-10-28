@@ -30,11 +30,11 @@ const Header: FC = () => {
       const allRoutes: ILink[] = [
         { to: routes.home, name: 'Главная', isActive: checkIsActive(routes.home) },
         { to: routes.about, name: 'О проекте', isActive: checkIsActive(routes.about) },
-        { to: routes.quiz, name: 'Викторины', isActive: checkIsActive(routes.quiz) },
       ];
 
       const privateRoutes: ILink[] = [
         { to: routes.exchangeRate, name: 'Курсы валют', isActive: checkIsActive(routes.exchangeRate) },
+        { to: routes.quiz, name: 'Викторины', isActive: checkIsActive(routes.quiz) },
         { to: routes.profile, name: 'Профиль', isActive: checkIsActive(routes.profile) },
       ];
 

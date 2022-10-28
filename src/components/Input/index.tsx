@@ -12,6 +12,7 @@ interface IProps {
   customLabel?: string;
   onFocus?: () => void;
   onBlur?: () => void;
+  isPass?: boolean;
 }
 
 const Input: FC<IProps> = ({
@@ -24,9 +25,12 @@ const Input: FC<IProps> = ({
   customLabel = '',
   onFocus = () => {},
   onBlur = () => {},
+  isPass = false,
 }) => {
   const label: string = useMemo(() => (customLabel ? customLabel : placeholder), [customLabel, placeholder]);
   const [focus, setFocus] = useState<boolean>(false);
+  const [isPassShown, setIsPassShown] = useState<boolean>(false);
+  const inputType = useMemo(() => (isPassShown ? 'text' : isPass ? 'password' : type), [isPass, isPassShown, type]);
 
   const onInputFocus = () => {
     setFocus(true);
@@ -42,7 +46,7 @@ const Input: FC<IProps> = ({
       <label className={`${s.label} ${focus || text.length > 0 ? s.active : ''}`}>
         <span className={s.span}>{label}</span>
         <input
-          type={type}
+          type={inputType}
           value={text}
           onChange={e => setText(e.target.value)}
           required={required}
@@ -51,6 +55,11 @@ const Input: FC<IProps> = ({
           onBlur={onInputBlur}
           className={s.input + ' ' + className}
         />
+        {isPass && (
+          <span className={s.passIcon} onClick={() => setIsPassShown(prev => !prev)}>
+            {isPassShown ? 'O' : '—'}
+          </span>
+        )}
       </label>
     </div>
   );
