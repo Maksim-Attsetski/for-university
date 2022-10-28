@@ -17,7 +17,6 @@ interface ILink {
 const Header = () => {
   const { pathname } = useLocation();
   const { isAuth } = useTypedSelector(state => state.auth);
-  const { appLoading, isLoading } = useTypedSelector(state => state.app);
   const { action } = useActions();
   const navigate = useNavigate();
   const checkIsActive = (link: routeNames) => pathname === link;
@@ -70,11 +69,9 @@ const Header = () => {
         <div className='burger'>
           <NavBar links={links} title='Наш сайт' />
         </div>
-        {(!appLoading || !isLoading) && (
-          <div className={s.account} onClick={onLogOut}>
-            {isAuth ? 'Выйти' : 'Войти'}
-          </div>
-        )}
+        <div className={s.account} onClick={onLogOut}>
+          {isAuth ? 'Выйти' : 'Войти'}
+        </div>
       </div>
     </header>
   );

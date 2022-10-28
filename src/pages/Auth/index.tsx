@@ -5,7 +5,6 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfi
 import { auth } from '../../firebase';
 
 import { routes } from '../../data';
-import { useTypedSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/useActions';
 import { Input } from '../../components';
 
@@ -18,7 +17,6 @@ interface IForm {
 const Auth: FC = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [form, setForm] = useState<IForm>({} as IForm);
-  const { isLoading, appLoading } = useTypedSelector(state => state.app);
 
   const navigate = useNavigate();
   const { action } = useActions();
@@ -56,17 +54,20 @@ const Auth: FC = () => {
 
   // deleteUser(user)
 
-  return isLoading || appLoading ? (
-    <div>Loading...</div>
-  ) : (
+  return (
     <div className='container'>
-      <br />
-      <Input setText={name => setForm({ ...form, name })} text={form.name} placeholder='Your name' required />
       <br />
       <h2 onClick={() => setIsLogin(prev => !prev)}>{isLogin ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}</h2>
       <br />
       <hr />
       <br />
+      {!isLogin && (
+        <>
+          <Input setText={name => setForm({ ...form, name })} text={form.name} placeholder='Your name' required />
+          <br />
+          <br />
+        </>
+      )}
       <Input setText={email => setForm({ ...form, email })} text={form.email} placeholder='Email' required />
       <br />
       <br />
