@@ -1,8 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useActions } from '../../hooks/useActions';
 import { IWork } from '../../types';
-import { Button } from '../';
-import s from './Work.module.scss';
+import { Button, Title } from '../';
 
 interface IProps {
   work: IWork;
@@ -20,21 +19,20 @@ const Work: FC<IProps> = ({ work, renderBtn, selectWorkStatus, workClass = '' })
     const data: IWork = { ...work, activeWork: currentWork };
     action.updateWorkAC({ data, workName: work.name });
   };
-
+  const activeClassName = 'bg-slate-600 text-white p-1 rounded-lg max-w-[75%]';
+  const className = 'p-1 mb-2 transition-all rounded-lg max-w-[75%]';
   return (
-    <div className={s.work + ' ' + workClass}>
+    <div className={'flex justify-between m-4 bg-white px-8 py-3 rounded-xl ' + workClass}>
       {work.worksToChoose ? (
         <div>
-          <div className={s.title}>
-            {activeWork.order}. {activeWork.name}
-          </div>
+          <Title text={activeWork.order + '. ' + activeWork.name} />
           <div>Стоимость: {activeWork.price}$</div>
           <div>Длительность: {activeWork.time} мин.</div>
           <div>
             <br />
-            <div className={s.subTitle}>Выберите работу:</div>
+            <Title text={'Выберите работу:'} />
             <div
-              className={work.name === activeWork.name ? s.activeWork : s.notActiveWork}
+              className={work.name === activeWork.name ? activeClassName : className}
               onClick={() => onChangeActiveWork(work)}
             >
               {work.name}
@@ -42,7 +40,7 @@ const Work: FC<IProps> = ({ work, renderBtn, selectWorkStatus, workClass = '' })
             {work.worksToChoose.map(item => (
               <div
                 key={item.name}
-                className={item.name === activeWork.name ? s.activeWork : s.notActiveWork}
+                className={item.name === activeWork.name ? activeClassName : className}
                 onClick={() => onChangeActiveWork(item)}
               >
                 {item.name}
@@ -52,14 +50,14 @@ const Work: FC<IProps> = ({ work, renderBtn, selectWorkStatus, workClass = '' })
         </div>
       ) : (
         <div>
-          <div className={s.title}>
-            {work.order}. {work.name}
-          </div>
+          <Title text={`${work.order}. ${work.name}`} />
           <div>Стоимость: {work.price}$</div>
           <div>Длительность: {work.time} мин.</div>
         </div>
       )}
-      {renderBtn && <Button onClick={() => selectWorkStatus(work.order)} className={s.button} text='на этой' />}
+      {renderBtn && (
+        <Button onClick={() => selectWorkStatus(work.order)} className={'h-max w-max self-center'} text='на этой' />
+      )}
     </div>
   );
 };
