@@ -1,4 +1,6 @@
-import { FC } from 'react';
+import { FC, useState, useMemo } from 'react';
+
+import s from './Input.module.scss';
 
 interface IProps {
   type?: string;
@@ -7,18 +9,50 @@ interface IProps {
   required?: boolean;
   className?: string;
   placeholder?: string;
+  customLabel?: string;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
-const Input: FC<IProps> = ({ type = 'text', setText, text, required = false, className = '', placeholder = '' }) => {
+const Input: FC<IProps> = ({
+  type = 'text',
+  setText,
+  text,
+  required = false,
+  className = '',
+  placeholder = '',
+  customLabel = '',
+  onFocus = () => {},
+  onBlur = () => {},
+}) => {
+  const label: string = useMemo(() => (customLabel ? customLabel : placeholder), [customLabel, placeholder]);
+  const [focus, setFocus] = useState<boolean>(false);
+
+  const onInputFocus = () => {
+    setFocus(true);
+    onFocus();
+  };
+  const onInputBlur = () => {
+    setFocus(false);
+    onBlur();
+  };
+
   return (
-    <input
-      type={type}
-      value={text}
-      onChange={e => setText(e.target.value)}
-      required={required}
-      placeholder={placeholder}
-      className={className}
-    />
+    <div>
+      <label className={`${s.label} ${focus || text.length > 0 ? s.active : ''}`}>
+        <span className={s.span}>{label}</span>
+        <input
+          type={type}
+          value={text}
+          onChange={e => setText(e.target.value)}
+          required={required}
+          placeholder={placeholder}
+          onFocus={onInputFocus}
+          onBlur={onInputBlur}
+          className={s.input + ' ' + className}
+        />
+      </label>
+    </div>
   );
 };
 

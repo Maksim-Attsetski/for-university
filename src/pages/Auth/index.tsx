@@ -16,7 +16,7 @@ interface IForm {
 
 const Auth: FC = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
-  const [form, setForm] = useState<IForm>({} as IForm);
+  const [form, setForm] = useState<IForm>({ email: '', name: '', pass: '' });
 
   const navigate = useNavigate();
   const { action } = useActions();

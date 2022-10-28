@@ -1,0 +1,28 @@
+$border: #afafaf;
+$borderActive: #696969;
+
+.label {
+    @apply relative;
+    &.active {
+        .input {
+            border: 1px solid $borderActive;
+            &::placeholder {
+                color: $borderActive;
+            }
+        }
+        .span {
+            @apply -top-6 px-2 bg-white rounded-lg;
+        }
+    }
+    .span {
+        @apply absolute left-4 top-0 transition-all rounded-sm;
+    }
+    
+    .input {
+        border: 1px solid $border;
+        @apply px-4 py-2 rounded-2xl;
+        &::placeholder {
+            color: transparent;
+        }
+    }
+}
