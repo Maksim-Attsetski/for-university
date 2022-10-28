@@ -4,5 +4,6 @@ export enum routes {
   exchangeRate = '/exchangeRate',
   auth = '/auth',
   profile = '/profile',
+  quiz = '/quiz',
   notFound = '/*',
 }

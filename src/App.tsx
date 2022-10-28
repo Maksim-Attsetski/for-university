@@ -1,7 +1,7 @@
 import './App.scss';
 import { Loader } from './components';
 import { useAuth } from './hooks/useAuth';
-import { AllRoutes } from './pages';
+import { screens } from './pages';
 
 const App = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -9,7 +9,7 @@ const App = () => {
 
   return (
     <>
-      <AllRoutes />;
+      <screens.AllRoutes />;
       <Loader />
     </>
   );
