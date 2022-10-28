@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useActions } from '../../hooks/useActions';
 import { IWork } from '../../types';
+import { Button } from '../';
 import s from './Work.module.scss';
 
 interface IProps {
@@ -58,7 +59,7 @@ const Work: FC<IProps> = ({ work, renderBtn, selectWorkStatus, workClass = '' })
           <div>Длительность: {work.time} мин.</div>
         </div>
       )}
-      {renderBtn && <button onClick={() => selectWorkStatus(work.order)}>на этой</button>}
+      {renderBtn && <Button onClick={() => selectWorkStatus(work.order)} className={s.button} text='на этой' />}
     </div>
   );
 };

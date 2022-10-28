@@ -29,10 +29,9 @@ const Quiz: FC = () => {
     setIsVisible(true);
   };
 
-  const separatedWorks = useMemo(() => {
+  const { excavationWorks, foundationWorks, openingWorks, overlapWorks, roofWorks, wallsWorks } = useMemo(() => {
     action.setIsLoading(true);
 
-    // 'excavation' | 'foundation' | 'walls' | 'overlap' | 'opening' | 'roof';
     const excavationWorks = works.filter(work => work.type === 'excavation');
     const foundationWorks = works.filter(work => work.type === 'foundation');
     const wallsWorks = works.filter(work => work.type === 'walls');
@@ -41,7 +40,6 @@ const Quiz: FC = () => {
     const roofWorks = works.filter(work => work.type === 'roof');
 
     action.setIsLoading(false);
-
     return {
       excavationWorks,
       foundationWorks,
@@ -51,7 +49,11 @@ const Quiz: FC = () => {
       roofWorks,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [works]);
+  }, []);
+
+  const renderWork = (work: IWork, i: number) => (
+    <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
+  );
 
   return (
     <div className='container content'>
@@ -61,37 +63,18 @@ const Quiz: FC = () => {
       <br />
       <div className='text-2xl font-bold'>Выберите на какой работе вы остановились</div>
       <br />
-      <Title text='Землянные работы' className='my-2' />
-      {separatedWorks.excavationWorks.map((work, i) => (
-        <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
-      ))}
-      <Title text='Фундамент' className='my-2' />
-      {separatedWorks.foundationWorks.map((work, i) => (
-        <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
-      ))}
-      <Title text='Стенки, перегородки' className='my-2' />
-      {separatedWorks.wallsWorks.map((work, i) => (
-        <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
-      ))}
-      <Title text='Перекрытия' className='my-2' />
-      {separatedWorks.overlapWorks.map((work, i) => (
-        <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
-      ))}
-      <Title text='Проёмы' className='my-2' />
-      {separatedWorks.openingWorks.map((work, i) => (
-        <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
-      ))}
-      <Title text='Кровля' className='my-2' />
-      {separatedWorks.roofWorks.map((work, i) => (
-        <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
-      ))}
-      <br />
-      <br />
-      <div>
-        <h3>Всего будет затрачено: </h3>
-        <div>Денег: {totalPrice} $</div>
-        <div>Времени: {totalTime} минут</div>
-      </div>
+      <Title text={'Землянные работы'} className='my-2 cursor-pointer' />
+      {excavationWorks.map((item, i) => renderWork(item, i))}
+      <Title text={'Фундамент'} className='my-2 cursor-pointer' />
+      {foundationWorks.map((item, i) => renderWork(item, i))}
+      <Title text={'Стенки, перегородки'} className='my-2 cursor-pointer' />
+      {wallsWorks.map((item, i) => renderWork(item, i))}
+      <Title text={'Перекрытия'} className='my-2 cursor-pointer' />
+      {overlapWorks.map((item, i) => renderWork(item, i))}
+      <Title text={'Проёмы'} className='my-2 cursor-pointer' />
+      {openingWorks.map((item, i) => renderWork(item, i))}
+      <Title text={'Кровля'} className='my-2 cursor-pointer' />
+      {roofWorks.map((item, i) => renderWork(item, i))}
     </div>
   );
 };

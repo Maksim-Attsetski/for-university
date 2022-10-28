@@ -7,5 +7,6 @@ import Input from './Input';
 import Loader from './Loader';
 import Button from './Button';
 import Title from './Title';
+import WorkCollapse from './WorkCollapse';
 
-export { Title, Button, NavBar, Popup, Layout, Work, WorkToast, Input, Loader };
+export { WorkCollapse, Title, Button, NavBar, Popup, Layout, Work, WorkToast, Input, Loader };

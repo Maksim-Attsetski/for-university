@@ -11,8 +11,14 @@ export const useAuth = () => {
       action.setAppLoading(false);
       action.setIsLoading(false);
 
-      const userData = { ...data?.providerData[0] } as User;
-      action.setUser(userData || null);
+      if (data) {
+        const { displayName, email, emailVerified, phoneNumber, photoURL, providerData, uid } = data;
+        const userData = { displayName, email, emailVerified, phoneNumber, photoURL, providerData, uid } as User;
+
+        action.setUser(userData);
+      } else {
+        action.setUser(null);
+      }
       action.setAuth(!!data);
     });
 

@@ -51,6 +51,7 @@ const Header: FC = () => {
         await auth.signOut();
         action.setUser(null);
         action.setAuth(false);
+        navigate(routes.home);
       } else {
         navigate(routes.auth);
       }

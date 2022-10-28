@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, User } from 'firebase/auth';
 import { auth } from '../../firebase';
 
 import { routes } from '../../data';
@@ -35,9 +35,16 @@ const Auth: FC = () => {
         ? await signInWithEmailAndPassword(auth, form.email, form.pass)
         : await createUserWithEmailAndPassword(auth, form.email, form.pass);
 
-      !isLogin && updateProfile(res.user, { displayName: form.name || 'xxx' });
+      !isLogin && (await updateProfile(res.user, { displayName: form.name || 'xxx' }));
 
-      action.setUser(res.user);
+      if (res.user) {
+        const { displayName, email, emailVerified, phoneNumber, photoURL, providerData, uid } = res.user;
+        const userData = { displayName, email, emailVerified, phoneNumber, photoURL, providerData, uid } as User;
+
+        action.setUser(userData);
+      } else {
+        action.setUser(null);
+      }
       navigate(routes.home);
       setForm({ email: '', name: '', pass: '' });
     } catch (error) {
