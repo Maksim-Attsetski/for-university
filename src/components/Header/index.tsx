@@ -1,11 +1,15 @@
-import { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { routes } from '../../data';
-import { auth } from '../../firebase';
+
 import { useTypedSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/useActions';
-import { routeNames } from '../../types';
+
+import Button from '../Button';
 import NavBar from '../NavBar';
+
+import { auth } from '../../firebase';
+import { routes } from '../../data';
+import { routeNames } from '../../types';
 import s from './Header.module.scss';
 
 interface ILink {
@@ -14,7 +18,7 @@ interface ILink {
   isActive: boolean;
 }
 
-const Header = () => {
+const Header: FC = () => {
   const { pathname } = useLocation();
   const { isAuth } = useTypedSelector(state => state.auth);
   const { action } = useActions();
@@ -69,9 +73,7 @@ const Header = () => {
         <div className='burger'>
           <NavBar links={links} title='Наш сайт' />
         </div>
-        <div className={s.account} onClick={onLogOut}>
-          {isAuth ? 'Выйти' : 'Войти'}
-        </div>
+        <Button onClick={onLogOut} text={isAuth ? 'Выйти' : 'Войти'} />
       </div>
     </header>
   );

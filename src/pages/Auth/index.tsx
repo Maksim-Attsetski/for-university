@@ -6,7 +6,7 @@ import { auth } from '../../firebase';
 
 import { routes } from '../../data';
 import { useActions } from '../../hooks/useActions';
-import { Input } from '../../components';
+import { Button, Input } from '../../components';
 
 interface IForm {
   email: string;
@@ -73,7 +73,7 @@ const Auth: FC = () => {
       <br />
       <Input setText={pass => setForm({ ...form, pass })} text={form.pass} placeholder='Pass' required />
       <br />
-      <button onClick={onAuth}>{isLogin ? 'Войти' : 'Зарегаться'}</button>
+      <Button onClick={onAuth} text={isLogin ? 'Войти' : 'Зарегаться'} />
     </div>
   );
 };
