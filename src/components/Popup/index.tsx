@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import useOutsideMenu from '../../hooks/useOutsideMenu';
 import Button from '../Button';
 import s from './Popup.module.scss';

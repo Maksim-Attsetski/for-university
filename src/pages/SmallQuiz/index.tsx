@@ -3,7 +3,8 @@ import { FC, useMemo, useState } from 'react';
 import { Title, Work, WorkToast } from '../../components';
 import { useTypedSelector } from '../../hooks/redux';
 
-import { IWork } from '../../types';
+import { IWork, workType } from '../../types';
+import { getWorkPriceAndTime } from '../../utils/getWorkPriceAndTime';
 
 // import s from './Quiz.module.scss';
 
@@ -13,47 +14,32 @@ const SmallQuiz: FC = () => {
   const [workItems, setWorkItems] = useState<{ meter: string; floor: string }>({ floor: '1', meter: '1' });
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  const { excavationWorks, foundationWorks, openingWorks, overlapWorks, roofWorks, wallsWorks } = useMemo(
-    () => ({
-      excavationWorks: works.filter(work => work.type === 'excavation'),
-      foundationWorks: works.filter(work => work.type === 'foundation'),
-      wallsWorks: works.filter(work => work.type === 'walls'),
-      overlapWorks: works.filter(work => work.type === 'overlap'),
-      openingWorks: works.filter(work => work.type === 'opening'),
-      roofWorks: works.filter(work => work.type === 'roof'),
+  const { excavationWorks, foundationWorks, openingWorks, overlapWorks, roofWorks, wallsWorks } = useMemo(() => {
+    const filterByType = (type: workType) => works.filter(work => work.type === type);
+
+    return {
+      excavationWorks: filterByType('excavation'),
+      foundationWorks: filterByType('foundation'),
+      wallsWorks: filterByType('walls'),
+      overlapWorks: filterByType('overlap'),
+      openingWorks: filterByType('opening'),
+      roofWorks: filterByType('roof'),
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }),
-    [works]
-  );
-
-  const getWorkPriceAndTime = (works: IWork[], order: number) => {
-    const futureWorks: IWork[] = works.filter(work => work.order > order);
-
-    const price: number = futureWorks.reduce(
-      (prev, cur) => (prev += (cur.activeWork ? cur.activeWork.price : cur.price) * +workItems.meter),
-      0
-    );
-    const time: number = futureWorks.reduce(
-      (prev, cur) => (prev += (cur.activeWork ? cur.activeWork.time : cur.time) * +workItems.meter),
-      0
-    );
-    return { price, time };
-  };
+    };
+  }, [works]);
 
   const selectWorkStatus = (order: number) => {
     setIsVisible(false);
 
     const intermediateWorks = [...foundationWorks, ...openingWorks, ...overlapWorks, ...wallsWorks]; // between excavation and roof
-    const { price: totalPrice, time: totalTime } = getWorkPriceAndTime(
-      [...excavationWorks, ...roofWorks, ...intermediateWorks], // all works
-      order
-    );
+    const allWorks = [...excavationWorks, ...roofWorks, ...intermediateWorks]; // all works
 
-    let price = totalPrice; // price and time for all works
-    let time = totalTime;
+    const { price: totalPrice, time: totalTime } = getWorkPriceAndTime(allWorks, order, workItems.meter);
+    let price = totalPrice;
+    let time = totalTime; // price and time for all works
 
     if (+workItems.floor > 1) {
-      const { price: floorPrice, time: floorTime } = getWorkPriceAndTime(intermediateWorks, order);
+      const { price: floorPrice, time: floorTime } = getWorkPriceAndTime(intermediateWorks, order, workItems.meter);
 
       price = price + floorPrice * (+workItems.floor - 1); // total price + price for intermediate works
       time = time + floorTime * (+workItems.floor - 1); // total time + time for intermediate works
