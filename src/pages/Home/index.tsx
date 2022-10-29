@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
-import { Title } from '../../components';
+import { Button, Title } from '../../components';
+import { routes } from '../../data';
 
 import { useTypedSelector } from '../../hooks/redux';
 
@@ -22,6 +23,8 @@ const Home: FC = () => {
         }
       />
       <p>Здесь будет что-то интересное о нашем сайте</p>
+      <br />
+      <Button text='Перейти к викторинам' to={routes.quiz} />
     </div>
   );
 };

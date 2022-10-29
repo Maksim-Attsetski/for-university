@@ -17,6 +17,7 @@ const PrivateRoutes: FC = () => {
         <Route path={routes.exchangeRate} element={<screens.ExchangeRate />} />
         <Route path={routes.quiz} element={<screens.Quiz />} />
         <Route path={routes.projects} element={<screens.Projects />} />
+        <Route path={routes.quizSmall} element={<screens.SmallQuiz />} />
       </Route>
     </Routes>
   );

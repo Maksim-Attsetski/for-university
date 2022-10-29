@@ -34,7 +34,6 @@ const Header: FC = () => {
 
       const privateRoutes: ILink[] = [
         { to: routes.exchangeRate, name: 'Курсы валют', isActive: checkIsActive(routes.exchangeRate) },
-        { to: routes.quiz, name: 'Викторины', isActive: checkIsActive(routes.quiz) },
         { to: routes.profile, name: 'Профиль', isActive: checkIsActive(routes.profile) },
       ];
 

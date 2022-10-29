@@ -7,5 +7,6 @@ import Auth from './Auth';
 import Profile from './Profile';
 import Quiz from './Quiz';
 import Projects from './Projects';
+import SmallQuiz from './SmallQuiz';
 
-export const screens = { Projects, Quiz, Home, About, AllRoutes, NotFound, ExchangeRate, Auth, Profile };
+export const screens = { SmallQuiz, Projects, Quiz, Home, About, AllRoutes, NotFound, ExchangeRate, Auth, Profile };

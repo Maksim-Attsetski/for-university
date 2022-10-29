@@ -1,16 +1,17 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import useOutsideMenu from '../../hooks/useOutsideMenu';
 import './Popup.scss';
 
 interface IProps {
-  links: string[];
+  links?: string[];
+  children: ReactNode;
 }
 
-const Popup: FC<IProps> = ({ links }) => {
+const Popup: FC<IProps> = ({ children }) => {
   const { isShow, setIsShow, ref } = useOutsideMenu();
 
   return (
-    <div className='container'>
+    <div>
       <button disabled={isShow} onClick={() => setIsShow(true)}>
         open
       </button>
@@ -20,11 +21,8 @@ const Popup: FC<IProps> = ({ links }) => {
       <div className={`list ${isShow ? 'active' : ''}`} ref={ref}>
         <div className='list__body'>
           <button onClick={() => setIsShow(false)}>close</button>
-          {links.map(link => (
-            <div key={link} onClick={() => console.log(link)}>
-              {link}
-            </div>
-          ))}
+          <br />
+          {children}
         </div>
       </div>
       <div className='list__shadow' />
