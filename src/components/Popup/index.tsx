@@ -15,6 +15,8 @@ const Popup: FC<IProps> = ({ renderBody, buttonText, onOpen = () => {}, onClose 
   const { isShow, setIsShow, ref } = useOutsideMenu();
 
   const handleOpenPopup = () => {
+    ref.current.scrollIntoView({ block: 'center' });
+
     onOpen();
     setIsShow(true);
   };
