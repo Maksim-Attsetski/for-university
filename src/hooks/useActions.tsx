@@ -5,6 +5,7 @@ import { setAppLoading, setIsLoading } from '../redux/slices/app';
 import { setAuth, setUser } from '../redux/slices/auth';
 import { setExchangeRate, getExchangeRate } from '../redux/slices/exchangeRate';
 import { updateWorkAC } from '../redux/slices/work';
+import { setProjects, deleteProject, addProject } from '../redux/slices/projects';
 
 import { useTypedDispatch } from './redux';
 
@@ -19,6 +20,9 @@ export const useActions = () => {
       setAppLoading,
       setIsLoading,
       setExchangeRate,
+      setProjects,
+      deleteProject,
+      addProject,
       getExchangeRate,
     }),
     []

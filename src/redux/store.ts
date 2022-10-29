@@ -3,10 +3,12 @@ import workReducer from './slices/work';
 import authReducer from './slices/auth';
 import appReducer from './slices/app';
 import exchangeRateReducer from './slices/exchangeRate';
+import projectsReducer from './slices/projects';
 
 const rootReducer = combineReducers({
   app: appReducer,
   auth: authReducer,
+  projects: projectsReducer,
   works: workReducer,
   exchangeRate: exchangeRateReducer,
 });
