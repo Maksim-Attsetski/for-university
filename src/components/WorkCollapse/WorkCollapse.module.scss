@@ -1,0 +1,12 @@
+$white: #fafafac2;
+
+.menu {
+    filter: drop-shadow(1px 1px 1px #2e2e2e38);
+
+    button {
+        @apply flex gap-5 items-center cursor-pointer;
+        path {
+            fill: black;
+        }
+    }
+}

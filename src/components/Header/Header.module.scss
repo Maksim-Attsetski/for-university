@@ -1,6 +1,6 @@
 
 .header {
-    @apply fixed top-0 left-0 right-0 py-4 bg-white; 
+    @apply fixed top-0 left-0 right-0 py-4 bg-white z-40; 
 }
 .link {
     @apply text-lg mr-5 mb-3;

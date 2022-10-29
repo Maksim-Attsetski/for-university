@@ -1,6 +1,6 @@
 import { FC, useMemo, useState } from 'react';
 
-import { Title, Work, WorkToast } from '../../components';
+import { Work, WorkCollapse, WorkToast } from '../../components';
 import { useTypedSelector } from '../../hooks/redux';
 
 import { IWork, workType } from '../../types';
@@ -70,18 +70,12 @@ const SmallQuiz: FC = () => {
       />
       <div className='text-2xl font-bold'>Выберите на какой работе вы остановились</div>
       <br />
-      <Title text='Землянные работы' className='my-2 cursor-pointer' />
-      {excavationWorks.map((item, i) => renderWork(item, i))}
-      <Title text='Фундамент' className='my-2 cursor-pointer' />
-      {foundationWorks.map((item, i) => renderWork(item, i))}
-      <Title text='Стенки, перегородки' className='my-2 cursor-pointer' />
-      {wallsWorks.map((item, i) => renderWork(item, i))}
-      <Title text='Перекрытия' className='my-2 cursor-pointer' />
-      {overlapWorks.map((item, i) => renderWork(item, i))}
-      <Title text='Проёмы' className='my-2 cursor-pointer' />
-      {openingWorks.map((item, i) => renderWork(item, i))}
-      <Title text='Кровля' className='my-2 cursor-pointer' />
-      {roofWorks.map((item, i) => renderWork(item, i))}
+      <WorkCollapse title='Землянные работы' data={excavationWorks} renderWork={renderWork} />
+      <WorkCollapse title='Фундамент' data={foundationWorks} renderWork={renderWork} />
+      <WorkCollapse title='Стенки, перегородки' data={wallsWorks} renderWork={renderWork} />
+      <WorkCollapse title='Перекрытия' data={overlapWorks} renderWork={renderWork} />
+      <WorkCollapse title='Проёмы' data={openingWorks} renderWork={renderWork} />
+      <WorkCollapse title='Кровля' data={roofWorks} renderWork={renderWork} />
     </div>
   );
 };
