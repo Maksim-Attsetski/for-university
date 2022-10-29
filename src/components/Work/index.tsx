@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { useActions } from '../../hooks/useActions';
 import { IWork } from '../../types';
 import { Button, Title } from '../';
@@ -19,8 +19,10 @@ const Work: FC<IProps> = ({ work, renderBtn, selectWorkStatus, workClass = '' })
     const data: IWork = { ...work, activeWork: currentWork };
     action.updateWorkAC({ data, workName: work.name });
   };
-  const activeClassName = 'bg-slate-600 text-white p-1 rounded-lg max-w-[75%]';
-  const className = 'p-1 mb-2 transition-all rounded-lg max-w-[75%]';
+
+  const activeClassName = useMemo(() => 'bg-slate-600 text-white p-1 rounded-lg max-w-[75%]', []);
+  const className = useMemo(() => 'p-1 mb-2 transition-all rounded-lg max-w-[75%]', []);
+
   return (
     <div className={'flex justify-between m-4 bg-white px-8 py-3 rounded-xl ' + workClass}>
       {work.worksToChoose ? (
@@ -31,13 +33,7 @@ const Work: FC<IProps> = ({ work, renderBtn, selectWorkStatus, workClass = '' })
           <div>
             <br />
             <Title text={'Выберите работу:'} />
-            <div
-              className={work.name === activeWork.name ? activeClassName : className}
-              onClick={() => onChangeActiveWork(work)}
-            >
-              {work.name}
-            </div>
-            {work.worksToChoose.map(item => (
+            {[work, ...work.worksToChoose].map(item => (
               <div
                 key={item.name}
                 className={item.name === activeWork.name ? activeClassName : className}

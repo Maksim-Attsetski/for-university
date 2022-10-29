@@ -1,7 +1,6 @@
 import { FC, useMemo, useState } from 'react';
 import { Title, Work, WorkToast } from '../../components';
 import { useTypedSelector } from '../../hooks/redux';
-import { useActions } from '../../hooks/useActions';
 import { IWork } from '../../types';
 
 // import s from './Quiz.module.scss';
@@ -11,7 +10,6 @@ const Quiz: FC = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalTime, setTotalTime] = useState<number>(0);
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const { action } = useActions();
 
   const selectWorkStatus = (order: number) => {
     const futureWorks: IWork[] = works.filter(work => work.order > order);
@@ -30,8 +28,6 @@ const Quiz: FC = () => {
   };
 
   const { excavationWorks, foundationWorks, openingWorks, overlapWorks, roofWorks, wallsWorks } = useMemo(() => {
-    action.setIsLoading(true);
-
     const excavationWorks = works.filter(work => work.type === 'excavation');
     const foundationWorks = works.filter(work => work.type === 'foundation');
     const wallsWorks = works.filter(work => work.type === 'walls');
@@ -39,7 +35,6 @@ const Quiz: FC = () => {
     const openingWorks = works.filter(work => work.type === 'opening');
     const roofWorks = works.filter(work => work.type === 'roof');
 
-    action.setIsLoading(false);
     return {
       excavationWorks,
       foundationWorks,
@@ -52,7 +47,7 @@ const Quiz: FC = () => {
   }, []);
 
   const renderWork = (work: IWork, i: number) => (
-    <Work key={i} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
+    <Work key={work.id} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
   );
 
   return (

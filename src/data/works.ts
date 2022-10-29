@@ -2,6 +2,7 @@ import { IWork } from '../types/work';
 
 export const works: IWork[] = [
   {
+    id: 1,
     name: 'Выноска осей',
     type: 'excavation',
     unitOfMeasure: 'm3',
@@ -13,6 +14,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 2,
     name: 'Планировка',
     type: 'excavation',
     unitOfMeasure: 'm3',
@@ -24,6 +26,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 3,
     name: 'Разработка и выемка грунта',
     type: 'excavation',
     unitOfMeasure: 'm3',
@@ -35,6 +38,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 4,
     name: 'Устройство песчанных оснований с трамбованием',
     type: 'excavation',
     unitOfMeasure: 'm3',
@@ -46,6 +50,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 5,
     name: 'Устройство щебеночных оснований с трамбованием',
     type: 'excavation',
     unitOfMeasure: 'm3',
@@ -57,6 +62,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 6,
     name: 'Усторйство траншей',
     type: 'excavation',
     unitOfMeasure: 'm3',
@@ -68,6 +74,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 7,
     name: 'Обратная засыпка грунтом',
     type: 'excavation',
     unitOfMeasure: 'm3',
@@ -79,6 +86,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 8,
     name: 'Устройство опалубки',
     type: 'foundation',
     unitOfMeasure: 'm2',
@@ -90,6 +98,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 9,
     name: 'Устройство ленточного фундамента и стен подвалов с приготовлением раствора (амирование, приготовление раствора,бетонирование)',
     type: 'foundation',
     unitOfMeasure: 'm3',
@@ -99,6 +108,7 @@ export const works: IWork[] = [
     materials: [],
     worksToChoose: [
       {
+        id: 10,
         name: 'Устройство ленточного фундамента из бетонных блоков',
         type: 'foundation',
         unitOfMeasure: 'm3',
@@ -113,6 +123,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 11,
     name: 'Руллоная гидроизоляция ( вертикальная и горизонтальная)',
     type: 'foundation',
     unitOfMeasure: 'm2',
@@ -124,6 +135,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 12,
     name: 'Кладка цоколя',
     type: 'foundation',
     unitOfMeasure: 'm3',
@@ -135,6 +147,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 13,
     name: 'Армирование цоколя',
     type: 'foundation',
     unitOfMeasure: 'm2',
@@ -146,6 +159,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 14,
     name: 'Устройство железобетонной монолитной плиты пола',
     type: 'foundation',
     unitOfMeasure: 'm3',
@@ -157,6 +171,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 15,
     name: 'Устройство монолитной площадки бетонной лестницы (опалубка, армирование, бетонирование)',
     type: 'foundation',
     unitOfMeasure: 'm2',
@@ -168,6 +183,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 16,
     name: 'Установка готовых лестничных ступеней',
     type: 'foundation',
     unitOfMeasure: 'thing',
@@ -177,6 +193,7 @@ export const works: IWork[] = [
     materials: [],
     worksToChoose: [
       {
+        id: 17,
         name: 'Устройство монолитных железобетонных ступеней (опалубка, армирование, бетонирование)',
         type: 'foundation',
         unitOfMeasure: 'thing',
@@ -191,6 +208,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 18,
     name: 'Возведение стен из бревна (конопатка стен, утепление, антисептирование деревянных стен огне-био защита)',
     type: 'walls',
     unitOfMeasure: 'm2',
@@ -200,6 +218,7 @@ export const works: IWork[] = [
     materials: [],
     worksToChoose: [
       {
+        id: 19,
         name: 'Возведение стен из бруса (конопатка стен, утепление, антисептирование деревянных стен огне-био защита)',
         type: 'walls',
         unitOfMeasure: 'm2',
@@ -211,6 +230,7 @@ export const works: IWork[] = [
         activeWork: null,
       },
       {
+        id: 20,
         name: 'Возведение стен из кирпича (амирование)',
         type: 'walls',
         unitOfMeasure: 'm3',
@@ -222,6 +242,7 @@ export const works: IWork[] = [
         activeWork: null,
       },
       {
+        id: 21,
         name: 'Возведение стен из блоков',
         type: 'walls',
         unitOfMeasure: 'm3',
@@ -236,6 +257,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 22,
     name: 'Устройство вентиляционных каналов в кирпичной кладке',
     type: 'walls',
     unitOfMeasure: 'pm',
@@ -247,6 +269,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 23,
     name: 'Устройство перегородок в 1 кирпич',
     type: 'walls',
     unitOfMeasure: 'm2',
@@ -256,6 +279,7 @@ export const works: IWork[] = [
     materials: [],
     worksToChoose: [
       {
+        id: 24,
         name: 'Устройство перегородок в 1/2 кирпича',
         type: 'walls',
         unitOfMeasure: 'm2',
@@ -267,6 +291,7 @@ export const works: IWork[] = [
         activeWork: null,
       },
       {
+        id: 25,
         name: 'Устройство перегородок из пенобетонных блоков',
         type: 'walls',
         unitOfMeasure: 'm2',
@@ -281,6 +306,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 26,
     name: 'Устройство гидроизоляции и пароизоляции стен',
     type: 'walls',
     unitOfMeasure: 'm2',
@@ -292,6 +318,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 27,
     name: 'Устройство перекрытия: деревянные (антисептирование деревянных перекрытий огне-био защита,настил половой доски)',
     type: 'overlap',
     unitOfMeasure: 'm2',
@@ -301,6 +328,7 @@ export const works: IWork[] = [
     materials: [],
     worksToChoose: [
       {
+        id: 28,
         name: 'Устройство перекрытия: монолитные железобетонные (опалубка, армирование, бетонирование); устройство цементной стяжки',
         type: 'overlap',
         unitOfMeasure: 'm2',
@@ -312,6 +340,7 @@ export const works: IWork[] = [
         activeWork: null,
       },
       {
+        id: 29,
         name: 'Устройство перекрытия из железобетонных плит (устройство цементной стяжки)',
         type: 'overlap',
         unitOfMeasure: 'm2',
@@ -326,6 +355,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 30,
     name: 'Устройство гидроизоляции и пароизоляции полов',
     type: 'overlap',
     unitOfMeasure: 'm2',
@@ -337,6 +367,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 31,
     name: 'Устройство утепления полов',
     type: 'overlap',
     unitOfMeasure: 'm2',
@@ -348,6 +379,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 32,
     name: 'Устройство проемов в деревянных стенах',
     type: 'opening',
     unitOfMeasure: 'm2',
@@ -357,6 +389,7 @@ export const works: IWork[] = [
     materials: [],
     worksToChoose: [
       {
+        id: 33,
         name: 'Устройство проемов в кирпичных стенах',
         type: 'opening',
         unitOfMeasure: 'm2',
@@ -368,6 +401,7 @@ export const works: IWork[] = [
         activeWork: null,
       },
       {
+        id: 34,
         name: 'Устройство проемов в блочных стенах',
         type: 'opening',
         unitOfMeasure: 'm2',
@@ -382,6 +416,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 35,
     name: 'Монтаж оконных и дверных перемычек',
     type: 'opening',
     unitOfMeasure: 'thing',
@@ -393,6 +428,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 36,
     name: 'Установка дверных блоков',
     type: 'opening',
     unitOfMeasure: 'thing',
@@ -404,6 +440,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 37,
     name: 'Установка оконных блоков',
     type: 'opening',
     unitOfMeasure: 'thing',
@@ -415,6 +452,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 38,
     name: 'Монтаж мауэрлата',
     type: 'roof',
     unitOfMeasure: 'pm',
@@ -426,6 +464,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 39,
     name: 'Монтаж стропильной системы',
     type: 'roof',
     unitOfMeasure: 'm2',
@@ -437,6 +476,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 40,
     name: 'Антисептирование деревянных перекрытий огне-био защита',
     type: 'roof',
     unitOfMeasure: 'm2',
@@ -448,6 +488,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 41,
     name: 'Устройство гидроизоляции и пароизоляции кровли',
     type: 'roof',
     unitOfMeasure: 'm2',
@@ -459,6 +500,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 42,
     name: 'Утепление мауэрлата',
     type: 'roof',
     unitOfMeasure: 'pm',
@@ -470,6 +512,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 43,
     name: 'Укладка кровли (волнистые листы)',
     type: 'roof',
     unitOfMeasure: 'm2',
@@ -479,6 +522,7 @@ export const works: IWork[] = [
     materials: [],
     worksToChoose: [
       {
+        id: 44,
         name: 'Укладка кровли (металлочерепица)',
         type: 'roof',
         unitOfMeasure: 'm2',
@@ -490,6 +534,7 @@ export const works: IWork[] = [
         activeWork: null,
       },
       {
+        id: 45,
         name: 'Укладка кровли (керамической черепицы)',
         type: 'roof',
         unitOfMeasure: 'm2',
@@ -504,6 +549,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 46,
     name: 'Устройство водосточной системы (устройство каркаса карнизных свесов',
     type: 'roof',
     unitOfMeasure: 'pm',
@@ -515,6 +561,7 @@ export const works: IWork[] = [
     activeWork: null,
   },
   {
+    id: 47,
     name: 'Устройство водосточных желобов и труб; установка системы снегозадержания',
     type: 'roof',
     unitOfMeasure: 'pm',

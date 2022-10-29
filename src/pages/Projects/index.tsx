@@ -1,9 +1,13 @@
+import { FC } from 'react';
+
+import { Title } from '../../components';
+
 import './Projects.module.scss';
 
-const Projects = () => {
+const Projects: FC = () => {
   return (
     <div>
-      <p>Projects</p>
+      <Title text='Мои проекты' />
     </div>
   );
 };

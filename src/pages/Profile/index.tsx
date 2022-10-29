@@ -1,7 +1,7 @@
 import { updatePassword, updateProfile } from 'firebase/auth';
 import { FC, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button, Input } from '../../components';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button, Input, Title } from '../../components';
 import { routes } from '../../data';
 import { auth } from '../../firebase';
 import { useTypedSelector } from '../../hooks/redux';
@@ -48,25 +48,33 @@ const Profile: FC = () => {
   return (
     <div>
       <div className='container'>
-        <div>Профиль</div>
+        <br />
+        <Title text='Профиль' />
         <br />
         {currentUser?.displayName && <div>Имя: {currentUser?.displayName}</div>}
         {currentUser?.email && <div>Email: {currentUser?.email}</div>}
         <br />
         {isEdit && (
-          <div>
-            <div className='mb-2'>Обновить имя</div>
-            <Input text={editItems.name} placeholder={'Имя'} setText={name => setEditItems({ ...editItems, name })} />
+          <div className='flex gap-2 justify-center'>
+            <div>
+              <div className='mb-2'>Обновить имя</div>
+              <Input text={editItems.name} placeholder={'Имя'} setText={name => setEditItems({ ...editItems, name })} />
+            </div>
             <br />
-            <div className='mb-2'>Обновить пароль</div>
-            <Input
-              text={editItems.pass}
-              placeholder={'Пароль'}
-              setText={pass => setEditItems({ ...editItems, pass })}
-            />
+            <div>
+              <div className='mb-2'>Обновить пароль</div>
+              <Input
+                text={editItems.pass}
+                placeholder={'Пароль'}
+                setText={pass => setEditItems({ ...editItems, pass })}
+              />
+            </div>
             <br />
           </div>
         )}
+        <Button to={routes.projects} text={'Мои проекты'} />
+        <br />
+        <br />
 
         <Button text='Удалить аккаунт' className='mr-3' onClick={onDeleteAccount} />
         <Button text={isEdit ? 'Сохранить' : 'Редактировать'} onClick={onEditOrSave} />

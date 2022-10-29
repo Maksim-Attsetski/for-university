@@ -38,7 +38,6 @@ export type workName =
   | 'Монтаж оконных и дверных перемычек'
   | 'Установка дверных блоков'
   | 'Установка оконных блоков'
-  // 27
   | 'Монтаж мауэрлата'
   | 'Монтаж стропильной системы'
   | 'Антисептирование деревянных перекрытий огне-био защита'
@@ -55,6 +54,7 @@ export type workType = 'excavation' | 'foundation' | 'walls' | 'overlap' | 'open
 export type workUnitOfMeasure = 'm2' | 'm3' | 'thing' | 'pm';
 
 export interface IWork {
+  id: number;
   name: workName;
   type: workType;
   unitOfMeasure: workUnitOfMeasure;
