@@ -15,7 +15,7 @@ const Home: FC = () => {
       <Title
         text={
           isAuth
-            ? currentUser
+            ? currentUser?.displayName
               ? `Привет, ${currentUser.displayName}`
               : `Привет, кто-то без имени`
             : `Вы не авторизованы`

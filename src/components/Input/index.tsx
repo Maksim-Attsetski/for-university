@@ -13,6 +13,7 @@ interface IProps {
   onFocus?: () => void;
   onBlur?: () => void;
   isPass?: boolean;
+  autoComplete?: boolean;
 }
 
 const Input: FC<IProps> = ({
@@ -26,6 +27,7 @@ const Input: FC<IProps> = ({
   onFocus = () => {},
   onBlur = () => {},
   isPass = false,
+  autoComplete = false,
 }) => {
   const label: string = useMemo(() => (customLabel ? customLabel : placeholder), [customLabel, placeholder]);
   const [focus, setFocus] = useState<boolean>(false);
@@ -53,6 +55,7 @@ const Input: FC<IProps> = ({
           placeholder={placeholder}
           onFocus={onInputFocus}
           onBlur={onInputBlur}
+          autoComplete={isPass ? 'current-password' : ''}
           className={s.input + ' ' + className}
         />
         {isPass && (
