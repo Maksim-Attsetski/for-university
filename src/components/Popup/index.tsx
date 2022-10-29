@@ -1,31 +1,39 @@
 import { FC, ReactNode } from 'react';
 import useOutsideMenu from '../../hooks/useOutsideMenu';
-import './Popup.scss';
+import Button from '../Button';
+import s from './Popup.module.scss';
 
 interface IProps {
-  links?: string[];
-  children: ReactNode;
+  renderBody: (setIsShow: (val: boolean) => void) => JSX.Element;
+  buttonText: string;
+  buttonClassName?: string;
+  onOpen?: () => void;
+  onClose?: () => void;
 }
 
-const Popup: FC<IProps> = ({ children }) => {
+const Popup: FC<IProps> = ({ renderBody, buttonText, onOpen = () => {}, onClose = () => {}, buttonClassName = '' }) => {
   const { isShow, setIsShow, ref } = useOutsideMenu();
+
+  const handleOpenPopup = () => {
+    onOpen();
+    setIsShow(true);
+  };
+
+  const handleClosePopup = () => {
+    onClose();
+    setIsShow(false);
+  };
 
   return (
     <div>
-      <button disabled={isShow} onClick={() => setIsShow(true)}>
-        open
-      </button>
-      <br />
-      <br />
-
-      <div className={`list ${isShow ? 'active' : ''}`} ref={ref}>
-        <div className='list__body'>
-          <button onClick={() => setIsShow(false)}>close</button>
-          <br />
-          {children}
+      <Button disabled={isShow} text={buttonText} onClick={handleOpenPopup} />
+      <div className={`${s.popup} ${isShow ? s.active : ''}`} ref={ref}>
+        <div className={s.popup__body}>
+          <Button className={`${s.popup__close} ${buttonClassName}`} onClick={handleClosePopup} text='X' />
+          {renderBody(setIsShow)}
         </div>
       </div>
-      <div className='list__shadow' />
+      <div className={s.popup__shadow} />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 $transition: 0.4s;
 
-.list {
+.popup {
     position: fixed;
     z-index: 100;
     top: 50%;
@@ -9,7 +9,7 @@ $transition: 0.4s;
     opacity: 0;
     pointer-events: none;
     transition: all $transition linear;
-    & ~ &__shadow {
+    & ~ .popup__shadow {
         position: fixed;
         z-index: 90;
         top: 0%;
@@ -25,7 +25,7 @@ $transition: 0.4s;
             border-radius ($transition * 0.66) linear,
             background-color ($transition * 0.6) linear;
     }
-    &.active ~ &__shadow {
+    &.active ~ .popup__shadow {
         background-color: rgba(0, 0, 0, 0.7);
         scale: 1;
         border-radius: 0rem;
@@ -34,16 +34,17 @@ $transition: 0.4s;
         opacity: 1;
         pointer-events: all;
     }
-    &__body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: .5rem 3rem;
-        background: rgb(231, 118, 118);
-        padding: 2.5rem 2rem;
+    .popup__body {
+        min-width: 300px;
+        min-height: 100px;
+        background: #fff;
+        padding: 3.5rem 2rem 2.5rem 2rem;
         border-radius: 1rem;
     }
+    .popup__close {
+        @apply absolute top-2 right-2;
+    }
 }
-body ~ .list.active {
+body ~ .popup.active {
     overflow: hidden;
 }

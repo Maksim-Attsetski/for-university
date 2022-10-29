@@ -1,16 +1,25 @@
 import React, { FC, useMemo, useState } from 'react';
 import { useActions } from '../../hooks/useActions';
 import { IWork } from '../../types';
-import { Button, Title } from '../';
+import { Popup, Button, Title, Input } from '../';
 
 interface IProps {
   work: IWork;
   renderBtn: boolean;
   selectWorkStatus: (order: number) => void;
   workClass?: string;
+  workItems: { meter: string; floor: string };
+  setWorkItems: (val: { meter: string; floor: string }) => void;
 }
 
-const Work: FC<IProps> = ({ work, renderBtn, selectWorkStatus, workClass = '' }) => {
+const Work: FC<IProps> = ({
+  work,
+  renderBtn,
+  selectWorkStatus,
+  workClass = '',
+  workItems = { floor: '1', meter: '1' },
+  setWorkItems = () => {},
+}) => {
   const [activeWork, setActiveWork] = useState<IWork>(work);
   const { action } = useActions();
 
@@ -18,6 +27,16 @@ const Work: FC<IProps> = ({ work, renderBtn, selectWorkStatus, workClass = '' })
     setActiveWork(currentWork);
     const data: IWork = { ...work, activeWork: currentWork };
     action.updateWorkAC({ data, workName: work.name });
+  };
+
+  const onConfirmWork = (order: number): boolean => {
+    if (+workItems.floor > 3 || +workItems.floor === 0 || +workItems.meter < 1) return false;
+
+    localStorage.setItem('floor', workItems.floor);
+    localStorage.setItem('meter', workItems.meter);
+
+    selectWorkStatus(order);
+    return true;
   };
 
   const activeClassName = useMemo(() => 'bg-slate-600 text-white p-1 rounded-lg max-w-[75%]', []);
@@ -52,7 +71,39 @@ const Work: FC<IProps> = ({ work, renderBtn, selectWorkStatus, workClass = '' })
         </div>
       )}
       {renderBtn && (
-        <Button onClick={() => selectWorkStatus(work.order)} className={'h-max w-max self-center'} text='на этой' />
+        <Popup
+          buttonText='на этой'
+          renderBody={setIsShow => (
+            <>
+              <div className='flex flex-col gap-y-4'>
+                <Input
+                  max={1500}
+                  type='number'
+                  placeholder='Кв. метры'
+                  text={workItems.meter}
+                  setText={meter => setWorkItems({ ...workItems, meter })}
+                />
+                <Input
+                  max={3}
+                  type='number'
+                  placeholder='Этаж'
+                  text={workItems.floor}
+                  setText={floor => setWorkItems({ ...workItems, floor })}
+                />
+              </div>
+              <br />
+              <Button
+                onClick={() => {
+                  if (onConfirmWork(work.order)) {
+                    setIsShow(false);
+                  }
+                }}
+                className={'h-max w-max self-center'}
+                text='Подтвердить'
+              />
+            </>
+          )}
+        />
       )}
     </div>
   );

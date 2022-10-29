@@ -1,6 +1,8 @@
 import { FC, useMemo, useState } from 'react';
-import { Popup, Title, Work, WorkToast } from '../../components';
+
+import { Title, Work, WorkToast } from '../../components';
 import { useTypedSelector } from '../../hooks/redux';
+
 import { IWork } from '../../types';
 
 // import s from './Quiz.module.scss';
@@ -8,22 +10,8 @@ import { IWork } from '../../types';
 const SmallQuiz: FC = () => {
   const { works } = useTypedSelector(state => state.works);
   const [total, setTotal] = useState<{ price: number; time: number }>({ price: 0, time: 0 });
+  const [workItems, setWorkItems] = useState<{ meter: string; floor: string }>({ floor: '1', meter: '1' });
   const [isVisible, setIsVisible] = useState<boolean>(false);
-
-  const selectWorkStatus = (order: number) => {
-    const futureWorks: IWork[] = works.filter(work => work.order > order);
-
-    const price: number = futureWorks.reduce(
-      (prev, cur) => (prev += cur.activeWork ? cur.activeWork.price : cur.price),
-      0
-    );
-    const time: number = futureWorks.reduce(
-      (prev, cur) => (prev += cur.activeWork ? cur.activeWork.time : cur.time),
-      0
-    );
-    setTotal({ price, time });
-    setIsVisible(true);
-  };
 
   const { excavationWorks, foundationWorks, openingWorks, overlapWorks, roofWorks, wallsWorks } = useMemo(
     () => ({
@@ -38,16 +26,57 @@ const SmallQuiz: FC = () => {
     [works]
   );
 
-  const renderWork = (work: IWork, i: number) => (
-    <Work key={work.id} work={work} renderBtn={i + 1 !== works.length} selectWorkStatus={selectWorkStatus} />
+  const getWorkPriceAndTime = (works: IWork[], order: number) => {
+    const futureWorks: IWork[] = works.filter(work => work.order > order);
+
+    const price: number = futureWorks.reduce(
+      (prev, cur) => (prev += (cur.activeWork ? cur.activeWork.price : cur.price) * +workItems.meter),
+      0
+    );
+    const time: number = futureWorks.reduce(
+      (prev, cur) => (prev += (cur.activeWork ? cur.activeWork.time : cur.time) * +workItems.meter),
+      0
+    );
+    return { price, time };
+  };
+
+  const selectWorkStatus = (order: number) => {
+    setIsVisible(false);
+
+    const intermediateWorks = [...foundationWorks, ...openingWorks, ...overlapWorks, ...wallsWorks]; // between excavation and roof
+    const { price: totalPrice, time: totalTime } = getWorkPriceAndTime(
+      [...excavationWorks, ...roofWorks, ...intermediateWorks], // all works
+      order
+    );
+
+    let price = totalPrice; // price and time for all works
+    let time = totalTime;
+
+    if (+workItems.floor > 1) {
+      const { price: floorPrice, time: floorTime } = getWorkPriceAndTime(intermediateWorks, order);
+
+      price = price + floorPrice * (+workItems.floor - 1); // total price + price for intermediate works
+      time = time + floorTime * (+workItems.floor - 1); // total time + time for intermediate works
+    }
+
+    setTotal({ price, time });
+    setIsVisible(true);
+  };
+
+  const renderWork = (work: IWork, i: number): JSX.Element => (
+    <Work
+      workItems={workItems}
+      setWorkItems={setWorkItems}
+      key={work.id}
+      work={work}
+      renderBtn={i + 1 !== works.length}
+      selectWorkStatus={selectWorkStatus}
+    />
   );
 
   return (
     <div className='container content'>
       <br />
-      <Popup>
-        <p>привет</p>
-      </Popup>
       <WorkToast
         data={{ totalPrice: total.price, totalTime: total.time }}
         isVisible={isVisible}

@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import s from './WorkToast.module.scss';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -22,6 +22,13 @@ const WorkToast: FC<IProps> = ({ isVisible, setIsVisible, data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible]);
 
+  const totalTime: string = useMemo(() => {
+    const days: string[] = `${data.totalTime / (24 * 60)}`.split('.'); // ["5", "25555"]
+    const hours: number = Math.floor(+('0.' + days[1]) * 24); // ('0.' + '25555') * 24
+
+    return `${days[0]} дн. ${hours} ч.`;
+  }, [data.totalTime]);
+
   return (
     <AnimatePresence initial={false}>
       {isVisible ? (
@@ -33,7 +40,7 @@ const WorkToast: FC<IProps> = ({ isVisible, setIsVisible, data }) => {
           className={s.toast}
         >
           <div>Денег: {data.totalPrice} $</div>
-          <div>Времени: {data.totalTime} минут</div>
+          <div>Времени: {totalTime}</div>
         </motion.div>
       ) : null}
     </AnimatePresence>

@@ -8,9 +8,10 @@ interface IProps {
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   to?: routeNames | null;
+  disabled?: boolean;
 }
 
-const Button: FC<IProps> = ({ onClick = () => {}, text, className = '', to = null }) => {
+const Button: FC<IProps> = ({ onClick = () => {}, text, className = '', to = null, disabled = false }) => {
   const navigate = useNavigate();
 
   const handleClickButton = (event: MouseEvent<HTMLButtonElement>) => {
@@ -19,7 +20,7 @@ const Button: FC<IProps> = ({ onClick = () => {}, text, className = '', to = nul
   };
 
   return (
-    <button onClick={handleClickButton} className={`${s.button} ${className}`}>
+    <button disabled={disabled} onClick={handleClickButton} className={`${s.button} ${className}`}>
       {text}
     </button>
   );
