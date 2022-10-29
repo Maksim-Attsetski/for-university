@@ -9,7 +9,7 @@ const App = () => {
 
   return (
     <>
-      <screens.AllRoutes />;
+      <screens.AllRoutes />
       <Loader />
     </>
   );
