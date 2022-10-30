@@ -1,12 +1,13 @@
 import { FC, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, User } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, User } from 'firebase/auth';
 import { auth } from '../../firebase';
 
 import { routes } from '../../data';
 import { useActions } from '../../hooks/useActions';
-import { Button, Input } from '../../components';
+import { Button, Input, Toast } from '../../components';
+import { getErrorMsg } from '../../utils';
 
 import s from './Auth.module.scss';
 
@@ -19,51 +20,54 @@ interface IForm {
 const Auth: FC = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [form, setForm] = useState<IForm>({ email: '', name: '', pass: '' });
+  const [error, setError] = useState<string | null>(null);
 
   const navigate = useNavigate();
   const { action } = useActions();
 
   const onAuth = async () => {
     try {
+      action.setIsLoading(true);
+
       const firstCondition = Object.values(form).every(el => !!el) && !isLogin;
       const secondCondition = isLogin && form.email.length > 0 && form.pass.length > 0;
 
-      if (!firstCondition && !secondCondition) return;
-      action.setIsLoading(true);
+      if (!firstCondition && !secondCondition) {
+        setError(getErrorMsg('empty value'));
+        return;
+      }
 
       const res = isLogin
         ? await signInWithEmailAndPassword(auth, form.email, form.pass)
         : await createUserWithEmailAndPassword(auth, form.email, form.pass);
 
-      !isLogin && (await updateProfile(res.user, { displayName: form.name || 'xxx' }));
-
       if (res.user) {
-        const { displayName, email, emailVerified, phoneNumber, photoURL, providerData, uid } = res.user;
-        const userData = { displayName, email, emailVerified, phoneNumber, photoURL, providerData, uid } as User;
+        const { email, emailVerified, phoneNumber, photoURL, providerData, uid } = res.user;
+        const userData = { email, emailVerified, phoneNumber, photoURL, providerData, uid } as User;
 
-        action.setUser(userData);
+        const displayName = form.name || 'xxx';
+        action.setUser({ ...userData, displayName });
+        // TODO ошибка при обновлении
+        // !isLogin && (await updateProfile(res.user, { displayName }));
       } else {
         action.setUser(null);
       }
+
       navigate(routes.home);
       setForm({ email: '', name: '', pass: '' });
     } catch (error) {
       console.log(error);
+
+      setError(getErrorMsg(error));
     } finally {
       action.setIsLoading(false);
     }
   };
 
-  // updateEmail(auth.currentUser, "user@example.com").
-
-  // const newPassword = getASecureRandomPassword();
-  // updatePassword(user, newPassword)
-
-  // deleteUser(user)
-
   return (
     <div className='container'>
       <br />
+      <Toast data={error} isError setData={setError} />
       <form className={s.authForm}>
         {!isLogin && (
           <Input setText={name => setForm({ ...form, name })} text={form.name} placeholder='Введи своё имя' required />

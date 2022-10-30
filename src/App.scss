@@ -17,12 +17,8 @@ body {
 }
 button {
     cursor: pointer;
-    padding: 0.5rem 1.5rem;
 }
-img {
-    max-width: 500px;
-    object-fit: cover;
-}
+
 :focus {
     outline: none;
 }

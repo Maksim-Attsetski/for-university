@@ -24,7 +24,7 @@ const Home: FC = () => {
       />
       <p>Здесь будет что-то интересное о нашем сайте</p>
       <br />
-      <Button text='Перейти к викторинам' to={routes.quiz} />
+      {isAuth && <Button text='Перейти к викторинам' to={routes.quiz} />}
     </div>
   );
 };

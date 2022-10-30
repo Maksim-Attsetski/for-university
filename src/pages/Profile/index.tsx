@@ -1,14 +1,16 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { updatePassword, updateProfile, User } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { auth, fs } from '../../firebase';
 import { useTypedSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/useActions';
 
 import { Button, Input, Popup, Title, Toast } from '../../components';
 import { routes } from '../../data';
 import { getErrorMsg } from '../../utils';
+import { deleteDoc, doc } from 'firebase/firestore';
+import useProjects from '../../hooks/useProjects';
 
 interface IEditItems {
   name: string;
@@ -17,15 +19,24 @@ interface IEditItems {
 
 const Profile: FC = () => {
   const { currentUser } = useTypedSelector(state => state.auth);
+  const { projects } = useTypedSelector(state => state.projects);
+
   const [editItems, setEditItems] = useState<IEditItems>({ name: '', pass: '' });
   const [error, setError] = useState<null | string>(null);
+
   const { action } = useActions();
   const navigate = useNavigate();
+  const { onGetProjects } = useProjects();
 
   const onDeleteAccount = async (): Promise<void> => {
     try {
       action.setIsLoading(true);
       await auth?.currentUser?.delete();
+
+      projects.forEach(async item => {
+        console.log(item);
+        await deleteDoc(doc(fs, 'projects', item.id));
+      });
 
       action.setUser(null);
       action.setAuth(false);
@@ -42,15 +53,18 @@ const Profile: FC = () => {
     try {
       action.setIsLoading(true);
       const { name, pass } = editItems;
+
       if (name) {
         const data = { displayName: name || 'xxx' };
 
         action.updateUserData(data as User);
         await updateProfile(auth.currentUser, data);
       }
+
       if (pass) {
         await updatePassword(auth.currentUser, pass);
       }
+
       if (!pass && !name) {
         setError(getErrorMsg('empty value'));
       }
@@ -62,6 +76,11 @@ const Profile: FC = () => {
       action.setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    onGetProjects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>

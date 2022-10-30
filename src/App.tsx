@@ -1,7 +1,9 @@
 import './App.scss';
-import { Loader, ToTop } from './components';
+
 import { useAuth } from './hooks/useAuth';
+
 import { screens } from './pages';
+import { Loader, ToTop } from './components';
 
 const App = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
