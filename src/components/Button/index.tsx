@@ -1,6 +1,9 @@
 import { FC, MouseEvent } from 'react';
+
 import { useNavigate } from 'react-router-dom';
+
 import { routeNames } from '../../types';
+
 import s from './Button.module.scss';
 
 interface IProps {
@@ -9,9 +12,17 @@ interface IProps {
   className?: string;
   to?: routeNames | null;
   disabled?: boolean;
+  isSecondary?: boolean;
 }
 
-const Button: FC<IProps> = ({ onClick = () => {}, text, className = '', to = null, disabled = false }) => {
+const Button: FC<IProps> = ({
+  onClick = () => {},
+  text,
+  className = '',
+  to = null,
+  disabled = false,
+  isSecondary = false,
+}) => {
   const navigate = useNavigate();
 
   const handleClickButton = (event: MouseEvent<HTMLButtonElement>) => {
@@ -20,7 +31,12 @@ const Button: FC<IProps> = ({ onClick = () => {}, text, className = '', to = nul
   };
 
   return (
-    <button disabled={disabled} onClick={handleClickButton} className={`${s.button} ${className}`}>
+    <button
+      disabled={disabled}
+      onClick={handleClickButton}
+      data-secondary={isSecondary}
+      className={`${s.button} ${className}`}
+    >
       {text}
     </button>
   );

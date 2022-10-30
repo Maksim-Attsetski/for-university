@@ -4,11 +4,11 @@ import { FC, useEffect, useState } from 'react';
 import s from './ToTop.module.scss';
 
 const ToTop: FC = () => {
-  const [isShow, setIsShow] = useState<boolean>(true);
+  const [isShow, setIsShow] = useState<boolean>(false);
   const { scrollY } = useScroll();
 
   useEffect(() => {
-    scrollY.onChange(val => setIsShow(val > 400));
+    scrollY.onChange(val => setIsShow(val > window.innerHeight * 1.15));
   }, [scrollY]);
 
   return (
