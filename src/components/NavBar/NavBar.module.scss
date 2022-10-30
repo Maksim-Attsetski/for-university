@@ -1,46 +1,68 @@
 $transition: 0.4s;
 $color: rgba(0, 0, 0, 0.8);
 
-.navbar {
-    @apply fixed z-50 top-0 left-0 overflow-hidden text-transparent;
-    transition: all $transition linear, color $transition * 0.1 linear;
-    &.active {
-        color: #fff;
-    }
-    button {
-        @apply absolute top-[10px] left-[10px] py-2 px-3 text-center bg-transparent rounded-2xl; 
-        color: $color;
-        border: 1px solid $color;
-    }
-    & ~ .navbar__blur {
-        @apply fixed z-40 top-0 left-0 w-screen h-screen rounded-full;
-        backdrop-filter: blur(2px);
-        transform: translate(-100%, -100%);
-        transition: 
-        transform ($transition * 0.8) linear, 
-        border-radius ($transition * 0.66) linear,
-        background-color ($transition * 0.6) linear;
-    }
-    &.active ~ .navbar__blur {
-        background-color: rgba(0, 0, 0, 0.7);
-        transform: translate(0, 0);
-        border-radius: 0rem;
-    }
-
-    .navbar__body {
-        padding: 2rem 20px 1rem 50px;
-    }
-    .navbar__title {
-        font-size: 20px;
-        text-transform: capitalize;
-        letter-spacing: 1px;
-    }
-    .navbarLinks {
-        .navbarLinks__link {
-            margin-bottom: 1rem;
-            cursor: pointer;
-            letter-spacing: 1px;
-            font-size: 18px;
+.navbar__btn {
+    @apply w-8 h-6  p-0 relative;
+    &:hover {
+        .firstLine,
+        .secondLine,
+        .thirdLine {
+            @apply w-full;
         }
     }
+
+    &[data-open="true"] {
+        .firstLine {
+            transform: translateY(11px) rotateZ(-135deg);
+            @apply top-0;
+        }
+        .secondLine {
+            @apply left-1/2 w-0;
+        }
+        .thirdLine {
+            transform: translateY(-10px) rotateZ(135deg);
+            @apply bottom-0;
+        }
+        .firstLine,
+        .thirdLine {
+            @apply w-full;
+        }
+    }
+    
+    .firstLine,
+    .secondLine,
+    .thirdLine {
+        transition: all linear 0.25s;
+        @apply absolute bottom-0 left-0 w-full h-[13%] bg-slate-700 rounded-2xl;
+    }
+    .firstLine {
+        @apply top-0;
+    }
+    .secondLine {
+        @apply top-[44.5%] w-2/3;
+    }
+    .thirdLine {
+        @apply bottom-0 w-1/3;
+    }
+}
+
+.navbar {
+    @apply flex flex-col gap-4 absolute z-[999] top-full bg-white px-5 py-3 rounded-3xl;    
+}
+.navbar__title {
+    text-transform: capitalize;
+    letter-spacing: 1px;
+}
+.navbarLinks__link {
+    @apply mb-2 cursor-pointer text-lg;
+    letter-spacing: 1px;
+}
+
+.child[data-open="true"] {
+    @apply pointer-events-auto;
+    background: #0000009a;
+}
+    
+.child {
+    @apply absolute z-[990] top-0 left-0 bg-transparent pointer-events-none;
 }
