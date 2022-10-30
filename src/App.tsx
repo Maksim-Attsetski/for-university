@@ -1,5 +1,5 @@
 import './App.scss';
-import { Loader } from './components';
+import { Loader, ToTop } from './components';
 import { useAuth } from './hooks/useAuth';
 import { screens } from './pages';
 
@@ -10,6 +10,7 @@ const App = () => {
   return (
     <>
       <screens.AllRoutes />
+      <ToTop />
       <Loader />
     </>
   );

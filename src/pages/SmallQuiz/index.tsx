@@ -4,7 +4,7 @@ import { Work, WorkCollapse, WorkToast } from '../../components';
 import { useTypedSelector } from '../../hooks/redux';
 
 import { IWork, workType } from '../../types';
-import { getWorkPriceAndTime } from '../../utils/getWorkPriceAndTime';
+import { getWorkPriceAndTime } from '../../utils';
 
 // import s from './Quiz.module.scss';
 

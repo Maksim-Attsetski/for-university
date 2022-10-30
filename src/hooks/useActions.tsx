@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { bindActionCreators } from 'redux';
 
 import { setAppLoading, setIsLoading } from '../redux/slices/app';
-import { setAuth, setUser } from '../redux/slices/auth';
+import { setAuth, setUser, updateUserData } from '../redux/slices/auth';
 import { setExchangeRate, getExchangeRate } from '../redux/slices/exchangeRate';
 import { updateWorkAC } from '../redux/slices/work';
 import { setProjects, deleteProject, addProject } from '../redux/slices/projects';
@@ -23,6 +23,7 @@ export const useActions = () => {
       setProjects,
       deleteProject,
       addProject,
+      updateUserData,
       getExchangeRate,
     }),
     []

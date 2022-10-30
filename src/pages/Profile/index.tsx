@@ -1,11 +1,14 @@
-import { updatePassword, updateProfile } from 'firebase/auth';
 import { FC, useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
-import { Button, Input, Title } from '../../components';
-import { routes } from '../../data';
+import { updatePassword, updateProfile, User } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { useTypedSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/useActions';
+
+import { Button, Input, Popup, Title, Toast } from '../../components';
+import { routes } from '../../data';
+import { getErrorMsg } from '../../utils';
 
 interface IEditItems {
   name: string;
@@ -14,8 +17,8 @@ interface IEditItems {
 
 const Profile: FC = () => {
   const { currentUser } = useTypedSelector(state => state.auth);
-  const [isEdit, setIsEdit] = useState<boolean>(false);
   const [editItems, setEditItems] = useState<IEditItems>({ name: '', pass: '' });
+  const [error, setError] = useState<null | string>(null);
   const { action } = useActions();
   const navigate = useNavigate();
 
@@ -28,21 +31,36 @@ const Profile: FC = () => {
       action.setAuth(false);
       navigate(routes.home);
     } catch (error) {
-      console.log(error);
+      setError(getErrorMsg(error));
     } finally {
       action.setIsLoading(false);
     }
   };
 
-  const onEditOrSave = async (): Promise<void> => {
-    setIsEdit(prev => !prev);
-    if (!currentUser) return;
+  const onSaveEdition = async (): Promise<void> => {
+    if (!auth.currentUser) return;
+    try {
+      action.setIsLoading(true);
+      const { name, pass } = editItems;
+      if (name) {
+        const data = { displayName: name || 'xxx' };
 
-    editItems.name &&
-      updateProfile(currentUser, {
-        displayName: editItems.name,
-      });
-    editItems.pass && updatePassword(currentUser, editItems.pass);
+        action.updateUserData(data as User);
+        await updateProfile(auth.currentUser, data);
+      }
+      if (pass) {
+        await updatePassword(auth.currentUser, pass);
+      }
+      if (!pass && !name) {
+        setError(getErrorMsg('empty value'));
+      }
+    } catch (error) {
+      action.updateUserData({ displayName: auth.currentUser.displayName } as User); // on error return name
+      setError(getErrorMsg(error));
+    } finally {
+      setEditItems({ name: '', pass: '' });
+      action.setIsLoading(false);
+    }
   };
 
   return (
@@ -50,34 +68,80 @@ const Profile: FC = () => {
       <div className='container'>
         <br />
         <Title text='Профиль' />
+        <Button to={routes.projects} text={'Мои проекты'} className='my-3' />
         <br />
         {currentUser?.displayName && <div>Имя: {currentUser?.displayName}</div>}
         {currentUser?.email && <div>Email: {currentUser?.email}</div>}
         <br />
-        {isEdit && (
-          <div className='flex gap-2 justify-center'>
-            <div>
-              <div className='mb-2'>Обновить имя</div>
-              <Input text={editItems.name} placeholder={'Имя'} setText={name => setEditItems({ ...editItems, name })} />
-            </div>
-            <br />
-            <div>
-              <div className='mb-2'>Обновить пароль</div>
-              <Input
-                text={editItems.pass}
-                placeholder={'Пароль'}
-                setText={pass => setEditItems({ ...editItems, pass })}
-              />
-            </div>
-            <br />
-          </div>
-        )}
-        <Button to={routes.projects} text={'Мои проекты'} />
-        <br />
-        <br />
+        <div className='flex gap-4 mb-2'>
+          <Popup
+            buttonText='Редактировать'
+            renderBody={setIsShow => (
+              <>
+                <Title text='Изменяйте что угодно' />
+                <br />
+                <div className='flex gap-2 mb-3'>
+                  <div>
+                    <div className='mb-2'>Обновить имя</div>
+                    <Input
+                      text={editItems.name}
+                      placeholder={'Имя'}
+                      setText={name => setEditItems({ ...editItems, name })}
+                    />
+                  </div>
+                  <br />
+                  <div>
+                    <div className='mb-2'>Обновить пароль</div>
+                    <Input
+                      text={editItems.pass}
+                      placeholder={'Пароль'}
+                      setText={pass => setEditItems({ ...editItems, pass })}
+                    />
+                  </div>
+                </div>
 
-        <Button text='Удалить аккаунт' className='mr-3' onClick={onDeleteAccount} />
-        <Button text={isEdit ? 'Сохранить' : 'Редактировать'} onClick={onEditOrSave} />
+                <Button
+                  text='Сохранить'
+                  className='mr-3'
+                  onClick={async () => {
+                    await onSaveEdition();
+                    setIsShow(false);
+                  }}
+                />
+                <Button
+                  isSecondary
+                  text='Отмена'
+                  onClick={() => {
+                    setEditItems({ name: '', pass: '' });
+                    setIsShow(false);
+                  }}
+                />
+              </>
+            )}
+          />
+
+          <Popup
+            buttonText='Удалить аккаунт'
+            renderBody={setIsShow => (
+              <>
+                <Title text='Вы уверены что хотите удалить свой аккаунт?' />
+                <br />
+                <Button
+                  text='Да'
+                  className='mr-3'
+                  onClick={async () => {
+                    await onDeleteAccount();
+                    setIsShow(false);
+                  }}
+                />
+                <Button isSecondary text='Нет' className='mr-3' onClick={() => setIsShow(false)} />
+              </>
+            )}
+          />
+        </div>
+
+        {/* // toast */}
+        <Toast data={error} setData={setError} isError />
       </div>
     </div>
   );

@@ -1,0 +1,7 @@
+
+.toast {
+    @apply fixed top-[10%] right-[10%] bg-green-600 px-10 py-4 rounded-3xl text-white w-80;
+    &[data-error="true"] {
+        @apply bg-red-500;
+    }
+}
