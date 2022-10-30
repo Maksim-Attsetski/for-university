@@ -22,7 +22,6 @@ const useProjects = () => {
         projects.push({ ...doc.data(), id: doc.id } as IProject);
       });
 
-      console.log(projects);
       action.setProjects(projects);
     } catch (error) {
       console.log(error);

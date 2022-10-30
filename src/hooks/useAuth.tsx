@@ -8,9 +8,6 @@ export const useAuth = () => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(data => {
-      action.setAppLoading(false);
-      action.setIsLoading(false);
-
       if (data) {
         const { displayName, email, emailVerified, phoneNumber, photoURL, providerData, uid } = data;
         const userData = { displayName, email, emailVerified, phoneNumber, photoURL, providerData, uid } as User;
@@ -19,6 +16,9 @@ export const useAuth = () => {
       } else {
         action.setUser(null);
       }
+
+      action.setAppLoading(false);
+      action.setIsLoading(false);
       action.setAuth(!!data);
     });
 

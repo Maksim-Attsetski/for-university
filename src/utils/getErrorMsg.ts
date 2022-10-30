@@ -5,6 +5,8 @@ type errorType =
   | 'invalid value'
   | 'empty value'
   | 'auth/email-already-in-use'
+  | 'auth/weak-password'
+  | 'auth/invalid-email'
   | 'success login';
 
 interface IError {
@@ -36,6 +38,14 @@ const allError: IError[] = [
   {
     type: 'auth/email-already-in-use',
     msg: 'Такой email уже используется',
+  },
+  {
+    type: 'auth/weak-password',
+    msg: 'Слабый пароль, требуется минимум 6 символов',
+  },
+  {
+    type: 'auth/invalid-email',
+    msg: 'Невалидный email',
   },
 ];
 

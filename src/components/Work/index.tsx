@@ -30,10 +30,7 @@ const Work: FC<IProps> = ({
   };
 
   const onConfirmWork = (order: number): boolean => {
-    if (+workItems.floor > 3 || +workItems.floor === 0 || +workItems.meter < 1) return false;
-
-    localStorage.setItem('floor', workItems.floor);
-    localStorage.setItem('meter', workItems.meter);
+    if (+workItems.floor > 3 || +workItems.floor === 0 || +workItems.meter < 1 || +workItems.meter > 1000) return false;
 
     selectWorkStatus(order);
     return true;

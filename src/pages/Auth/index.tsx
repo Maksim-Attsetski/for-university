@@ -6,7 +6,7 @@ import { auth } from '../../firebase';
 
 import { routes } from '../../data';
 import { useActions } from '../../hooks/useActions';
-import { Button, Input, Toast } from '../../components';
+import { Button, Input, Title, Toast } from '../../components';
 import { getErrorMsg } from '../../utils';
 
 import s from './Auth.module.scss';
@@ -14,12 +14,11 @@ import s from './Auth.module.scss';
 interface IForm {
   email: string;
   pass: string;
-  name: string;
 }
 
 const Auth: FC = () => {
-  const [isLogin, setIsLogin] = useState<boolean>(true);
-  const [form, setForm] = useState<IForm>({ email: '', name: '', pass: '' });
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [form, setForm] = useState<IForm>({ email: '', pass: '' });
   const [error, setError] = useState<string | null>(null);
 
   const navigate = useNavigate();
@@ -29,10 +28,7 @@ const Auth: FC = () => {
     try {
       action.setIsLoading(true);
 
-      const firstCondition = Object.values(form).every(el => !!el) && !isLogin;
-      const secondCondition = isLogin && form.email.length > 0 && form.pass.length > 0;
-
-      if (!firstCondition && !secondCondition) {
+      if (Object.values(form).some(el => !el)) {
         setError(getErrorMsg('empty value'));
         return;
       }
@@ -42,19 +38,16 @@ const Auth: FC = () => {
         : await createUserWithEmailAndPassword(auth, form.email, form.pass);
 
       if (res.user) {
-        const { email, emailVerified, phoneNumber, photoURL, providerData, uid } = res.user;
-        const userData = { email, emailVerified, phoneNumber, photoURL, providerData, uid } as User;
+        const { email, displayName, emailVerified, phoneNumber, photoURL, providerData, uid } = res.user;
+        const userData = { email, displayName, emailVerified, phoneNumber, photoURL, providerData, uid } as User;
 
-        const displayName = form.name || 'xxx';
-        action.setUser({ ...userData, displayName });
-        // TODO ошибка при обновлении
-        // !isLogin && (await updateProfile(res.user, { displayName }));
+        action.setUser(userData);
       } else {
         action.setUser(null);
       }
 
       navigate(routes.home);
-      setForm({ email: '', name: '', pass: '' });
+      setForm({ email: '', pass: '' });
     } catch (error) {
       console.log(error);
 
@@ -67,11 +60,9 @@ const Auth: FC = () => {
   return (
     <div className='container'>
       <br />
+      <Title text={isLogin ? 'Войдите в свой аккаунт' : 'Регистрация'} className='mb-2' />
       <Toast data={error} isError setData={setError} />
       <form className={s.authForm}>
-        {!isLogin && (
-          <Input setText={name => setForm({ ...form, name })} text={form.name} placeholder='Введи своё имя' required />
-        )}
         <Input
           type='email'
           setText={email => setForm({ ...form, email })}
@@ -84,10 +75,9 @@ const Auth: FC = () => {
       <hr className='my-4' />
       <div className={s.buttonsContainer}>
         <Button onClick={onAuth} text={isLogin ? 'Войти' : 'Зарегаться'} />
-        <Button
-          text={isLogin ? 'Нет аккаунта? Создай' : 'Уже есть аккаунт? Войди'}
-          onClick={() => setIsLogin(prev => !prev)}
-        />
+        <button onClick={() => setIsLogin(prev => !prev)} className='underline'>
+          {isLogin ? 'Нет аккаунта? Создай' : 'Уже есть аккаунт? Войди'}
+        </button>
       </div>
     </div>
   );

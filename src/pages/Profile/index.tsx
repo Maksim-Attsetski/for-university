@@ -34,7 +34,6 @@ const Profile: FC = () => {
       await auth?.currentUser?.delete();
 
       projects.forEach(async item => {
-        console.log(item);
         await deleteDoc(doc(fs, 'projects', item.id));
       });
 
@@ -89,7 +88,7 @@ const Profile: FC = () => {
         <Title text='Профиль' />
         <Button to={routes.projects} text={'Мои проекты'} className='my-3' />
         <br />
-        {currentUser?.displayName && <div>Имя: {currentUser?.displayName}</div>}
+        <div>Имя: {currentUser?.displayName || 'Нет имени'}</div>
         {currentUser?.email && <div>Email: {currentUser?.email}</div>}
         <br />
         <div className='flex gap-4 mb-2'>
