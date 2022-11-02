@@ -11,6 +11,11 @@ const ExchangeRate: FC = () => {
     try {
       action.setIsLoading(true);
       const res = await getExchangeRate();
+
+      // currency / cur_scale * cur_value )
+      // рос рубли в бел рубли
+      // 4.0121 / 100 * 1634
+
       action.setExchangeRate(res);
     } catch (error) {
       console.log(error);
