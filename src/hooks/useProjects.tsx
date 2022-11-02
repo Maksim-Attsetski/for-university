@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { fs } from '../firebase';
 import { IProject } from '../types';
 import { useTypedSelector } from './redux';
@@ -56,6 +56,7 @@ const useProjects = () => {
         workId: 1,
         name,
         isDone: false,
+        createdAt: Date.now(),
       };
 
       const project = await addDoc(collection(fs, 'projects'), newProject);
@@ -67,10 +68,25 @@ const useProjects = () => {
     }
   };
 
+  const onUpdateProject = async (project: IProject) => {
+    try {
+      action.setIsLoading(true);
+
+      const projectsRef = doc(fs, "projects", project.id);
+      await updateDoc(projectsRef, { ...project });
+      action.updateProject(project);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      action.setIsLoading(false);
+    }
+  }
+
   return {
     onGetProjects,
     onAddProject,
     onDeleteProject,
+    onUpdateProject,
   };
 };
 

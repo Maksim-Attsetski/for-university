@@ -4,4 +4,5 @@ export interface IProject {
   name: string;
   isDone: boolean;
   workId: number;
+  createdAt: number;
 }

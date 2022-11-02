@@ -13,6 +13,7 @@ interface IProps {
   to?: routeNames | null;
   disabled?: boolean;
   isSecondary?: boolean;
+  isDanger?: boolean;
 }
 
 const Button: FC<IProps> = ({
@@ -22,6 +23,7 @@ const Button: FC<IProps> = ({
   to = null,
   disabled = false,
   isSecondary = false,
+  isDanger = false,
 }) => {
   const navigate = useNavigate();
 
@@ -35,6 +37,7 @@ const Button: FC<IProps> = ({
       disabled={disabled}
       onClick={handleClickButton}
       data-secondary={isSecondary}
+      data-danger={isDanger}
       className={`${s.button} ${className}`}
     >
       {text}

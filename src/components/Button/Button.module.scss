@@ -1,11 +1,18 @@
 
 .button {
     @apply px-5 py-2 rounded-3xl bg-slate-600 text-white;
+    box-shadow: 1px 2px 2px 0 rgba(0, 0, 0, 0.514);
     &[data-secondary="true"] {
         background: transparent;
         color: rgba(43, 43, 43, 0.9);
         font-weight: 600;
         border: 1px solid grey;
+    }
+    &[data-danger="true"] {
+        @apply bg-red-500 text-white font-semibold border-none;
+    }
+    &:hover {
+        box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.185);
     }
     &:active {
         @apply scale-90;

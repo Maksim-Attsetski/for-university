@@ -1,6 +1,9 @@
-import { User } from 'firebase/auth';
 import { useEffect } from 'react';
+
 import { auth } from '../firebase';
+
+import { IUser } from '../types';
+import { checkIsAdmin } from '../utils/checkIsAdmin';
 import { useActions } from './useActions';
 
 export const useAuth = () => {
@@ -10,7 +13,11 @@ export const useAuth = () => {
     const unsubscribe = auth.onAuthStateChanged(data => {
       if (data) {
         const { displayName, email, emailVerified, phoneNumber, photoURL, providerData, uid } = data;
-        const userData = { displayName, email, emailVerified, phoneNumber, photoURL, providerData, uid } as User;
+
+        const isAdmin = checkIsAdmin(email);
+
+        const userData = { displayName, email, emailVerified, phoneNumber, photoURL,
+          providerData, uid, role: isAdmin ? 'admin' : 'user' } as IUser;
 
         action.setUser(userData);
       } else {
