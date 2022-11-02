@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, User } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 
 import { routes } from '../../data';
@@ -10,6 +10,8 @@ import { Button, Input, Title, Toast } from '../../components';
 import { getErrorMsg } from '../../utils';
 
 import s from './Auth.module.scss';
+import { checkIsAdmin } from '../../utils/checkIsAdmin';
+import { IUser } from '../../types';
 
 interface IForm {
   email: string;
@@ -39,7 +41,10 @@ const Auth: FC = () => {
 
       if (res.user) {
         const { email, displayName, emailVerified, phoneNumber, photoURL, providerData, uid } = res.user;
-        const userData = { email, displayName, emailVerified, phoneNumber, photoURL, providerData, uid } as User;
+        const isAdmin = checkIsAdmin(form.email);
+
+        const userData = { email, displayName, emailVerified, phoneNumber,
+          photoURL, providerData, uid, role: isAdmin ? 'admin' : 'user' } as IUser;
 
         action.setUser(userData);
       } else {

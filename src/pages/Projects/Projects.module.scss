@@ -1,0 +1,15 @@
+.projectList {
+    @apply flex gap-4 flex-wrap justify-around items-start my-4;
+}
+
+.project {
+    @apply border-[1px] border-slate-600 border-solid p-4 pt-1 rounded-2xl bg-slate-300;
+}
+
+.projectState {
+    @apply ml-auto text-white w-max py-1 px-2 rounded-md my-2;
+}
+
+.buttonsContainer {
+    @apply mt-3 flex justify-between items-center gap-4;
+}
