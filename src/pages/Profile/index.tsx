@@ -1,16 +1,18 @@
 import { FC, useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { updatePassword, updateProfile, User } from 'firebase/auth';
+import { updatePassword, updateProfile } from 'firebase/auth';
 import { auth, fs } from '../../firebase';
+import { deleteDoc, doc } from 'firebase/firestore';
+
 import { useTypedSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/useActions';
+import useProjects from '../../hooks/useProjects';
 
 import { Button, Input, Popup, Title, Toast } from '../../components';
-import { routes } from '../../data';
 import { getErrorMsg } from '../../utils';
-import { deleteDoc, doc } from 'firebase/firestore';
-import useProjects from '../../hooks/useProjects';
+import { routes } from '../../data';
+import { IUser } from '../../types';
 
 interface IEditItems {
   name: string;
@@ -56,7 +58,7 @@ const Profile: FC = () => {
       if (name) {
         const data = { displayName: name || 'xxx' };
 
-        action.updateUserData(data as User);
+        action.updateUserData(data as IUser);
         await updateProfile(auth.currentUser, data);
       }
 
@@ -68,7 +70,7 @@ const Profile: FC = () => {
         setError(getErrorMsg('empty value'));
       }
     } catch (error) {
-      action.updateUserData({ displayName: auth.currentUser.displayName } as User); // on error return name
+      action.updateUserData({ displayName: auth.currentUser.displayName } as IUser); // on error return name
       setError(getErrorMsg(error));
     } finally {
       setEditItems({ name: '', pass: '' });

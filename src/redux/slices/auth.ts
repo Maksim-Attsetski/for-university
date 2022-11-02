@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from 'firebase/auth';
+
+import { IUser } from '../../types';
 
 interface IState {
   isAuth: boolean;
-  currentUser: User | null;
+  currentUser: IUser | null;
 }
 
 const initialState: IState = {
@@ -18,10 +19,10 @@ const authSlice = createSlice({
     setAuth: (state: IState, action: PayloadAction<boolean>) => {
       state.isAuth = action.payload;
     },
-    setUser: (state: IState, action: PayloadAction<User | null>) => {
+    setUser: (state: IState, action: PayloadAction<IUser | null>) => {
       state.currentUser = action.payload;
     },
-    updateUserData: (state: IState, action: PayloadAction<User>) => {
+    updateUserData: (state: IState, action: PayloadAction<IUser>) => {
       state.currentUser = { ...state.currentUser, ...action.payload };
     },
   },
