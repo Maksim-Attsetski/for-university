@@ -7,5 +7,6 @@ export enum routes {
   projects = '/projects',
   quiz = '/quiz',
   quizSmall = '/quiz/small',
+  admin = '/admin',
   notFound = '/*',
 }

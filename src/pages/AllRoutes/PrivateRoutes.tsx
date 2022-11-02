@@ -5,8 +5,11 @@ import { screens } from '../';
 
 import { Layout } from '../../components';
 import { routes } from '../../data';
+import { useTypedSelector } from '../../hooks/redux';
 
 const PrivateRoutes: FC = () => {
+  const { currentUser } = useTypedSelector(state => state.auth);
+
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
@@ -18,6 +21,7 @@ const PrivateRoutes: FC = () => {
         <Route path={routes.quiz} element={<screens.Quiz />} />
         <Route path={routes.projects} element={<screens.Projects />} />
         <Route path={routes.quizSmall} element={<screens.SmallQuiz />} />
+        {currentUser?.role === 'admin' && <Route path={routes.admin} element={<screens.Admin />} />}
       </Route>
     </Routes>
   );
