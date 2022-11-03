@@ -1,3 +1,4 @@
+import { Cur_AbbreviationType } from './exchangeRate';
 import { materialName } from './material';
 
 export type workName =
@@ -62,6 +63,7 @@ export interface IWork {
   price: number;
   time: number;
   materials: materialName[];
+  currency: Cur_AbbreviationType;
   worksToChoose: null | IWork[];
   activeWork: null | IWork;
 }

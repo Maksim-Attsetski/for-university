@@ -1,8 +1,9 @@
+import { defaultExchangeRate, IExchangeRate } from './../../types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 interface IState {
-  exchangeRate: any[];
+  exchangeRate: IExchangeRate[];
 }
 
 const initialState: IState = {
@@ -14,12 +15,12 @@ const exchangeRateSlice = createSlice({
   initialState,
   reducers: {
     setExchangeRate: (state: IState, action: PayloadAction<any[]>) => {
-      state.exchangeRate = action.payload;
+      state.exchangeRate = [...action.payload, defaultExchangeRate];
     },
   },
 });
 
-export const getExchangeRate = async () => {
+export const getExchangeRate = async (): Promise<IExchangeRate[]> => {
   try {
     const res = await axios('https://www.nbrb.by/API/ExRates/Rates?Periodicity=0');
 

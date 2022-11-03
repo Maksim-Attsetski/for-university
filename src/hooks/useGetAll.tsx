@@ -5,9 +5,16 @@ import { auth } from '../firebase';
 import { IUser } from '../types';
 import { checkIsAdmin } from '../utils/checkIsAdmin';
 import { useActions } from './useActions';
+import useProjects from '../hooks/useProjects';
 
-export const useAuth = () => {
-  const { action } = useActions();
+export const useGetAll = () => {
+  const { action, getExchangeRate } = useActions();
+  const { onGetProjects } = useProjects()
+
+  const getAll = async () => {
+    const [rates] = await Promise.all([getExchangeRate(), onGetProjects()])
+    action.setExchangeRate(rates);
+  }
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(data => {
@@ -19,6 +26,7 @@ export const useAuth = () => {
         const userData = { displayName, email, emailVerified, phoneNumber, photoURL,
           providerData, uid, role: isAdmin ? 'admin' : 'user' } as IUser;
 
+        getAll();
         action.setUser(userData);
       } else {
         action.setUser(null);

@@ -8,8 +8,10 @@ const ExchangeRate: FC = () => {
   const { action, getExchangeRate } = useActions();
 
   const getData = async () => {
+    if (exchangeRate.length > 0) return;
+
     try {
-      action.setIsLoading(true);
+      action.setIsLoading(true);      
       const res = await getExchangeRate();
 
       // currency / cur_scale * cur_value )

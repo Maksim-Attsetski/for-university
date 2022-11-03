@@ -3,13 +3,14 @@ import { FC, useMemo, useState } from 'react';
 import { Work, WorkCollapse, WorkToast } from '../../components';
 import { useTypedSelector } from '../../hooks/redux';
 
-import { IWork, workType } from '../../types';
+import { defaultExchangeRate, IExchangeRate, IWork, workType } from '../../types';
 import { getWorkPriceAndTime } from '../../utils';
 
 // import s from './Quiz.module.scss';
 
 const SmallQuiz: FC = () => {
   const { works } = useTypedSelector(state => state.works);
+  const { exchangeRate } = useTypedSelector(state => state.exchangeRate);
   const [total, setTotal] = useState<{ price: number; time: number }>({ price: 0, time: 0 });
   const [workItems, setWorkItems] = useState<{ meter: string; floor: string }>({ floor: '1', meter: '1' });
   const [isVisible, setIsVisible] = useState<boolean>(false);

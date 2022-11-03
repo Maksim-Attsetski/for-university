@@ -1,7 +1,9 @@
 import React, { FC, useMemo, useState } from 'react';
 import { useActions } from '../../hooks/useActions';
-import { IWork } from '../../types';
+import { IExchangeRate, IWork } from '../../types';
 import { Popup, Button, Title, Input } from '../';
+import { useTypedSelector } from '../../hooks/redux';
+import { getCurrentPrice } from '../../utils/getCurrentPrice';
 
 interface IProps {
   work: IWork;
@@ -21,7 +23,12 @@ const Work: FC<IProps> = ({
   setWorkItems = () => {},
 }) => {
   const [activeWork, setActiveWork] = useState<IWork>(work);
+  const { exchangeRate } = useTypedSelector(state => state.exchangeRate)
   const { action } = useActions();
+  
+  const currency: IExchangeRate | undefined = useMemo(() => {
+    return exchangeRate.filter((item) => item.Cur_Abbreviation === 'EUR')[0];
+  }, [exchangeRate]);
 
   const onChangeActiveWork = (currentWork: IWork) => {
     setActiveWork(currentWork);
@@ -39,12 +46,21 @@ const Work: FC<IProps> = ({
   const activeClassName = useMemo(() => 'bg-slate-600 text-white p-1 rounded-lg max-w-[75%]', []);
   const className = useMemo(() => 'p-1 mb-2 transition-all rounded-lg max-w-[75%]', []);
 
+  const currentPrice: number = useMemo(() => {
+    if (!currency) return activeWork.price;
+    const workCurrency: IExchangeRate = exchangeRate.filter((item) => item.Cur_Abbreviation === activeWork.currency)[0];
+    console.log(workCurrency, activeWork.price, currency);
+    
+    return getCurrentPrice(workCurrency, activeWork.price, currency)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currency, activeWork])
+
   return (
     <div className={'flex justify-between m-4 bg-white px-8 py-3 rounded-xl ' + workClass}>
       {work.worksToChoose ? (
         <div>
           <Title text={activeWork.order + '. ' + activeWork.name} />
-          <div>Стоимость: {activeWork.price}$</div>
+          <div>Стоимость: {currentPrice} {activeWork.currency}</div>
           <div>Длительность: {activeWork.time} мин.</div>
           <div>
             <br />
@@ -63,7 +79,7 @@ const Work: FC<IProps> = ({
       ) : (
         <div>
           <Title text={`${work.order}. ${work.name}`} />
-          <div>Стоимость: {work.price}$</div>
+          <div>Стоимость: {currentPrice} {activeWork.currency}</div>
           <div>Длительность: {work.time} мин.</div>
         </div>
       )}

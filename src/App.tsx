@@ -1,13 +1,12 @@
 import './App.scss';
 
-import { useAuth } from './hooks/useAuth';
+import { useGetAll } from './hooks/useGetAll';
 
 import { screens } from './pages';
 import { Loader, ToTop } from './components';
 
 const App = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const authRes = useAuth();
+  useGetAll();
 
   return (
     <>
