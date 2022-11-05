@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useActions } from '../../hooks/useActions';
 import { IExchangeRate, IWork } from '../../types';
 import { Popup, Button, Title, Input } from '../';
@@ -19,17 +19,12 @@ const Work: FC<IProps> = ({
   renderBtn,
   selectWorkStatus,
   workClass = '',
-  workItems = { floor: '1', meter: '1' }, 
+  workItems = { floor: '1', meter: '1' },
   setWorkItems = () => {},
 }) => {
   const [activeWork, setActiveWork] = useState<IWork>(work);
-  const { exchangeRate } = useTypedSelector(state => state.exchangeRate);
+  const { exchangeRate, currency } = useTypedSelector(state => state.exchangeRate);
   const { action } = useActions();
-  
-  // TODO in custom state
-  const currency: IExchangeRate | undefined = useMemo(() => {
-    return exchangeRate.filter((item) => item.Cur_Abbreviation === 'EUR')[0];
-  }, [exchangeRate]);
 
   const onChangeActiveWork = (currentWork: IWork) => {
     setActiveWork(currentWork);
@@ -38,10 +33,13 @@ const Work: FC<IProps> = ({
   };
 
   const onConfirmWork = (order: number): boolean => {
-    if (+workItems.floor > 3 || +workItems.floor === 0 || +workItems.meter < 1 || +workItems.meter > 1000) return false;
-
     selectWorkStatus(order);
-    return true;
+    return !(
+      +workItems.floor > 3 ||
+      +workItems.floor === 0 ||
+      +workItems.meter < 1 ||
+      +workItems.meter > 1000
+    );
   };
 
   const activeClassName = useMemo(() => 'bg-slate-600 text-white p-1 rounded-lg max-w-[75%]', []);
@@ -50,17 +48,21 @@ const Work: FC<IProps> = ({
   const currentPrice: number = useMemo(() => {
     if (!currency) return activeWork.price;
     // REFACTOR
-    const workCurrency: IExchangeRate = exchangeRate.filter((item) => item.Cur_Abbreviation === activeWork.currency)[0];
-    
-    return getCurrentPrice(workCurrency, activeWork.price, currency)
-  }, [currency, activeWork])
+    const workCurrency: IExchangeRate = exchangeRate.filter(
+      item => item.Cur_Abbreviation === activeWork.currency,
+    )[0];
+
+    return getCurrentPrice(workCurrency, activeWork.price, currency);
+  }, [currency, activeWork, exchangeRate]);
 
   return (
     <div className={'flex justify-between m-4 bg-white px-8 py-3 rounded-xl ' + workClass}>
       {work.worksToChoose ? (
         <div>
           <Title text={activeWork.order + '. ' + activeWork.name} />
-          <div>Стоимость: {currentPrice} {activeWork.currency}</div>
+          <div>
+            Стоимость: {currentPrice} {currency?.Cur_Abbreviation || ''}
+          </div>
           <div>Длительность: {activeWork.time} мин.</div>
           <div>
             <br />
@@ -69,8 +71,7 @@ const Work: FC<IProps> = ({
               <div
                 key={item.name}
                 className={item.name === activeWork.name ? activeClassName : className}
-                onClick={() => onChangeActiveWork(item)}
-              >
+                onClick={() => onChangeActiveWork(item)}>
                 {item.name}
               </div>
             ))}
@@ -79,27 +80,29 @@ const Work: FC<IProps> = ({
       ) : (
         <div>
           <Title text={`${work.order}. ${work.name}`} />
-          <div>Стоимость: {currentPrice} {activeWork.currency}</div>
+          <div>
+            Стоимость: {currentPrice} {currency?.Cur_Abbreviation || ''}
+          </div>
           <div>Длительность: {work.time} мин.</div>
         </div>
       )}
       {renderBtn && (
         <Popup
-          buttonText='на этой'
+          buttonText="на этой"
           renderBody={setIsShow => (
             <>
-              <div className='flex flex-col gap-y-4'>
+              <div className="flex flex-col gap-y-4">
                 <Input
                   max={1500}
-                  type='number'
-                  placeholder='Кв. метры'
+                  type="number"
+                  placeholder="Кв. метры"
                   text={workItems.meter}
                   setText={meter => setWorkItems({ ...workItems, meter })}
                 />
                 <Input
                   max={3}
-                  type='number'
-                  placeholder='Этаж'
+                  type="number"
+                  placeholder="Этаж"
                   text={workItems.floor}
                   setText={floor => setWorkItems({ ...workItems, floor })}
                 />
@@ -112,7 +115,7 @@ const Work: FC<IProps> = ({
                   }
                 }}
                 className={'h-max w-max self-center'}
-                text='Подтвердить'
+                text="Подтвердить"
               />
             </>
           )}

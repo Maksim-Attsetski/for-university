@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useEffect, useState } from 'react';
 import s from './Projects.module.scss';
 
@@ -41,6 +42,7 @@ const Projects: FC = () => {
 
   useEffect(() => {
     onGetProjects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser?.uid]);
 
   const getProjectForm = (isEdit: boolean = false, project: IProject) => (

@@ -7,12 +7,12 @@ interface IArguments {
 }
 
 export const getCurrentPrice: IArguments = (workCurrency, price, currency) => {
-    if (workCurrency.Cur_Abbreviation === currency.Cur_Abbreviation) return price;
+    if (workCurrency.Cur_Abbreviation === currency.Cur_Abbreviation) return price;    
+    if (workCurrency.Cur_Abbreviation === 'BYN') return +(price / currency.Cur_OfficialRate).toFixed(4);
     
-    const currencyInByn = price / workCurrency.Cur_Scale * workCurrency.Cur_OfficialRate
-    if (workCurrency.Cur_Abbreviation === 'BYN') return currencyInByn;
+    const currencyInByn = price / workCurrency.Cur_Scale * workCurrency.Cur_OfficialRate;
+    const currentCurrency = price / currency.Cur_Scale *  currency.Cur_OfficialRate;
+    const result = currencyInByn / currentCurrency;
 
-    const result = currencyInByn / currency.Cur_Scale *  currency.Cur_OfficialRate
-
-    return +result.toFixed(4);
+    return price * +result.toFixed(4);
 }

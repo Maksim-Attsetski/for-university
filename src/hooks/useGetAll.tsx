@@ -9,22 +9,31 @@ import useProjects from '../hooks/useProjects';
 
 export const useGetAll = () => {
   const { action, getExchangeRate } = useActions();
-  const { onGetProjects } = useProjects()
+  const { onGetProjects } = useProjects();
 
   const getAll = async () => {
-    const [rates] = await Promise.all([getExchangeRate(), onGetProjects()])
+    const [rates] = await Promise.all([getExchangeRate(), onGetProjects()]);
     action.setExchangeRate(rates);
-  }
+  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(data => {
       if (data) {
-        const { displayName, email, emailVerified, phoneNumber, photoURL, providerData, uid } = data;
+        const { displayName, email, emailVerified, phoneNumber, photoURL, providerData, uid } =
+          data;
 
         const isAdmin = checkIsAdmin(email);
 
-        const userData = { displayName, email, emailVerified, phoneNumber, photoURL,
-          providerData, uid, role: isAdmin ? 'admin' : 'user' } as IUser;
+        const userData = {
+          displayName,
+          email,
+          emailVerified,
+          phoneNumber,
+          photoURL,
+          providerData,
+          uid,
+          role: isAdmin ? 'admin' : 'user',
+        } as IUser;
 
         getAll();
         action.setUser(userData);
