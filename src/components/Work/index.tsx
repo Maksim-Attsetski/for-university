@@ -19,13 +19,14 @@ const Work: FC<IProps> = ({
   renderBtn,
   selectWorkStatus,
   workClass = '',
-  workItems = { floor: '1', meter: '1' },
+  workItems = { floor: '1', meter: '1' }, 
   setWorkItems = () => {},
 }) => {
   const [activeWork, setActiveWork] = useState<IWork>(work);
-  const { exchangeRate } = useTypedSelector(state => state.exchangeRate)
+  const { exchangeRate } = useTypedSelector(state => state.exchangeRate);
   const { action } = useActions();
   
+  // TODO in custom state
   const currency: IExchangeRate | undefined = useMemo(() => {
     return exchangeRate.filter((item) => item.Cur_Abbreviation === 'EUR')[0];
   }, [exchangeRate]);
@@ -48,11 +49,10 @@ const Work: FC<IProps> = ({
 
   const currentPrice: number = useMemo(() => {
     if (!currency) return activeWork.price;
+    // REFACTOR
     const workCurrency: IExchangeRate = exchangeRate.filter((item) => item.Cur_Abbreviation === activeWork.currency)[0];
-    console.log(workCurrency, activeWork.price, currency);
     
     return getCurrentPrice(workCurrency, activeWork.price, currency)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currency, activeWork])
 
   return (
