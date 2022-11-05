@@ -1,19 +1,32 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
+import { useState } from 'react';
+import { works } from '../data';
 import { fs } from '../firebase';
 import { IProject } from '../types';
+import { getErrorMsg } from '../utils';
 import { useTypedSelector } from './redux';
 import { useActions } from './useActions';
 
 const useProjects = () => {
   const { action } = useActions();
   const { currentUser } = useTypedSelector(state => state.auth);
+  const [error, setError] = useState<string | null>(null);
 
   const onGetProjects = async (): Promise<void> => {
     try {
       if (!currentUser) return;
 
       action.setIsLoading(true);
-      let projects: IProject[] = [];
+      const projects: IProject[] = [];
 
       const q = query(collection(fs, 'projects'), where('userUid', '==', currentUser?.uid));
       const querySnapshot = await getDocs(q);
@@ -42,27 +55,43 @@ const useProjects = () => {
     }
   };
 
-  const onAddProject = async (): Promise<void> => {
+  const onGetError = (name: string, workId: number): boolean => {
+    if (name && !!+workId) {
+      if (works.length < +workId) {
+        setError('Максимальное значение ' + works.length);
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      throw new Error('invalid value');
+    }
+  };
+
+  const onAddProject = async (name: string, workId: number): Promise<void> => {
     if (!currentUser) return;
     try {
       action.setIsLoading(true);
-      const name = prompt('Введите название проекта');
 
-      if (!name) return;
+      const isValid = onGetError(name, workId);
 
-      const newProject: IProject = {
-        id: `${currentUser.uid}/${name}/${Math.random()}`,
-        userUid: currentUser.uid,
-        workId: 1,
-        name,
-        isDone: false,
-        createdAt: Date.now(),
-      };
+      if (isValid) {
+        const newProject: IProject = {
+          id: `${currentUser.uid}/${name}/${Math.random()}`,
+          userUid: currentUser.uid,
+          workId,
+          name,
+          isDone: works.length === workId,
+          createdAt: Date.now(),
+        };
 
-      const project = await addDoc(collection(fs, 'projects'), newProject);
-      action.addProject({ ...newProject, id: project.id });
+        const project = await addDoc(collection(fs, 'projects'), newProject);
+        action.addProject({ ...newProject, id: project.id });
+        setError(null);
+      }
     } catch (e) {
-      console.error('Error adding document: ', e);
+      console.log(e);
+      setError(getErrorMsg(e));
     } finally {
       action.setIsLoading(false);
     }
@@ -72,7 +101,7 @@ const useProjects = () => {
     try {
       action.setIsLoading(true);
 
-      const projectsRef = doc(fs, "projects", project.id);
+      const projectsRef = doc(fs, 'projects', project.id);
       await updateDoc(projectsRef, { ...project });
       action.updateProject(project);
     } catch (error) {
@@ -80,13 +109,15 @@ const useProjects = () => {
     } finally {
       action.setIsLoading(false);
     }
-  }
+  };
 
   return {
     onGetProjects,
     onAddProject,
     onDeleteProject,
     onUpdateProject,
+    error,
+    setError,
   };
 };
 
