@@ -73,7 +73,7 @@ const Header: FC = () => {
 
   return (
     <header className={s.header}>
-      <div className={s.blur} style={{ filter: 'blur(2px)' }} />
+      <div className={s.blur} />
       <div className={'container ' + s.headerBody}>
         <div className={s.logo}>
           <img src={Logo} alt="logo" />
@@ -91,10 +91,7 @@ const Header: FC = () => {
             ))}
           </div>
           <div className="burger">
-            <NavBar
-              links={[...links, { name: isAuth ? 'Выйти' : 'Войти', to: routes.auth }]}
-              title="Наш сайт"
-            />
+            <NavBar links={[...links, { name: isAuth ? 'Выйти' : 'Войти', to: routes.auth }]} title="Наш сайт" />
           </div>
           <Button onClick={onLogOut} text={isAuth ? 'Выйти' : 'Войти'} className="links" />
         </div>

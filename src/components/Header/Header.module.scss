@@ -1,7 +1,7 @@
 .header {
     @apply fixed top-0 left-0 z-[999] right-0 py-4; 
     .blur {
-        @apply absolute top-0 left-0 w-full h-full backdrop-blur-md -z-[1];
+        @apply absolute top-0 left-0 w-full -z-[1] h-full backdrop-blur-md;
     }
 }
 .link {
