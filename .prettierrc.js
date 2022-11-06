@@ -7,5 +7,5 @@ module.exports = {
   jsxQuotes: true,
   trailingComma: 'all',
   arrowParens: 'avoid',
-  printWidth: 100,
+  printWidth: 120,
 };
