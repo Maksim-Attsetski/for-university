@@ -33,7 +33,7 @@
 .image {
     @apply absolute top-1/4 right-[5%] w-2/5 h-1/2 -z-10;
     @include laptop {
-        @apply top-[35%];
+        @apply top-[35%] absolute;
     }
     @include tablet {
         @apply right-[10%] w-1/2;
