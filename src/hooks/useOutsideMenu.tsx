@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useRef, useState } from 'react';
 
 const useOutsideMenu = (
-  initialVisible: boolean = false
+  initialVisible: boolean = false,
 ): {
   ref: React.MutableRefObject<any>;
   isShow: boolean;

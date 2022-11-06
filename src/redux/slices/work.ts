@@ -18,7 +18,7 @@ const workSlice = createSlice({
       const { data, workName } = action.payload;
       state.works = [...state.works].map(item => (item.name === workName ? { ...item, ...data } : item));
     },
-    currencyUpdate: (state: IState, action: PayloadAction<number>) => {
+    currencyUpdate: (state: IState) => {
       // TODO
       state.works = [];
     },

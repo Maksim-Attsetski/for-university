@@ -11,7 +11,7 @@ const ExchangeRate: FC = () => {
     if (exchangeRate.length > 0) return;
 
     try {
-      action.setIsLoading(true);      
+      action.setIsLoading(true);
       const res = await getExchangeRate();
 
       // currency / cur_scale * cur_value )
@@ -32,10 +32,10 @@ const ExchangeRate: FC = () => {
   }, []);
 
   return (
-    <div className='container'>
+    <div className="container">
       <br />
       {exchangeRate &&
-        exchangeRate.map((rate: any) => (
+        exchangeRate.map(rate => (
           <div key={rate?.Cur_ID}>
             {rate?.Cur_Name}: {rate?.Cur_OfficialRate} бел. рублей.
             <hr />
