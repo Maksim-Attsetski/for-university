@@ -15,7 +15,9 @@ body {
     &.hiddenBody {
         overflow: hidden;
     }
-
+    main {
+        min-height: 88vh;
+    }
 }
 button {
     cursor: pointer;

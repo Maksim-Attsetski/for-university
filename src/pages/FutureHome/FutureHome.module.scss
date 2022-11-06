@@ -1,0 +1,41 @@
+@import '../../utils/media.scss';
+
+.home {
+    .container {
+        min-height: 80vh;
+        @apply flex flex-col justify-center;
+    }
+    .homeLine {
+        @apply w-full h-1;
+        background: linear-gradient(90deg, rgba(246,162,10,1) 0%, rgba(0, 0, 0, 0) 90%);
+    }
+    .homeBody {
+        @apply flex justify-between items-center gap-x-7;
+    }
+}
+
+.content {
+    .title {
+        font-weight: 500;
+        font-size: calc(4vmin + 12px);
+    }
+    
+    .text {
+        @apply my-5;
+        font-size: calc(2vmin + 8px);
+    }
+
+    .quizBtn {
+        @apply py-3 px-10;
+    }
+}
+
+.image {
+    @apply absolute top-1/4 right-[5%] w-2/5 h-1/2 -z-10;
+    @include laptop {
+        @apply top-[35%];
+    }
+    @include tablet {
+        @apply right-[10%] w-1/2;
+    }
+}

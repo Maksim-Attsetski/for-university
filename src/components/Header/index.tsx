@@ -11,7 +11,7 @@ import { auth } from '../../firebase';
 import { routes } from '../../data';
 import { routeNames } from '../../types';
 import s from './Header.module.scss';
-import Logo from '../../assets/pngLogo.png';
+import Logo from '../../assets/logo.png';
 
 interface ILink {
   to: routeNames;
@@ -73,6 +73,7 @@ const Header: FC = () => {
 
   return (
     <header className={s.header}>
+      <div className={s.blur} style={{ filter: 'blur(2px)' }} />
       <div className={'container ' + s.headerBody}>
         <div className={s.logo}>
           <img src={Logo} alt="logo" />
@@ -90,7 +91,10 @@ const Header: FC = () => {
             ))}
           </div>
           <div className="burger">
-            <NavBar links={links} title="Наш сайт" />
+            <NavBar
+              links={[...links, { name: isAuth ? 'Выйти' : 'Войти', to: routes.auth }]}
+              title="Наш сайт"
+            />
           </div>
           <Button onClick={onLogOut} text={isAuth ? 'Выйти' : 'Войти'} className="links" />
         </div>

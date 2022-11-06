@@ -8,9 +8,9 @@ module.exports = {
     extend: {
       backgroundColor: {},
       colors: {
-        'main-from': '#F6A20A',
         'main-to': '#E56304',
         'title-color': '#F6A20A',
+        'title-color-70': '#F6A20A',
       },
       boxShadow: {
         'dark-btn': '1px 10px 20px rgba(0, 0, 0, 0.7)',

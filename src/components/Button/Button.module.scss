@@ -2,7 +2,7 @@ $color: rgba(237, 129, 6, 0.56);
 
 .button {
     @apply px-5 py-2 text-[15px] font-medium leading-4 rounded-xl
-    bg-gradient-to-r from-main-from to-main-to text-white transition-all;
+    bg-gradient-to-r from-title-color to-main-to text-white transition-all;
     box-shadow: 0px 5px 4px $color;
     &[data-secondary="true"] {
         background: transparent;

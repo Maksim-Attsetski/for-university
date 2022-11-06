@@ -1,11 +1,14 @@
 
 .header {
-    @apply fixed top-0 left-0 right-0 py-4; 
+    @apply fixed top-0 left-0 z-[999] right-0 py-4; 
+    .blur {
+        @apply absolute top-0 left-0 w-full h-full backdrop-blur-md -z-[1];
+    }
 }
 .link {
     @apply text-lg mr-5 mb-3 pb-1 relative;
     .linkLine {
-        @apply absolute top-full left-1/2 w-0 h-[2px] rounded-lg transition-all bg-main-from;
+        @apply absolute top-full left-1/2 w-0 h-[2px] rounded-lg transition-all bg-title-color;
     }
     &.active {
         font-weight: bold;
