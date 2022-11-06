@@ -12,7 +12,7 @@ const PrivateRoutes: FC = () => {
 
   return (
     <Routes>
-      <Route path='/' element={<Layout />}>
+      <Route path="/" element={<Layout />}>
         <Route path={routes.home} element={<screens.Home />} />
         <Route path={routes.about} element={<screens.About />} />
         <Route path={routes.notFound} element={<screens.NotFound />} />

@@ -9,5 +9,7 @@ import Quiz from './Quiz';
 import Projects from './Projects';
 import SmallQuiz from './SmallQuiz';
 import Admin from './Admin';
+import FutureHome from './FutureHome';
 
-export const screens = { Admin, SmallQuiz, Projects, Quiz, Home, About, AllRoutes, NotFound, ExchangeRate, Auth, Profile };
+export const screens = { FutureHome, Admin, SmallQuiz, Projects, Quiz, Home, About, AllRoutes, 
+    NotFound, ExchangeRate, Auth, Profile };

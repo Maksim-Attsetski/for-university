@@ -8,4 +8,5 @@ export type routeNames =
   | '/quiz/small'
   | '/exchangeRate'
   | '/admin'
+  | '/future-home'
   | '/*';

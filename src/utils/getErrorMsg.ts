@@ -49,7 +49,7 @@ const allError: IError[] = [
   },
 ];
 
-export const getErrorMsg = (error: any): string | null => {
+export const getErrorMsg = (error: unknown): string | null => {
   const err = allError.find(err => String(error).includes(err.type));
 
   return err?.msg || null;

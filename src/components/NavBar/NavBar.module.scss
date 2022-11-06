@@ -44,7 +44,7 @@
 }
 
 .navbar {
-    @apply flex flex-col gap-4 absolute z-[999] top-full bg-white px-5 py-3 rounded-3xl;    
+    @apply flex flex-col gap-4 absolute z-[999] top-full left-6 bg-white px-5 py-3 rounded-3xl;    
 }
 .navbar__title {
     text-transform: capitalize;

@@ -11,6 +11,7 @@ import { auth } from '../../firebase';
 import { routes } from '../../data';
 import { routeNames } from '../../types';
 import s from './Header.module.scss';
+import Logo from '../../assets/logo.png';
 
 interface ILink {
   to: routeNames;
@@ -29,18 +30,27 @@ const Header: FC = () => {
     () => {
       const allRoutes: ILink[] = [
         { to: routes.home, name: 'Главная', isActive: checkIsActive(routes.home) },
+        {
+          to: routes.futureHome,
+          name: 'Главная (буд)',
+          isActive: checkIsActive(routes.futureHome),
+        },
         { to: routes.about, name: 'О проекте', isActive: checkIsActive(routes.about) },
       ];
 
       const privateRoutes: ILink[] = [
-        { to: routes.exchangeRate, name: 'Курсы валют', isActive: checkIsActive(routes.exchangeRate) },
+        {
+          to: routes.exchangeRate,
+          name: 'Курсы валют',
+          isActive: checkIsActive(routes.exchangeRate),
+        },
         { to: routes.profile, name: 'Профиль', isActive: checkIsActive(routes.profile) },
       ];
 
       return isAuth ? [...allRoutes, ...privateRoutes] : [...allRoutes];
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [pathname]
+    [pathname],
   );
 
   const onLogOut = async () => {
@@ -63,18 +73,31 @@ const Header: FC = () => {
 
   return (
     <header className={s.header}>
+      <div className={s.blur} style={{ filter: 'blur(2px)' }} />
       <div className={'container ' + s.headerBody}>
-        <div className='links'>
-          {links.map(({ to, name, isActive }) => (
-            <Link key={to} to={to} className={`${isActive ? s.active : ''} ${s.link}`}>
-              {name}
-            </Link>
-          ))}
+        <div className={s.logo}>
+          <img src={Logo} alt="logo" />
+          <p className={s.logoText}>
+            Num<span>BER</span>
+          </p>
         </div>
-        <div className='burger'>
-          <NavBar links={links} title='Наш сайт' />
+        <div className={s.headerContent}>
+          <div className="links">
+            {links.map(({ to, name, isActive }) => (
+              <Link key={to} to={to} className={`${isActive ? s.active : ''} ${s.link}`}>
+                {name}
+                <span className={s.linkLine} />
+              </Link>
+            ))}
+          </div>
+          <div className="burger">
+            <NavBar
+              links={[...links, { name: isAuth ? 'Выйти' : 'Войти', to: routes.auth }]}
+              title="Наш сайт"
+            />
+          </div>
+          <Button onClick={onLogOut} text={isAuth ? 'Выйти' : 'Войти'} className="links" />
         </div>
-        <Button onClick={onLogOut} text={isAuth ? 'Выйти' : 'Войти'} />
       </div>
     </header>
   );
