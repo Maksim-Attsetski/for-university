@@ -7,6 +7,8 @@ type errorType =
   | 'auth/email-already-in-use'
   | 'auth/weak-password'
   | 'auth/invalid-email'
+  | 'invalid floor'
+  | 'invalid meters'
   | 'success login';
 
 interface IError {
@@ -42,6 +44,14 @@ const allError: IError[] = [
   {
     type: 'auth/weak-password',
     msg: 'Слабый пароль, требуется минимум 6 символов',
+  },
+  {
+    type: 'invalid floor',
+    msg: 'Неверное значение, этаж должен быть от 1 до 3',
+  },
+  {
+    type: 'invalid meters',
+    msg: 'Неверное значение, метры должны быть от 1 до 1000',
   },
   {
     type: 'auth/invalid-email',

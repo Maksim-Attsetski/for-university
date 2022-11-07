@@ -1,13 +1,4 @@
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { useState } from 'react';
 import { works } from '../data';
 import { fs } from '../firebase';
@@ -89,9 +80,9 @@ const useProjects = () => {
         action.addProject({ ...newProject, id: project.id });
         setError(null);
       }
-    } catch (e) {
-      console.log(e);
-      setError(getErrorMsg(e));
+    } catch (error) {
+      console.log(error);
+      setError(getErrorMsg(error));
     } finally {
       action.setIsLoading(false);
     }

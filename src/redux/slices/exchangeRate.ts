@@ -1,15 +1,19 @@
-import { defaultExchangeRate, IExchangeRate } from './../../types';
+import { Cur_AbbreviationType, defaultExchangeRate, IExchangeRate,  } from './../../types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 interface IState {
   exchangeRate: IExchangeRate[];
   currency: IExchangeRate | null;
+  defaultCurrency: Cur_AbbreviationType;
+  workCurrency: IExchangeRate;
 }
 
 const initialState: IState = {
   exchangeRate: [],
   currency: null,
+  defaultCurrency: 'USD',
+  workCurrency: defaultExchangeRate,
 };
 
 const exchangeRateSlice = createSlice({
@@ -17,9 +21,10 @@ const exchangeRateSlice = createSlice({
   initialState,
   reducers: {
     setExchangeRate: (state: IState, action: PayloadAction<IExchangeRate[]>) => {
-      const allCurrency = [...action.payload, defaultExchangeRate]
-      const currency = allCurrency.find((item) => item.Cur_Abbreviation === 'USD') || action.payload[0];
-      
+      const allCurrency = [...action.payload, state.workCurrency]
+      const currency = allCurrency.find((item) => item.Cur_Abbreviation === state.defaultCurrency)
+       || state.workCurrency;
+
       state.exchangeRate = allCurrency;
       state.currency = currency
     },

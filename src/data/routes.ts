@@ -8,6 +8,5 @@ export enum routes {
   quiz = '/quiz',
   quizSmall = '/quiz/small',
   admin = '/admin',
-  futureHome = '/future-home',
   notFound = '/*',
 }

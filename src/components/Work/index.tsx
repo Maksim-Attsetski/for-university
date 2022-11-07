@@ -1,9 +1,14 @@
 import { FC, useMemo, useState } from 'react';
+
 import { useActions } from '../../hooks/useActions';
-import { IExchangeRate, IWork } from '../../types';
-import { Popup, Button, Title, Input } from '../';
 import { useTypedSelector } from '../../hooks/redux';
+import { IWork } from '../../types';
 import { getCurrentPrice } from '../../utils/getCurrentPrice';
+
+import { Popup, Button, Title, Input } from '../';
+
+import s from './Work.module.scss';
+import { getErrorMsg } from '../../utils';
 
 interface IProps {
   work: IWork;
@@ -12,6 +17,7 @@ interface IProps {
   workClass?: string;
   workItems: { meter: string; floor: string };
   setWorkItems: (val: { meter: string; floor: string }) => void;
+  setError: (val: string | null) => void;
 }
 
 const Work: FC<IProps> = ({
@@ -21,9 +27,10 @@ const Work: FC<IProps> = ({
   workClass = '',
   workItems = { floor: '1', meter: '1' },
   setWorkItems = () => {},
+  setError = () => {},
 }) => {
   const [activeWork, setActiveWork] = useState<IWork>(work);
-  const { exchangeRate, currency } = useTypedSelector(state => state.exchangeRate);
+  const { exchangeRate, currency, workCurrency } = useTypedSelector(state => state.exchangeRate);
   const { action } = useActions();
 
   const onChangeActiveWork = (currentWork: IWork) => {
@@ -33,30 +40,24 @@ const Work: FC<IProps> = ({
   };
 
   const onConfirmWork = (order: number): boolean => {
-    selectWorkStatus(order);
-    return !(
-      +workItems.floor > 3 ||
-      +workItems.floor === 0 ||
-      +workItems.meter < 1 ||
-      +workItems.meter > 1000
-    );
+    const isValidFloor: boolean = !(+workItems.floor > 3 || +workItems.floor === 0);
+    const isValidMeters: boolean = !(+workItems.meter < 1 || +workItems.meter > 1000);
+    const isValid = isValidFloor && isValidMeters;
+
+    !isValidFloor && setError(getErrorMsg('invalid floor'));
+    !isValidMeters && setError(getErrorMsg('invalid meters'));
+
+    isValid && selectWorkStatus(order);
+    return isValid;
   };
 
-  const activeClassName = useMemo(() => 'bg-slate-600 text-white p-1 rounded-lg max-w-[75%]', []);
-  const className = useMemo(() => 'p-1 mb-2 transition-all rounded-lg max-w-[75%]', []);
-
-  const currentPrice: number = useMemo(() => {
-    if (!currency) return activeWork.price;
-    // REFACTOR
-    const workCurrency: IExchangeRate = exchangeRate.filter(
-      item => item.Cur_Abbreviation === activeWork.currency,
-    )[0];
-
-    return getCurrentPrice(workCurrency, activeWork.price, currency);
-  }, [currency, activeWork, exchangeRate]);
+  const currentPrice: number = useMemo(
+    () => (!currency ? activeWork.price : getCurrentPrice(workCurrency, activeWork.price, currency)),
+    [currency, activeWork, exchangeRate],
+  );
 
   return (
-    <div className={'flex justify-between m-4 bg-white px-8 py-3 rounded-xl ' + workClass}>
+    <div className={s.workCollapse + ' ' + workClass}>
       {work.worksToChoose ? (
         <div>
           <Title text={activeWork.order + '. ' + activeWork.name} />
@@ -70,7 +71,7 @@ const Work: FC<IProps> = ({
             {[work, ...work.worksToChoose].map(item => (
               <div
                 key={item.name}
-                className={item.name === activeWork.name ? activeClassName : className}
+                className={item.name === activeWork.name ? s.active : '' + ' ' + s.work}
                 onClick={() => onChangeActiveWork(item)}>
                 {item.name}
               </div>
@@ -91,7 +92,7 @@ const Work: FC<IProps> = ({
           buttonText="на этой"
           renderBody={setIsShow => (
             <>
-              <div className="flex flex-col gap-y-4">
+              <div className={s.popup}>
                 <Input
                   max={1500}
                   type="number"
@@ -114,7 +115,7 @@ const Work: FC<IProps> = ({
                     setIsShow(false);
                   }
                 }}
-                className={'h-max w-max self-center'}
+                className={s.popupButton}
                 text="Подтвердить"
               />
             </>

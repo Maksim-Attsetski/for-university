@@ -1,8 +1,11 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { FC, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTypedSelector } from '../../hooks/redux';
+import { useAuth } from '../../hooks/useAuth';
 import useOutsideMenu from '../../hooks/useOutsideMenu';
 import { routeNames } from '../../types';
+import Button from '../Button';
 import Title from '../Title';
 import s from './NavBar.module.scss';
 
@@ -18,6 +21,8 @@ interface IProps {
 
 const NavBar: FC<IProps> = ({ links, title }) => {
   const { isShow, setIsShow, ref } = useOutsideMenu();
+  const { isAuth } = useTypedSelector(state => state.auth);
+  const { onLogOutBtnClick } = useAuth();
   const navigate = useNavigate();
 
   const handleClickNavbarLink = async (link: string) => {
@@ -33,7 +38,7 @@ const NavBar: FC<IProps> = ({ links, title }) => {
       opacity: isShow ? 1 : 0,
       x: isShow ? 0 : closedX,
     }),
-    [closedX, isShow]
+    [closedX, isShow],
   );
 
   const blurAnimation = useMemo(
@@ -42,7 +47,7 @@ const NavBar: FC<IProps> = ({ links, title }) => {
       width: isShow ? '110vw' : '20px',
       borderRadius: isShow ? 0 : '50%',
     }),
-    [isShow]
+    [isShow],
   );
 
   return (
@@ -52,8 +57,7 @@ const NavBar: FC<IProps> = ({ links, title }) => {
         onClick={() => setIsShow(prev => !prev)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        data-open={isShow}
-      >
+        data-open={isShow}>
         <span className={s.firstLine} />
         <span className={s.secondLine} />
         <span className={s.thirdLine} />
@@ -63,8 +67,7 @@ const NavBar: FC<IProps> = ({ links, title }) => {
         initial={{ opacity: 0, x: closedX }}
         animate={sideBarAnimation}
         transition={{ type: 'spring', stiffness: 120, duration: 0.3 }}
-        className={s.navbar}
-      >
+        className={s.navbar}>
         {title && <Title text={title} className={s.navbar__title} />}
         <ul>
           {links.map(link => (
@@ -72,6 +75,14 @@ const NavBar: FC<IProps> = ({ links, title }) => {
               {link.name}
             </li>
           ))}
+          <br />
+          <Button
+            text={isAuth ? 'Выйти' : 'Войти'}
+            onClick={() => {
+              onLogOutBtnClick();
+              setIsShow(false);
+            }}
+          />
         </ul>
       </motion.div>
       <motion.div

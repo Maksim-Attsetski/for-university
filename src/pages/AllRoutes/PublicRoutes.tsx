@@ -13,7 +13,6 @@ const PublicRoutes: FC = () => {
         <Route path={routes.auth} element={<screens.Auth />} />
         <Route path={routes.notFound} element={<screens.NotFound />} />
         <Route path={routes.home} element={<screens.Home />} />
-        <Route path={routes.futureHome} element={<screens.FutureHome />} />
         <Route path={routes.about} element={<screens.About />} />
       </Route>
     </Routes>
