@@ -85,45 +85,45 @@ const Profile: FC = () => {
 
   return (
     <div>
-      <div className='container'>
+      <div className="container">
         <br />
-        <Title text='Профиль' />
-        <Button to={routes.projects} text={'Мои проекты'} className='my-3 mr-5' />
-        {currentUser?.role === 'admin' &&<Button to={routes.admin} text={'Админка'} className='my-3' />}
+        <Title text="Профиль" />
+        <Button to={routes.projects} text={'Мои проекты'} className="my-3 mr-5" />
+        {currentUser?.role === 'admin' && <Button to={routes.admin} text={'Админка'} className="my-3" />}
         <br />
         <div>Имя: {currentUser?.displayName || 'Нет имени'}</div>
         {currentUser?.email && <div>Email: {currentUser?.email}</div>}
         <br />
-        <div className='flex gap-4 mb-2'>
+        <div className="flex gap-4 mb-2">
           <Popup
-            buttonText='Редактировать'
+            buttonText="Редактировать"
             renderBody={setIsShow => (
               <>
-                <Title text='Изменяйте что угодно' />
+                <Title text="Изменяйте что угодно" className="text-center" />
                 <br />
-                <div className='flex gap-2 mb-3'>
-                  <div>
-                    <div className='mb-2'>Обновить имя</div>
+                <div className="flex gap-2 mb-3 flex-wrap w-full">
+                  <div className="w-full">
+                    <div className="mb-2">Обновить имя</div>
                     <Input
+                      className="w-full"
                       text={editItems.name}
                       placeholder={'Имя'}
                       setText={name => setEditItems({ ...editItems, name })}
                     />
                   </div>
-                  <br />
-                  <div>
-                    <div className='mb-2'>Обновить пароль</div>
+                  <div className="w-full">
+                    <div className="mb-2">Обновить пароль</div>
                     <Input
+                      className="w-full"
                       text={editItems.pass}
                       placeholder={'Пароль'}
                       setText={pass => setEditItems({ ...editItems, pass })}
                     />
                   </div>
                 </div>
-
                 <Button
-                  text='Сохранить'
-                  className='mr-3'
+                  text="Сохранить"
+                  className="mr-3"
                   onClick={async () => {
                     await onSaveEdition();
                     setIsShow(false);
@@ -131,7 +131,7 @@ const Profile: FC = () => {
                 />
                 <Button
                   isSecondary
-                  text='Отмена'
+                  text="Отмена"
                   onClick={() => {
                     setEditItems({ name: '', pass: '' });
                     setIsShow(false);
@@ -142,20 +142,20 @@ const Profile: FC = () => {
           />
 
           <Popup
-            buttonText='Удалить аккаунт'
+            buttonText="Удалить аккаунт"
             renderBody={setIsShow => (
               <>
-                <Title text='Вы уверены что хотите удалить свой аккаунт?' />
+                <Title text="Вы уверены что хотите удалить свой аккаунт?" />
                 <br />
                 <Button
-                  text='Да'
-                  className='mr-3'
+                  text="Да"
+                  className="mr-3"
                   onClick={async () => {
                     await onDeleteAccount();
                     setIsShow(false);
                   }}
                 />
-                <Button isSecondary text='Нет' className='mr-3' onClick={() => setIsShow(false)} />
+                <Button isSecondary text="Нет" className="mr-3" onClick={() => setIsShow(false)} />
               </>
             )}
           />
