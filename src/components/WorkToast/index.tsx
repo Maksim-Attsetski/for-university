@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const WorkToast: FC<IProps> = ({ isVisible, setIsVisible, data }) => {
-  const { workCurrency } = useTypedSelector(state => state.exchangeRate);
+  const { currency } = useTypedSelector(state => state.exchangeRate);
   useEffect(() => {
     if (!isVisible) return;
 
@@ -41,7 +41,7 @@ const WorkToast: FC<IProps> = ({ isVisible, setIsVisible, data }) => {
           transition={{ type: 'spring', stiffness: 120 }}
           className={s.toast}>
           <div>
-            Денег: {data.totalPrice} {workCurrency.Cur_Abbreviation}
+            Денег: {data.totalPrice} {currency?.Cur_Abbreviation}
           </div>
           <div>Времени: {totalTime}</div>
         </motion.div>

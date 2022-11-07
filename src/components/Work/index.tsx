@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/redux';
@@ -55,6 +55,12 @@ const Work: FC<IProps> = ({
     () => (!currency ? activeWork.price : getCurrentPrice(workCurrency, activeWork.price, currency)),
     [currency, activeWork, exchangeRate],
   );
+
+  useEffect(() => {
+    const price = currency ? getCurrentPrice(workCurrency, activeWork.price, currency) : null;
+    console.log(price);
+    console.log(workCurrency, activeWork.price, currency);
+  }, [currency, activeWork, exchangeRate]);
 
   return (
     <div className={s.workCollapse + ' ' + workClass}>

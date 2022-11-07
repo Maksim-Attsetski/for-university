@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux';
 
 import { setAppLoading, setIsLoading } from '../redux/slices/app';
 import { setAuth, setUser, updateUserData } from '../redux/slices/auth';
-import { setExchangeRate, getExchangeRate } from '../redux/slices/exchangeRate';
-import { updateWorkAC } from '../redux/slices/work';
+import { setExchangeRate, getExchangeRate, setNewWorkCurrency } from '../redux/slices/exchangeRate';
+import { updateWorkAC, updateWorkCurrency } from '../redux/slices/work';
 import { setProjects, deleteProject, addProject, updateProject } from '../redux/slices/projects';
 
 import { useTypedDispatch } from './redux';
@@ -20,14 +20,16 @@ export const useActions = () => {
       setAppLoading,
       setIsLoading,
       setExchangeRate,
+      setNewWorkCurrency,
       setProjects,
       deleteProject,
       updateProject,
       addProject,
       updateUserData,
+      updateWorkCurrency,
       getExchangeRate,
     }),
-    []
+    [],
   );
 
   const action = useMemo(() => bindActionCreators({ ...allActions }, dispatch), [allActions, dispatch]);

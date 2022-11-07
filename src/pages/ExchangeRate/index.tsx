@@ -2,9 +2,11 @@ import { FC, useEffect } from 'react';
 
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/redux';
+import { Button } from '../../components';
+import { IExchangeRate } from '../../types';
 
 const ExchangeRate: FC = () => {
-  const { exchangeRate } = useTypedSelector(state => state.exchangeRate);
+  const { exchangeRate, workCurrency, currency } = useTypedSelector(state => state.exchangeRate);
   const { action, getExchangeRate } = useActions();
 
   const getData = async () => {
@@ -12,12 +14,8 @@ const ExchangeRate: FC = () => {
 
     try {
       action.setIsLoading(true);
+
       const res = await getExchangeRate();
-
-      // currency / cur_scale * cur_value )
-      // рос рубли в бел рубли
-      // 4.0121 / 100 * 1634
-
       action.setExchangeRate(res);
     } catch (error) {
       console.log(error);
@@ -34,12 +32,28 @@ const ExchangeRate: FC = () => {
   return (
     <div className="container">
       <br />
+      <p>Now: {workCurrency.Cur_Abbreviation}</p>
+      <br />
       {exchangeRate &&
         exchangeRate.map(rate => (
-          <div key={rate?.Cur_ID}>
-            {rate?.Cur_Name}: {rate?.Cur_OfficialRate} бел. рублей.
-            <hr />
+          <div key={rate?.Cur_ID} className="mt-2">
+            <div className="flex justify-between items-center gap-5 flex-wrap">
+              <p>
+                {rate?.Cur_Name}: {rate?.Cur_OfficialRate} бел. рублей.
+              </p>
+              <Button
+                isSecondary={currency?.Cur_Abbreviation === rate.Cur_Abbreviation}
+                text={
+                  currency?.Cur_Abbreviation === rate.Cur_Abbreviation ? 'Эта валюта выбрана' : 'Выбрать эту валюту'
+                }
+                onClick={() => {
+                  // action.updateWorkCurrency(rate);
+                  action.setNewWorkCurrency(rate);
+                }}
+              />
+            </div>
             <br />
+            <hr />
           </div>
         ))}
     </div>

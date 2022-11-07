@@ -28,6 +28,9 @@ const exchangeRateSlice = createSlice({
       state.exchangeRate = allCurrency;
       state.currency = currency
     },
+    setNewWorkCurrency: (state: IState, action: PayloadAction<IExchangeRate>) => {
+      state.currency = action.payload;
+    }
   },
 });
 
@@ -43,4 +46,4 @@ export const getExchangeRate = async (): Promise<IExchangeRate[]> => {
 };
 
 export default exchangeRateSlice.reducer;
-export const { setExchangeRate } = exchangeRateSlice.actions;
+export const { setExchangeRate, setNewWorkCurrency } = exchangeRateSlice.actions;
