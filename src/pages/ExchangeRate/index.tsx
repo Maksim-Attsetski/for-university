@@ -3,7 +3,6 @@ import { FC, useEffect } from 'react';
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/redux';
 import { Button } from '../../components';
-import { IExchangeRate } from '../../types';
 
 const ExchangeRate: FC = () => {
   const { exchangeRate, workCurrency, currency } = useTypedSelector(state => state.exchangeRate);
