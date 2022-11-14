@@ -9,6 +9,21 @@ import Projects from './Projects';
 import SmallQuiz from './SmallQuiz';
 import Admin from './Admin';
 import Home from './Home';
+import BigQuiz from './BigQuiz';
+import BigQuizStep from './BigQuizStep';
 
-export const screens = { Admin, SmallQuiz, Projects, Quiz, Home, About, AllRoutes, 
-    NotFound, ExchangeRate, Auth, Profile };
+export const screens = {
+    BigQuizStep,
+    BigQuiz,
+    Admin,
+    SmallQuiz,
+    Projects,
+    Quiz,
+    Home,
+    About,
+    AllRoutes ,
+    NotFound,
+    ExchangeRate,
+    Auth,
+    Profile,
+};

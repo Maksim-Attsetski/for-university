@@ -6,6 +6,8 @@ export type routeNames =
   | '/projects'
   | '/quiz'
   | '/quiz/small'
+  | '/quiz/big'
+  | '/quiz/big/:id'
   | '/exchangeRate'
   | '/admin'
   | '/*';
