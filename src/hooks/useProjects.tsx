@@ -89,6 +89,15 @@ const useProjects = () => {
   };
 
   const onUpdateProject = async (project: IProject) => {
+    if (+project.workId > works.length) {
+      setError('Максимумальное значение работ: ' + works.length);
+      return;
+    }
+    if (!project.workId) {
+      setError('Не указан номер работы');
+      return;
+    }
+
     try {
       action.setIsLoading(true);
 

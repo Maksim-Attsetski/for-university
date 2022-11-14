@@ -30,7 +30,7 @@
     .secondLine,
     .thirdLine {
         transition: all linear 0.25s;
-        @apply absolute bottom-0 left-0 w-full h-[13%] bg-slate-700 rounded-2xl;
+        @apply absolute bottom-0 left-0 w-full h-[13%] bg-title-color rounded-2xl;
     }
     .firstLine {
         @apply top-0;

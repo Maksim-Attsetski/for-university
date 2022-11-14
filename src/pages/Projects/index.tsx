@@ -13,8 +13,7 @@ import { works } from '../../data';
 const Projects: FC = () => {
   const { currentUser } = useTypedSelector(state => state.auth);
   const { projects } = useTypedSelector(state => state.projects);
-  const { onAddProject, onDeleteProject, onGetProjects, onUpdateProject, error, setError } =
-    useProjects();
+  const { onAddProject, onDeleteProject, onGetProjects, onUpdateProject, error, setError } = useProjects();
   const [projectInfo, setProjectInfo] = useState<{ name: string; workId: string }>({
     name: '',
     workId: '',
@@ -26,18 +25,14 @@ const Projects: FC = () => {
   };
 
   const onChangeProjectWork = (project: IProject): void => {
-    if (projectInfo.workId && +projectInfo.workId < works.length) {
-      const isDone = works.length === +projectInfo.workId;
+    const newProject: IProject = {
+      ...project,
+      isDone: works.length === +projectInfo.workId,
+      workId: +projectInfo.workId,
+      name: projectInfo.name,
+    };
 
-      const newProject = {
-        ...project,
-        id: project.id,
-        isDone,
-        workId: +projectInfo.workId,
-      } as IProject;
-
-      onUpdateProject(newProject);
-    }
+    onUpdateProject(newProject);
   };
 
   useEffect(() => {
@@ -73,9 +68,7 @@ const Projects: FC = () => {
               <Button
                 text={isEdit ? 'Сохранить' : 'Создать'}
                 onClick={() => {
-                  isEdit
-                    ? onChangeProjectWork(project)
-                    : onAddProject(projectInfo.name, +projectInfo.workId);
+                  isEdit ? onChangeProjectWork(project) : onAddProject(projectInfo.name, +projectInfo.workId);
                   setIsShow(false);
                 }}
               />
@@ -100,10 +93,7 @@ const Projects: FC = () => {
               <div className={s.project} key={project.id}>
                 <div className="flex gap-5 items-center justify-between">
                   <div className="italic">{moment(project.createdAt).fromNow()}</div>
-                  <div
-                    className={`${project.isDone ? 'bg-green-500' : 'bg-red-500'} ${
-                      s.projectState
-                    }`}>
+                  <div className={`${project.isDone ? 'bg-green-500' : 'bg-red-500'} ${s.projectState}`}>
                     Готов: {project.isDone ? 'Да' : 'Нет'}
                   </div>
                 </div>
@@ -114,9 +104,7 @@ const Projects: FC = () => {
 
                 <div className={s.buttonsContainer}>
                   <Button isDanger text="Удалить" onClick={() => onDeleteProject(project.id)} />
-                  {!project.isDone && (
-                    <Button text="Завершить" onClick={() => onProjectEnd(project)} />
-                  )}
+                  {!project.isDone && <Button text="Завершить" onClick={() => onProjectEnd(project)} />}
                 </div>
               </div>
             ))

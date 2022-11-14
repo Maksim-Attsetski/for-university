@@ -15,6 +15,7 @@ const Home: FC = () => {
       <div className={s.container + ' container'}>
         <div className={s.homeBody}>
           <div className={s.content}>
+            <div className={s.blur} />
             <div className={s.title}>
               <p>Оцифруем ваши</p>
               <p>желания.</p>
