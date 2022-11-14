@@ -1,7 +1,8 @@
 
 interface IVariant {
-    id: number;
+    id: string;
     text: string;
+    questionId: number;
 }
 
 interface IQuestion {
@@ -10,19 +11,9 @@ interface IQuestion {
     variants: IVariant[]
 }
 
-interface IAnswer {
-    id: number;
-    title: string;
-}
 
 
-
-interface IQuiz {
-    quiestions: IQuestion[];
-    answers: IAnswer[];
-
-}
 
 export type {
-    IQuiz, IQuestion, IVariant, IAnswer
+    IQuestion, IVariant
 }

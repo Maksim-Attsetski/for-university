@@ -4,7 +4,7 @@ import { IProject } from './project';
 import { routeNames } from './routes';
 import { IMaterial, materialName, materialType } from './material';
 import { IWork, workName, workType, workUnitOfMeasure } from './work';
-import { IQuiz, IAnswer, IQuestion, IVariant } from './quiz';
+import { IQuestion, IVariant } from './quiz';
 
 export {
   defaultExchangeRate,
@@ -23,8 +23,6 @@ export type {
   routeNames,
   workType,
   workUnitOfMeasure,
-  IQuiz, 
-  IAnswer, 
   IQuestion, 
   IVariant
 };

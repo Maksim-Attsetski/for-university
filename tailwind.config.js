@@ -25,6 +25,9 @@ module.exports = {
       zIndex: {
         1: 1,
       },
+      borderWidth: {
+        1: '1px',
+      },
     },
   },
   plugins: [],

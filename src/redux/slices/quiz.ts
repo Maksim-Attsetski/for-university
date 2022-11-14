@@ -1,45 +1,35 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IAnswer, IQuiz } from '../../types';
+import { bigQuiz } from '../../data';
+import { IVariant, IQuestion } from '../../types';
 
 interface IState {
-    quiz: IQuiz
+    questions: IQuestion[],
+    answers: IVariant[]
 }
 
 const initialState: IState = {
-    quiz: {
-        quiestions: [
-            {
-                id: 1,
-                title: 'First question',
-                variants: [
-                    {
-                        id: 1,
-                        text: 'first',
-                    },
-                    {
-                        id: 2,
-                        text: 'second',
-                    },
-                    {
-                        id: 3,
-                        text: 'third',
-                    },
-                ]
-            }
-        ],
-        answers: []
-    }
+    questions: bigQuiz,
+    answers: []
 }
 
 const quizSlice = createSlice({
     name: 'quizSlice',
     initialState,
     reducers: {
-        setNewAnswer: (state: IState = initialState, action: PayloadAction<IAnswer>) => {
-            state.quiz.answers.push(action.payload);
+        setNewAnswer: (state: IState, action: PayloadAction<IVariant>) => {
+            const currentAnswer = state.answers.find(item => item.questionId === action.payload.questionId);
+      
+            if (currentAnswer) {
+                state.answers.map((item) => item.questionId === currentAnswer.questionId ? currentAnswer : item)
+            } else {
+                state.answers.push(action.payload);
+            }
+        },
+        clearAnswers: (state: IState) => {
+            state.answers = [];
         }
     }
 })
 
 export default quizSlice.reducer;
-export const { setNewAnswer } = quizSlice.actions;
+export const { setNewAnswer, clearAnswers } = quizSlice.actions;

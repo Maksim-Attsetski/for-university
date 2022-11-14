@@ -10,5 +10,22 @@ import Title from './Title';
 import WorkCollapse from './WorkCollapse';
 import ToTop from './ToTop';
 import Toast from './Toast';
+import QuizVariant from './QuizVariant';
+import Blur from './Blur';
 
-export { Toast, ToTop, WorkCollapse, Title, Button, NavBar, Popup, Layout, Work, WorkToast, Input, Loader };
+export { 
+    Blur,
+    QuizVariant,
+    Toast,
+    ToTop,
+    WorkCollapse,
+    Title,
+    Button,
+    NavBar,
+    Popup,
+    Layout,
+    Work,
+    WorkToast,
+    Input,
+    Loader,
+};

@@ -19,4 +19,7 @@ $color: rgba(237, 129, 6, 0.56);
     &:active {
         @apply scale-90;
     }
+    &:disabled {
+        @apply opacity-60 cursor-not-allowed;
+    }
 }

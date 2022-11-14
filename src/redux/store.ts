@@ -4,6 +4,7 @@ import authReducer from './slices/auth';
 import appReducer from './slices/app';
 import exchangeRateReducer from './slices/exchangeRate';
 import projectsReducer from './slices/projects';
+import quizReducer from './slices/quiz';
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   projects: projectsReducer,
   works: workReducer,
   exchangeRate: exchangeRateReducer,
+  quiz: quizReducer,
 });
 
 export const store = configureStore({
