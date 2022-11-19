@@ -12,7 +12,7 @@
     @apply rounded-lg mt-3;
 }
 .option {
-    @apply border-b-1 pb-1 border-b-transparent cursor-pointer;
+    @apply border-b-1 mt-1 pb-1 border-b-transparent cursor-pointer;
     transition: border linear 0.3s;
     &:hover {
         @apply border-b-white;

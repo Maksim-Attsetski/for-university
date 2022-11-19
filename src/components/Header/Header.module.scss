@@ -31,3 +31,10 @@
         @apply flex items-center gap-x-10;
     }
 }
+
+.select {
+    @apply right-[5%] top-[25%] absolute;
+}
+.selectDisabled {
+    pointer-events: none;
+}

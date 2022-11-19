@@ -71,7 +71,7 @@ const Work: FC<IProps> = ({
             {[work, ...work.worksToChoose].map(item => (
               <div
                 key={item.name}
-                className={item.name === activeWork.name ? s.active : '' + ' ' + s.work}
+                className={[s.work, item.name === activeWork.name ? s.active : ''].join(' ')}
                 onClick={() => onChangeActiveWork(item)}>
                 {item.name}
               </div>

@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react';
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { useTypedSelector } from '../../hooks/redux';
 import { useAuth } from '../../hooks/useAuth';
@@ -11,6 +11,7 @@ import Button from '../Button';
 import NavBar from '../NavBar';
 import Logo from '../../assets/logo.png';
 import s from './Header.module.scss';
+import Select, { IOption } from '../Select';
 
 interface ILink {
   to: routeNames;
@@ -22,6 +23,7 @@ const Header: FC = () => {
   const { pathname } = useLocation();
   const { isAuth } = useTypedSelector(state => state.auth);
   const { onLogOutBtnClick } = useAuth();
+  const navigate = useNavigate();
   const checkIsActive = (link: routeNames) => pathname === link;
 
   const links: ILink[] = useMemo(
@@ -34,13 +36,21 @@ const Header: FC = () => {
           name: 'Курсы валют',
           isActive: checkIsActive(routes.exchangeRate),
         },
-        { to: routes.profile, name: 'Профиль', isActive: checkIsActive(routes.profile) },
       ];
 
       return isAuth ? [...allRoutes, ...privateRoutes] : [...allRoutes];
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [pathname],
+  );
+
+  const options: IOption[] = useMemo(
+    () => [
+      { title: 'Аккаунт', onClick: () => navigate(routes.profile), icon: null },
+      { title: 'Настройки', onClick: () => navigate(routes.profile), icon: null },
+      { title: 'Выйти', onClick: onLogOutBtnClick, isButton: true, icon: null },
+    ],
+    [],
   );
 
   return (
@@ -65,7 +75,14 @@ const Header: FC = () => {
           <div className="burger">
             <NavBar links={links} title="Наш сайт" />
           </div>
-          <Button onClick={onLogOutBtnClick} text={isAuth ? 'Выйти' : 'Войти'} className="links" />
+          {isAuth ? (
+            <div className="links">
+              <Select title="Профиль" options={options} containerClassName={s.select} />
+              <Select title="" options={[]} containerClassName={s.selectDisabled} />
+            </div>
+          ) : (
+            <Button onClick={() => navigate(routes.auth)} text={'Войти'} className="links" />
+          )}
         </div>
       </div>
     </header>

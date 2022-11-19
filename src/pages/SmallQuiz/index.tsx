@@ -1,6 +1,8 @@
 import { FC, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { Toast, Work, WorkCollapse, WorkToast } from '../../components';
+import { Button, Toast, Work, WorkCollapse, WorkToast } from '../../components';
+import { routes } from '../../data';
 import { useTypedSelector } from '../../hooks/redux';
 
 import { IWork, workType } from '../../types';
@@ -19,6 +21,7 @@ const SmallQuiz: FC = () => {
   });
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const { excavationWorks, foundationWorks, openingWorks, overlapWorks, roofWorks, wallsWorks } = useMemo(() => {
     const filterByType = (type: workType) => works.filter(work => work.type === type);
@@ -77,6 +80,9 @@ const SmallQuiz: FC = () => {
         setIsVisible={setIsVisible}
       />
       <Toast data={error} setData={setError} isError />
+      <Button text="Назад" onClick={() => navigate(routes.quiz)} />
+      <br />
+      <br />
       <div className="text-2xl font-bold">Выберите на какой работе вы остановились</div>
       <br />
       <WorkCollapse title="Землянные работы" data={excavationWorks} renderWork={renderWork} />
