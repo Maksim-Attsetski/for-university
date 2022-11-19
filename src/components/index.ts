@@ -12,8 +12,10 @@ import ToTop from './ToTop';
 import Toast from './Toast';
 import QuizVariant from './QuizVariant';
 import Blur from './Blur';
+import Select from './Select';
 
 export { 
+    Select,
     Blur,
     QuizVariant,
     Toast,

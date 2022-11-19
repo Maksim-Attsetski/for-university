@@ -1,5 +1,5 @@
 .navbar__btn {
-    @apply w-8 h-6  p-0 relative;
+    @apply w-8 h-6 p-0 relative;
     &:hover {
         .firstLine,
         .secondLine,
@@ -14,7 +14,7 @@
             @apply top-0;
         }
         .secondLine {
-            @apply left-1/2 w-0;
+            @apply right-1/2 w-0;
         }
         .thirdLine {
             transform: translateY(-10px) rotateZ(135deg);
@@ -30,7 +30,7 @@
     .secondLine,
     .thirdLine {
         transition: all linear 0.25s;
-        @apply absolute bottom-0 left-0 w-full h-[13%] bg-title-color rounded-2xl;
+        @apply absolute bottom-0 right-0 w-full h-[13%] bg-title-color rounded-2xl;
     }
     .firstLine {
         @apply top-0;
