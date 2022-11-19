@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Title } from '../../components';
 
-import s from './Contacts.module.scss';
+// import s from './Contacts.module.scss';
 
 const Contacts: FC = () => {
   return (

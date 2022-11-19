@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Button, Title } from '../../components';
 import { routes } from '../../data';
 
-import s from './Settings.module.scss';
+// import s from './Settings.module.scss';
 
 const Settings: FC = () => {
   return (

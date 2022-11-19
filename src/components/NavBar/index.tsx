@@ -91,7 +91,13 @@ const NavBar: FC<IProps> = ({ links }) => {
             </li>
           ))}
           {isAuth ? (
-            <Select containerClassName={s.profile} titleClassName={s.profileTitle} options={options} title="Профиль" />
+            <Select
+              containerClassName={s.profile}
+              titleClassName={s.profileTitle}
+              optionClassName={s.profileOption}
+              options={options}
+              title="Профиль"
+            />
           ) : (
             <Button text="Войти" onClick={() => handleClickNavbarLink('/auth')} />
           )}

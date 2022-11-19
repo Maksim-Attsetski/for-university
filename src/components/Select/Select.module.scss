@@ -1,7 +1,7 @@
 
 
 .selectWrapper {
-    @apply py-2 rounded-lg w-max relative;
+    @apply overflow-hidden py-2 rounded-lg w-max relative;
 }
 
 .selectTitle {
@@ -12,7 +12,7 @@
     @apply rounded-lg mt-3;
 }
 .option {
-    @apply border-b-1 mt-1 pb-1 border-b-transparent cursor-pointer;
+    @apply border-b-1 mt-1 pb-1 border-b-transparent cursor-pointer text-center;
     transition: border linear 0.3s;
     &:hover {
         @apply border-b-white;
