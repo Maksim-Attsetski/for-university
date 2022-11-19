@@ -17,6 +17,8 @@ const PrivateRoutes: FC = () => {
         <Route path={routes.about} element={<screens.About />} />
         <Route path={routes.notFound} element={<screens.NotFound />} />
         <Route path={routes.profile} element={<screens.Profile />} />
+        <Route path={routes.settings} element={<screens.Settings />} />
+        <Route path={routes.contacts} element={<screens.Contacts />} />
         <Route path={routes.exchangeRate} element={<screens.ExchangeRate />} />
         <Route path={routes.quiz} element={<screens.Quiz />} />
         <Route path={routes.projects} element={<screens.Projects />} />

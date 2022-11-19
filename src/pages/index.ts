@@ -11,8 +11,12 @@ import Admin from './Admin';
 import Home from './Home';
 import BigQuiz from './BigQuiz';
 import BigQuizStep from './BigQuizStep';
+import Settings from './Settings';
+import Contacts from './Contacts';
 
 export const screens = {
+    Contacts,
+    Settings,
     BigQuizStep,
     BigQuiz,
     Admin,

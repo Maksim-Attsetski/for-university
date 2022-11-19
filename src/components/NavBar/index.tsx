@@ -54,7 +54,7 @@ const NavBar: FC<IProps> = ({ links, title }) => {
   const options: IOption[] = useMemo(
     () => [
       { title: 'Аккаунт', onClick: () => handleClickNavbarLink('/profile'), icon: null },
-      { title: 'Настройки', onClick: () => handleClickNavbarLink('/profile'), icon: null },
+      { title: 'Настройки', onClick: () => handleClickNavbarLink('/settings'), icon: null },
       { title: 'Выйти', onClick: onLogOutBtnClick, isButton: true, icon: null },
     ],
     [],

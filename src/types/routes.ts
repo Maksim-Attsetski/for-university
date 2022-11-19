@@ -10,4 +10,6 @@ export type routeNames =
   | '/quiz/big/:id'
   | '/exchangeRate'
   | '/admin'
+  | '/settings'
+  | '/contacts'
   | '/*';
