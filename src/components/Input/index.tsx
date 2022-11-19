@@ -8,6 +8,7 @@ interface IProps {
   setText: (value: string) => void;
   required?: boolean;
   className?: string;
+  containerClassName?: string;
   placeholder?: string;
   customLabel?: string;
   onFocus?: () => void;
@@ -22,6 +23,7 @@ const Input: FC<IProps> = ({
   text,
   required = false,
   className = '',
+  containerClassName = '',
   placeholder = '',
   customLabel = '',
   onFocus = () => {},
@@ -44,7 +46,7 @@ const Input: FC<IProps> = ({
   };
 
   return (
-    <div>
+    <div className={containerClassName}>
       <label className={`${s.label} ${focus || text.length > 0 ? s.active : ''}`}>
         <span className={s.span}>{label}</span>
         <input

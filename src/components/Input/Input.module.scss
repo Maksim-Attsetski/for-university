@@ -3,6 +3,7 @@ $borderActive: #696969;
 
 .label {
     @apply relative;
+    width: inherit;
     &.active {
         .input {
             border: 1px solid $borderActive;
@@ -20,6 +21,7 @@ $borderActive: #696969;
     
     .input {
         border: 1px solid $border;
+        width: inherit;
         @apply px-4 py-2 rounded-2xl;
         &::placeholder {
             color: transparent;

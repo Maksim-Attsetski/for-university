@@ -1,6 +1,15 @@
 
+.wrapper {
+    @apply relative flex justify-center items-center flex-col px-3 py-5 rounded-3xl;
+    background-color: rgba(26, 25, 25, 0.2);
+}
+
 .authForm {
-    @apply flex flex-col items-start gap-4;
+    @apply flex flex-col items-center gap-4;
+    width: clamp(300px, 70vw, 600px);
+    .input {
+        width: 100%;
+    }
 }
 
 .buttonsContainer {
