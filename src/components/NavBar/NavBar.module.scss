@@ -63,3 +63,10 @@
 .child {
     @apply absolute z-[990] top-0 left-0 bg-transparent pointer-events-none;
 }
+
+.profile {
+    @apply p-0;
+    .profileTitle {
+        @apply text-left mt-1 font-normal;
+    }
+}

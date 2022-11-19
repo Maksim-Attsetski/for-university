@@ -7,6 +7,7 @@ import Title from '../Title';
 import Blur from '../Blur';
 
 import s from './Select.module.scss';
+import Button from '../Button';
 
 interface IProps {
   title: string;
@@ -20,6 +21,8 @@ interface IProps {
 export interface IOption {
   title: string;
   onClick: () => void;
+  icon: string | null;
+  isButton?: boolean;
 }
 
 const Select: FC<IProps> = ({
@@ -32,6 +35,11 @@ const Select: FC<IProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const onOptionClick = (callBack: () => void) => {
+    setIsOpen(false);
+    callBack();
+  };
+
   return (
     <motion.div className={[s.selectWrapper, containerClassName].join(' ')}>
       <Blur />
@@ -43,9 +51,18 @@ const Select: FC<IProps> = ({
       <AnimatePresence>
         {isOpen && (
           <motion.div {...selectAnim} className={[s.select, selectClassName].join(' ')}>
-            {options.map(option => (
-              <motion.div {...optionAnim} className={[s.option, optionClassName].join(' ')} onClick={option.onClick}>
-                {option.title}
+            {options.map((option, i) => (
+              <motion.div key={`${option.title}${i}`} {...optionAnim} className={[s.option, optionClassName].join(' ')}>
+                {!!option.icon && (
+                  <div className={s.icon}>
+                    <img src={option.icon} alt={option.title} />
+                  </div>
+                )}
+                {option.isButton ? (
+                  <Button text={option.title} onClick={() => onOptionClick(option.onClick)} />
+                ) : (
+                  <div onClick={() => onOptionClick(option.onClick)}>{option.title}</div>
+                )}
               </motion.div>
             ))}
           </motion.div>

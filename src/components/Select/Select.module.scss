@@ -2,7 +2,6 @@
 
 .selectWrapper {
     @apply py-2 px-5 rounded-lg w-max relative;
-    background: rgba(56, 54, 54, 0.25);
 }
 
 .selectTitle {
@@ -13,12 +12,18 @@
     @apply rounded-lg mt-3;
 }
 .option {
-    @apply border-b-1 py-1 border-b-transparent cursor-pointer;
+    @apply border-b-1 pb-1 border-b-transparent cursor-pointer;
     transition: border linear 0.3s;
     &:hover {
         @apply border-b-white;
     }
     &:last-child:hover {
         @apply border-b-transparent;
+    }
+}
+
+.icon {
+    img {
+        @apply w-5 h-5;
     }
 }

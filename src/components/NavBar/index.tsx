@@ -6,6 +6,7 @@ import { useAuth } from '../../hooks/useAuth';
 import useOutsideMenu from '../../hooks/useOutsideMenu';
 import { routeNames } from '../../types';
 import Button from '../Button';
+import Select, { IOption } from '../Select';
 import Title from '../Title';
 import s from './NavBar.module.scss';
 
@@ -25,7 +26,7 @@ const NavBar: FC<IProps> = ({ links, title }) => {
   const { onLogOutBtnClick } = useAuth();
   const navigate = useNavigate();
 
-  const handleClickNavbarLink = async (link: string) => {
+  const handleClickNavbarLink = async (link: routeNames) => {
     setIsShow(false);
     navigate(link);
   };
@@ -48,6 +49,15 @@ const NavBar: FC<IProps> = ({ links, title }) => {
       borderRadius: isShow ? 0 : '50%',
     }),
     [isShow],
+  );
+
+  const options: IOption[] = useMemo(
+    () => [
+      { title: 'Аккаунт', onClick: () => handleClickNavbarLink('/profile'), icon: null },
+      { title: 'Настройки', onClick: () => handleClickNavbarLink('/profile'), icon: null },
+      { title: 'Выйти', onClick: onLogOutBtnClick, isButton: true, icon: null },
+    ],
+    [],
   );
 
   return (
@@ -75,14 +85,11 @@ const NavBar: FC<IProps> = ({ links, title }) => {
               {link.name}
             </li>
           ))}
-          <br />
-          <Button
-            text={isAuth ? 'Выйти' : 'Войти'}
-            onClick={() => {
-              onLogOutBtnClick();
-              setIsShow(false);
-            }}
-          />
+          {isAuth ? (
+            <Select containerClassName={s.profile} titleClassName={s.profileTitle} options={options} title="Профиль" />
+          ) : (
+            <Button text="Войти" onClick={() => handleClickNavbarLink('/auth')} />
+          )}
         </ul>
       </motion.div>
       <motion.div
