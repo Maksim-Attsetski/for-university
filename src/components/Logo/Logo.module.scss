@@ -1,0 +1,9 @@
+.logo {
+    @apply w-14 h-14 flex items-center gap-4;
+    .logoText {
+        @apply font-bold text-xl;
+        span {
+            @apply text-title-color;
+        }
+    }
+}

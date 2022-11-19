@@ -18,17 +18,8 @@
 }
 .headerBody {
     @apply flex justify-between items-center;
-    .logo {
-        @apply w-14 h-14 flex items-center gap-4;
-        .logoText {
-            @apply font-bold text-xl;
-            span {
-                @apply text-title-color;
-            }
-        }
-    }
     .headerContent {
-        @apply flex items-center gap-x-10;
+        @apply flex items-center;
     }
 }
 

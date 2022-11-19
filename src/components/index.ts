@@ -13,8 +13,10 @@ import Toast from './Toast';
 import QuizVariant from './QuizVariant';
 import Blur from './Blur';
 import Select from './Select';
+import Logo from './Logo';
 
 export { 
+    Logo,
     Select,
     Blur,
     QuizVariant,

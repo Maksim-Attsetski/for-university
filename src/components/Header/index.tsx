@@ -7,10 +7,10 @@ import { useAuth } from '../../hooks/useAuth';
 import { routeNames } from '../../types';
 import { routes } from '../../data';
 
+import s from './Header.module.scss';
 import Button from '../Button';
 import NavBar from '../NavBar';
-import Logo from '../../assets/logo.png';
-import s from './Header.module.scss';
+import Logo from '../Logo';
 import Select, { IOption } from '../Select';
 
 interface ILink {
@@ -54,12 +54,7 @@ const Header: FC = () => {
     <header className={s.header}>
       <div className={s.blur} />
       <div className={'container ' + s.headerBody}>
-        <Link to={routes.home} className={s.logo}>
-          <img src={Logo} alt="logo" />
-          <p className={s.logoText}>
-            Num<span>BER</span>
-          </p>
-        </Link>
+        <Logo />
         <div className={s.headerContent}>
           <div className="links">
             {links.map(({ to, name, isActive }) => (
@@ -70,7 +65,7 @@ const Header: FC = () => {
             ))}
           </div>
           <div className="burger">
-            <NavBar links={links} title="Наш сайт" />
+            <NavBar links={links} />
           </div>
           {isAuth ? (
             <div className="links">

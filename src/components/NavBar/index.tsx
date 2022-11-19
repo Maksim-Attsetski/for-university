@@ -1,14 +1,18 @@
-import { motion, useReducedMotion } from 'framer-motion';
 import { FC, useMemo } from 'react';
+
+import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+
 import { useTypedSelector } from '../../hooks/redux';
 import { useAuth } from '../../hooks/useAuth';
 import useOutsideMenu from '../../hooks/useOutsideMenu';
+
 import { routeNames } from '../../types';
-import Button from '../Button';
-import Select, { IOption } from '../Select';
-import Title from '../Title';
+
 import s from './NavBar.module.scss';
+import Button from '../Button';
+import Logo from '../Logo';
+import Select, { IOption } from '../Select';
 
 interface ILink {
   to: routeNames;
@@ -16,11 +20,10 @@ interface ILink {
 }
 
 interface IProps {
-  title: string | null;
   links: ILink[];
 }
 
-const NavBar: FC<IProps> = ({ links, title }) => {
+const NavBar: FC<IProps> = ({ links }) => {
   const { isShow, setIsShow, ref } = useOutsideMenu();
   const { isAuth } = useTypedSelector(state => state.auth);
   const { onLogOutBtnClick } = useAuth();
@@ -78,7 +81,9 @@ const NavBar: FC<IProps> = ({ links, title }) => {
         animate={sideBarAnimation}
         transition={{ type: 'spring', stiffness: 120, duration: 0.3 }}
         className={s.navbar}>
-        {title && <Title text={title} className={s.navbar__title} />}
+        <div onClick={() => handleClickNavbarLink('/')}>
+          <Logo />
+        </div>
         <ul>
           {links.map(link => (
             <li key={link.to} className={s.navbarLinks__link} onClick={() => handleClickNavbarLink(link.to)}>
