@@ -100,9 +100,9 @@ export const useAuth: IProps = (setForm, setError) => {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = await GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken;
-      const user = result.user;
+      await GoogleAuthProvider.credentialFromResult(result);
+      // const token = credential?.accessToken;
+      // const user = result.user;
 
       navigate(routes.home);
       setForm && setForm({ email: '', pass: '' });
