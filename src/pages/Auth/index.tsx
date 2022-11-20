@@ -58,7 +58,7 @@ const Auth: FC = () => {
         </motion.div>
         <div className={s.wrapper}>
           <Blur />
-          <motion.form {...animation} className={s.authForm}>
+          <motion.form {...animation} className={s.authForm} onSubmit={e => e.preventDefault()}>
             <Title text={isLogin ? 'Вход' : 'Регистрация'} className="mb-2" />
             <Input
               type="email"
