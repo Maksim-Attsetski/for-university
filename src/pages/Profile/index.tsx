@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { updatePassword, updateProfile } from 'firebase/auth';
@@ -14,6 +14,7 @@ import { getErrorMsg } from '../../utils';
 import { routes } from '../../data';
 import { IUser } from '../../types';
 
+import s from './Profile.module.scss';
 interface IEditItems {
   name: string;
   pass: string;
@@ -25,6 +26,7 @@ const Profile: FC = () => {
 
   const [editItems, setEditItems] = useState<IEditItems>({ name: '', pass: '' });
   const [error, setError] = useState<null | string>(null);
+  const provider = useMemo(() => currentUser?.providerData[0].providerId, [currentUser]);
 
   const { action } = useActions();
   const navigate = useNavigate();
@@ -111,32 +113,36 @@ const Profile: FC = () => {
                       setText={name => setEditItems({ ...editItems, name })}
                     />
                   </div>
-                  <div className="w-full">
-                    <div className="mb-2">Обновить пароль</div>
-                    <Input
-                      className="w-full"
-                      text={editItems.pass}
-                      placeholder={'Пароль'}
-                      setText={pass => setEditItems({ ...editItems, pass })}
-                    />
-                  </div>
+                  {provider === 'password' && (
+                    <div className="w-full">
+                      <div className="mb-2">Обновить пароль</div>
+                      <Input
+                        className="w-full"
+                        text={editItems.pass}
+                        placeholder={'Пароль'}
+                        setText={pass => setEditItems({ ...editItems, pass })}
+                      />
+                    </div>
+                  )}
                 </div>
-                <Button
-                  text="Сохранить"
-                  className="mr-3"
-                  onClick={async () => {
-                    await onSaveEdition();
-                    setIsShow(false);
-                  }}
-                />
-                <Button
-                  isSecondary
-                  text="Отмена"
-                  onClick={() => {
-                    setEditItems({ name: '', pass: '' });
-                    setIsShow(false);
-                  }}
-                />
+                <div className={s.profileBtns}>
+                  <Button
+                    text="Сохранить"
+                    className="mr-3"
+                    onClick={async () => {
+                      await onSaveEdition();
+                      setIsShow(false);
+                    }}
+                  />
+                  <Button
+                    isSecondary
+                    text="Отмена"
+                    onClick={() => {
+                      setEditItems({ name: '', pass: '' });
+                      setIsShow(false);
+                    }}
+                  />
+                </div>
               </>
             )}
           />

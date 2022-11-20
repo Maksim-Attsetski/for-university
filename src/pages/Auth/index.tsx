@@ -4,6 +4,8 @@ import s from './Auth.module.scss';
 import { Blur, Button, Input, Title, Toast } from '../../components';
 
 import { useAuth } from '../../hooks/useAuth';
+import { images } from '../../assets';
+
 interface IForm {
   email: string;
   pass: string;
@@ -13,7 +15,7 @@ const Auth: FC = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [form, setForm] = useState<IForm>({ email: '', pass: '' });
   const [error, setError] = useState<string | null>(null);
-  const { onAuth } = useAuth(setForm, setError);
+  const { onAuth, onGoogleAuth } = useAuth(setForm, setError);
 
   return (
     <div className="container">
@@ -43,6 +45,7 @@ const Auth: FC = () => {
         <hr className="my-4" />
         <div className={s.buttonsContainer}>
           <Button onClick={() => onAuth(form, isLogin)} text={isLogin ? 'Войти' : 'Зарегаться'} />
+          <Button onClick={onGoogleAuth} image={images.google} text={'Продолжить с Google'} isSecondary />
           <button onClick={() => setIsLogin(prev => !prev)} className="underline">
             {isLogin ? 'Нет аккаунта? Создай' : 'Уже есть аккаунт? Войди'}
           </button>

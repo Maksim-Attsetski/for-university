@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import s from './Home.module.scss';
-import bgImage from '../../assets/main-bg.png';
+import { images } from '../../assets';
 import { Button } from '../../components';
 import { routes } from '../../data';
 import { useTypedSelector } from '../../hooks/redux';
@@ -28,7 +28,7 @@ const Home: FC = () => {
             <Button className={s.quizBtn} text="Рассчитать" to={isAuth ? routes.quiz : routes.auth} />
           </div>
           <div className={s.image}>
-            <img src={bgImage} alt="main-bg" />
+            <img src={images.mainBgBlock} alt="main-bg" />
           </div>
         </div>
       </div>

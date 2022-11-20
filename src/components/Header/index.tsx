@@ -69,7 +69,7 @@ const Header: FC = () => {
           </div>
           {isAuth ? (
             <div className="links">
-              <Select title="Профиль" options={options} containerClassName={s.select} />
+              <Select title="Профиль" options={options} containerClassName={s.select} optionClassName={'text-center'} />
               <Select title="" options={[]} containerClassName={s.selectDisabled} />
             </div>
           ) : (
