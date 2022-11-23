@@ -14,6 +14,7 @@ const PublicRoutes: FC = () => {
         <Route path={routes.notFound} element={<screens.NotFound />} />
         <Route path={routes.home} element={<screens.Home />} />
         <Route path={routes.about} element={<screens.About />} />
+        <Route path={routes.contacts} element={<screens.Contacts />} />
       </Route>
     </Routes>
   );

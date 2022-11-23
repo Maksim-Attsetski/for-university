@@ -1,38 +1,34 @@
-import { FC } from 'react';
+import { FC, ReactElement, ReactNode, useEffect } from 'react';
 import useOutsideMenu from '../../hooks/useOutsideMenu';
+
 import Button from '../Button';
+
 import s from './Popup.module.scss';
 
 interface IProps {
-  renderBody: (setIsShow: (val: boolean) => void) => JSX.Element;
-  buttonText: string;
+  children: ReactNode | ReactElement;
+  isShow: boolean;
+  setIsShow: (val: boolean) => void;
   buttonClassName?: string;
-  onOpen?: () => void;
-  onClose?: () => void;
 }
 
-const Popup: FC<IProps> = ({ renderBody, buttonText, onOpen = () => {}, onClose = () => {}, buttonClassName = '' }) => {
-  const { isShow, setIsShow, ref } = useOutsideMenu();
+const Popup: FC<IProps> = ({ children, isShow, setIsShow, buttonClassName = '' }) => {
+  const { ref, isShow: showPopup, setIsShow: setShowPopup } = useOutsideMenu(isShow);
 
-  const handleOpenPopup = () => {
-    ref.current.scrollIntoView({ block: 'center' });
+  useEffect(() => {
+    setIsShow(showPopup);
+  }, [showPopup]);
 
-    onOpen();
-    setIsShow(true);
-  };
-
-  const handleClosePopup = () => {
-    onClose();
-    setIsShow(false);
-  };
+  useEffect(() => {
+    setShowPopup(isShow);
+  }, [isShow]);
 
   return (
     <div>
-      <Button disabled={isShow} text={buttonText} onClick={handleOpenPopup} />
       <div className={`${s.popup} ${isShow ? s.active : ''}`} ref={ref}>
         <div className={s.popup__body}>
-          <Button className={`${s.popup__close} ${buttonClassName}`} onClick={handleClosePopup} text='X' />
-          {renderBody(setIsShow)}
+          <Button className={`${s.popup__close} ${buttonClassName}`} onClick={() => setIsShow(false)} text="X" />
+          {children}
         </div>
       </div>
       <div className={s.popup__shadow} />

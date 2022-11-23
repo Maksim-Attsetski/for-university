@@ -35,11 +35,13 @@ const Header: FC = () => {
 
   const links: ILink[] = useMemo(
     () => {
-      const allRoutes: ILink[] = [{ to: routes.about, name: 'О проекте', isActive: checkIsActive(routes.about) }];
+      const allRoutes: ILink[] = [
+        { to: routes.about, name: 'О нас', isActive: checkIsActive(routes.about) },
+        { to: routes.contacts, name: 'Наши контакты', isActive: checkIsActive(routes.contacts) },
+      ];
 
       const privateRoutes: ILink[] = [
         { to: routes.projects, name: 'Мои проекты', isActive: checkIsActive(routes.projects) },
-        { to: routes.contacts, name: 'Наши контакты', isActive: checkIsActive(routes.contacts) },
       ];
 
       return isAuth ? [...allRoutes, ...privateRoutes] : [...allRoutes];
