@@ -1,16 +1,16 @@
-import React, { FC, useState } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { optionAnim, selectAnim } from '../../animations';
 import Title from '../Title';
 import Blur from '../Blur';
-
-import s from './Select.module.scss';
 import Button from '../Button';
 
+import { optionAnim, selectAnim } from '../../animations';
+import s from './Select.module.scss';
+
 interface IProps {
-  title: string;
+  title: string | ReactElement;
   options: IOption[];
   containerClassName?: string;
   titleClassName?: string;
@@ -43,11 +43,17 @@ const Select: FC<IProps> = ({
   return (
     <motion.div className={[s.selectWrapper, containerClassName].join(' ')}>
       <Blur />
-      <Title
-        text={title}
-        onClick={() => setIsOpen(prev => !prev)}
-        className={[s.selectTitle, titleClassName].join(' ')}
-      />
+      {typeof title === 'string' ? (
+        <Title
+          text={title}
+          onClick={() => setIsOpen(prev => !prev)}
+          className={[s.selectTitle, titleClassName].join(' ')}
+        />
+      ) : (
+        <div onClick={() => setIsOpen(prev => !prev)} className={[s.selectTitle, titleClassName].join(' ')}>
+          {title}
+        </div>
+      )}
       <AnimatePresence>
         {isOpen && (
           <motion.div {...selectAnim} className={[s.select, selectClassName].join(' ')}>

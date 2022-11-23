@@ -15,6 +15,7 @@ import { routes } from '../../data';
 import { IUser } from '../../types';
 
 import s from './Profile.module.scss';
+import { images } from '../../assets';
 interface IEditItems {
   name: string;
   pass: string;
@@ -90,11 +91,14 @@ const Profile: FC = () => {
       <div className="container">
         <br />
         <Title text="Профиль" />
-        <Button to={routes.projects} text={'Мои проекты'} className="my-3 mr-5" />
         {currentUser?.role === 'admin' && <Button to={routes.admin} text={'Админка'} className="my-3" />}
         <br />
-        <div>Имя: {currentUser?.displayName || 'Нет имени'}</div>
-        {currentUser?.email && <div>Email: {currentUser?.email}</div>}
+        <div className={s.info}>
+          <img src={currentUser?.photoURL || images.profile} alt="profile" className={s.infoImg} />
+          <br />
+          <div>Имя: {currentUser?.displayName || 'Нет имени'}</div>
+          {currentUser?.email && <div>Email: {currentUser?.email}</div>}
+        </div>
         <br />
         <div className="flex gap-4 mb-2">
           <Popup

@@ -7,11 +7,13 @@ import { useAuth } from '../../hooks/useAuth';
 import { routeNames } from '../../types';
 import { routes } from '../../data';
 
-import s from './Header.module.scss';
 import Button from '../Button';
 import NavBar from '../NavBar';
 import Logo from '../Logo';
 import Select, { IOption } from '../Select';
+
+import s from './Header.module.scss';
+import { images } from '../../assets';
 
 interface ILink {
   to: routeNames;
@@ -21,17 +23,22 @@ interface ILink {
 
 const Header: FC = () => {
   const { pathname } = useLocation();
-  const { isAuth } = useTypedSelector(state => state.auth);
+  const { isAuth, currentUser } = useTypedSelector(state => state.auth);
   const { onLogOutBtnClick } = useAuth();
   const navigate = useNavigate();
   const checkIsActive = (link: routeNames) => pathname === link;
+
+  const avatar = useMemo(
+    () => (!!currentUser?.photoURL ? currentUser.photoURL : images.profile),
+    [currentUser?.photoURL],
+  );
 
   const links: ILink[] = useMemo(
     () => {
       const allRoutes: ILink[] = [{ to: routes.about, name: 'О проекте', isActive: checkIsActive(routes.about) }];
 
       const privateRoutes: ILink[] = [
-        { to: routes.exchangeRate, name: 'Курсы валют', isActive: checkIsActive(routes.exchangeRate) },
+        { to: routes.projects, name: 'Мои проекты', isActive: checkIsActive(routes.projects) },
         { to: routes.contacts, name: 'Наши контакты', isActive: checkIsActive(routes.contacts) },
       ];
 
@@ -69,7 +76,13 @@ const Header: FC = () => {
           </div>
           {isAuth ? (
             <div className="links">
-              <Select title="Профиль" options={options} containerClassName={s.select} optionClassName={'text-center'} />
+              <Select
+                title={<img src={avatar} alt="profile" />}
+                options={options}
+                containerClassName={s.select}
+                titleClassName={s.selectTitle}
+                optionClassName={'text-center'}
+              />
               <Select title="" options={[]} containerClassName={s.selectDisabled} />
             </div>
           ) : (

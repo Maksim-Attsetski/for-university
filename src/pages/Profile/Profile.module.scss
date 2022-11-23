@@ -2,3 +2,9 @@
 .profileBtns {
     @apply flex;
 }
+
+.info {
+    .infoImg {
+        @apply w-32 h-32 rounded-md;
+    }
+}
