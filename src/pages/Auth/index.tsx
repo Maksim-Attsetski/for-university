@@ -77,7 +77,6 @@ const Auth: FC = () => {
               required
             />
             <Button onClick={() => onAuth(form, isLogin)} text={isLogin ? 'Войти' : 'Зарегистрироваться'} />
-            <br />
             <Button onClick={onGoogleAuth} image={images.google} text={'Продолжить с Google'} isSecondary />
 
             <div className={s.formQuestion}>
