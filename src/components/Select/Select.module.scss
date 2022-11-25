@@ -5,14 +5,14 @@
 }
 
 .selectTitle {
-    @apply min-w-[150px] cursor-pointer text-center;
+    @apply min-w-[120px] cursor-pointer text-center;
 }
 
 .select {
     @apply rounded-lg mt-3;
 }
 .option {
-    @apply border-b-1 mt-1 pb-1 border-b-transparent cursor-pointer text-center;
+    @apply border-b-1 mt-1 pb-1 px-3 border-b-transparent cursor-pointer text-center;
     transition: border linear 0.3s;
     &:hover {
         @apply border-b-white;

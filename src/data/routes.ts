@@ -11,5 +11,6 @@ export enum routes {
   admin = '/admin',
   settings = '/settings',
   contacts = '/contacts',
+  catalog = '/catalog',
   notFound = '/*',
 }

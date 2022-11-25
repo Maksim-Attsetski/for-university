@@ -36,12 +36,13 @@ const Header: FC = () => {
   const links: ILink[] = useMemo(
     () => {
       const allRoutes: ILink[] = [
-        { to: routes.about, name: 'О нас', isActive: checkIsActive(routes.about) },
+        { to: routes.about, name: 'О проекте', isActive: checkIsActive(routes.about) },
+        { to: routes.catalog, name: 'Каталог', isActive: checkIsActive(routes.catalog) },
         { to: routes.contacts, name: 'Наши контакты', isActive: checkIsActive(routes.contacts) },
       ];
 
       const privateRoutes: ILink[] = [
-        { to: routes.projects, name: 'Мои проекты', isActive: checkIsActive(routes.projects) },
+        // { to: routes.projects, name: 'Мои проекты', isActive: checkIsActive(routes.projects) },
       ];
 
       return isAuth ? [...allRoutes, ...privateRoutes] : [...allRoutes];
@@ -53,7 +54,7 @@ const Header: FC = () => {
   const options: IOption[] = useMemo(
     () => [
       { title: 'Аккаунт', onClick: () => navigate(routes.profile), icon: null },
-      { title: 'Настройки', onClick: () => navigate(routes.settings), icon: null },
+      { title: 'Мои проекты', onClick: () => navigate(routes.projects), icon: null },
       { title: 'Выйти', onClick: onLogOutBtnClick, isButton: true, icon: null },
     ],
     [],

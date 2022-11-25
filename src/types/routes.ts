@@ -12,4 +12,5 @@ export type routeNames =
   | '/admin'
   | '/settings'
   | '/contacts'
+  | '/catalog'
   | '/*';
