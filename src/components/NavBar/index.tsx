@@ -58,6 +58,7 @@ const NavBar: FC<IProps> = ({ links }) => {
     () => [
       { title: 'Аккаунт', onClick: () => handleClickNavbarLink('/profile'), icon: null },
       { title: 'Мои проекты', onClick: () => handleClickNavbarLink('/projects'), icon: null },
+      { title: 'Курсы валют', onClick: () => handleClickNavbarLink('/exchangeRate'), icon: null },
       { title: 'Выйти', onClick: onLogOutBtnClick, isButton: true, icon: null },
     ],
     [],

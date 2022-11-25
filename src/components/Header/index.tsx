@@ -55,6 +55,7 @@ const Header: FC = () => {
     () => [
       { title: 'Аккаунт', onClick: () => navigate(routes.profile), icon: null },
       { title: 'Мои проекты', onClick: () => navigate(routes.projects), icon: null },
+      { title: 'Курсы валют', onClick: () => navigate(routes.exchangeRate), icon: null },
       { title: 'Выйти', onClick: onLogOutBtnClick, isButton: true, icon: null },
     ],
     [],
