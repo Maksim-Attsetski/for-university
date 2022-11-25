@@ -25,8 +25,8 @@ const Auth: FC = () => {
   const animation: AnimationProps =
     width > 768
       ? {
-          animate: { x: isLogin ? '75%' : '15%' },
-          initial: { x: isLogin ? '75%' : '15%' },
+          animate: { x: isLogin ? '80%' : '15%' },
+          initial: { x: isLogin ? '80%' : '15%' },
           transition: { duration: 0.6, type: 'spring' },
         }
       : {};
@@ -48,18 +48,18 @@ const Auth: FC = () => {
       <div className="container">
         <br />
         <Toast data={error} isError setData={setError} />
-        <motion.div {...leftButton} className={[s.buttonsContainer, s.left].join(' ')}>
-          <p>Нет аккаунта?</p>
-          <Button text="Создай" onClick={() => setIsLogin(prev => !prev)} />
-        </motion.div>
-        <motion.div {...rightButton} className={[s.buttonsContainer, s.right].join(' ')}>
-          <p>Уже есть аккаунт?</p>
-          <Button onClick={() => setIsLogin(prev => !prev)} text="Войди" />
-        </motion.div>
         <div className={s.wrapper}>
+          <motion.div {...leftButton} className={[s.buttonsContainer, s.left].join(' ')}>
+            <p>Нет аккаунта?</p>
+            <Button text="Создай" onClick={() => setIsLogin(prev => !prev)} />
+          </motion.div>
+          <motion.div {...rightButton} className={[s.buttonsContainer, s.right].join(' ')}>
+            <p>Уже есть аккаунт?</p>
+            <Button onClick={() => setIsLogin(prev => !prev)} text="Войди" />
+          </motion.div>
           <Blur />
           <motion.form {...animation} className={s.authForm} onSubmit={e => e.preventDefault()}>
-            <Title text={isLogin ? 'Вход' : 'Регистрация'} className="mb-2" />
+            <Title text={isLogin ? 'Вход' : 'Регистрация'} className="mt-2 mb-10" />
             <Input
               type="email"
               setText={email => setForm({ ...form, email })}
@@ -77,6 +77,7 @@ const Auth: FC = () => {
               required
             />
             <Button onClick={() => onAuth(form, isLogin)} text={isLogin ? 'Войти' : 'Зарегистрироваться'} />
+            <br />
             <Button onClick={onGoogleAuth} image={images.google} text={'Продолжить с Google'} isSecondary />
 
             <div className={s.formQuestion}>
