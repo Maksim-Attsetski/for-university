@@ -16,6 +16,7 @@ import {
 } from '../redux/slices/quiz';
 
 import { useTypedDispatch } from './redux';
+import { setSystemPrice } from '../redux/slices/systems';
 
 export const useActions = () => {
   const dispatch = useTypedDispatch();
@@ -42,6 +43,7 @@ export const useActions = () => {
       finishQuiz,
       onNextQuestion,
       onPrevQuestion,
+      setSystemPrice,
     }),
     [],
   );
