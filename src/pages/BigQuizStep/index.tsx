@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { FC, useEffect, useMemo, useState } from 'react';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { useTypedSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/useActions';
 
-import { questionIds, routes } from '../../data';
+import { routes } from '../../data';
 import { IAnswer, IQuestion, IVariants } from '../../types';
 
 import { Blur, Button, QuizVariant, Title } from '../../components';

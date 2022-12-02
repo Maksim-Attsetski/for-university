@@ -6,7 +6,7 @@ import { routes } from '../../data';
 import { useTypedSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/useActions';
 
-import s from './QuizFinish.module.scss';
+// import s from './QuizFinish.module.scss';
 
 const QuizFinish: FC = () => {
   const { answers } = useTypedSelector(state => state.quiz);
