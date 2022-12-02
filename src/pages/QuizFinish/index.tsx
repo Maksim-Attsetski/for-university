@@ -29,7 +29,7 @@ const QuizFinish: FC = () => {
             answer && (
               <div key={answer.questionId}>
                 <div>{answer.title}</div>
-                <div>{answer.answer.title}</div>
+                <div>{answer?.answer?.title}</div>
               </div>
             ),
         )}

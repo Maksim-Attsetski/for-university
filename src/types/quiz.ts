@@ -12,9 +12,9 @@ interface IVariants {
 
 interface IAnswer {
     questionId: questionIds | string | number,
-    title: string,
-    order: number,
-    answer: IVariants
+    title: string | null,
+    order: number | null,
+    answer: IVariants | null,
 }
 
 interface IQuestion {

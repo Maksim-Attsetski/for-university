@@ -30,7 +30,7 @@ export const quiz: IQuiz = {
         order: 1,
         variants: [
             {
-                systemId: systemsIds.drenazhLiteKMS,
+                systemId: systemsIds.liteSolo,
                 title: 'Сборный фундамент без подвальных или технических этажей',
             },
             {
@@ -64,7 +64,7 @@ export const quiz: IQuiz = {
         condition: [
             {
                 questionId: questionIds.first,
-                answer: systemsIds.drenazhLiteKMS,
+                answer: systemsIds.liteSolo,
             },
             {
                 questionId: questionIds.first,

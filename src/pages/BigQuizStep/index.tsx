@@ -16,7 +16,7 @@ const BigQuizStep: FC = () => {
   const { action } = useActions();
   const navigate = useNavigate();
 
-  const { answers, index, quizKeys, quiz } = useTypedSelector(state => state.quiz);
+  const { answers, index, quizKeys, quiz, lastIndex } = useTypedSelector(state => state.quiz);
   const [activeVariant, setActiveVariant] = useState<IVariants | null>(null);
 
   // @ts-ignore
@@ -28,6 +28,7 @@ const BigQuizStep: FC = () => {
     }
 
     const { order, title } = activeQuestion;
+    console.log(activeQuestion);
 
     action.setNewAnswer({ answer: activeVariant, questionId: order, order, title });
     if (index === quizKeys.length) {
@@ -60,20 +61,22 @@ const BigQuizStep: FC = () => {
   }, []);
 
   useEffect(() => {
+    console.log(answers);
+
     if (!activeQuestion || !activeQuestion.condition) {
       return;
     }
 
     const invalidCondition = activeQuestion.condition.some(({ answer, questionId }) => {
       const currentAnswer: IAnswer | undefined | null = answers.find(el => el?.questionId === +questionId);
-      return !!currentAnswer && currentAnswer.answer.systemId === answer;
+      return !!currentAnswer && currentAnswer.answer?.systemId === answer;
     });
 
     if (invalidCondition) {
-      action.setNewAnswer(null);
-      changeQuestion();
+      action.setNewAnswer({ order: null, title: null, questionId: index, answer: null });
+      changeQuestion(lastIndex > index);
     }
-  }, [answers]);
+  }, [answers, index]);
 
   return (
     <div>
