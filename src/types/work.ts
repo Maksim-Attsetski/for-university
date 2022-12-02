@@ -52,7 +52,7 @@ export type workName =
 
 export type workType = 'excavation' | 'foundation' | 'walls' | 'overlap' | 'opening' | 'roof';
 
-export type workUnitOfMeasure = 'm2' | 'm3' | 'thing' | 'pm';
+export type workUnitOfMeasure = 'm2' | 'm3' | 'thing' | 'pm' | 'kg';
 
 export interface IWork {
   id: number;

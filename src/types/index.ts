@@ -1,9 +1,10 @@
 import { IExchangeRate, Cur_AbbreviationType, defaultExchangeRate } from './exchangeRate';
 import { IUser } from './user';
 import { IProject } from './project';
-import { IMaterial, materialName, materialType } from './material';
+import { IMaterial, materialName } from './material';
 import { IWork, workName, workType, workUnitOfMeasure } from './work';
 import { IQuestion, ICondition, IQuiz, IVariants, IAnswer } from './quiz';
+import { ISystem } from './systems';
 
 export {
   defaultExchangeRate,
@@ -16,7 +17,6 @@ export type {
   IProject,
   IMaterial,
   materialName,
-  materialType,
   IWork,
   workName,
   workType,
@@ -26,4 +26,5 @@ export type {
   IQuiz,
   IVariants,
   IAnswer,
+  ISystem,
 };

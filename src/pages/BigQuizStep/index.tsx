@@ -61,8 +61,6 @@ const BigQuizStep: FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log(answers);
-
     if (!activeQuestion || !activeQuestion.condition) {
       return;
     }
@@ -73,7 +71,7 @@ const BigQuizStep: FC = () => {
     });
 
     if (invalidCondition) {
-      action.setNewAnswer({ order: null, title: null, questionId: index, answer: null });
+      action.setNewAnswer({ order: null, title: null, questionId: activeQuestion.order, answer: null });
       changeQuestion(lastIndex > index);
     }
   }, [answers, index]);
