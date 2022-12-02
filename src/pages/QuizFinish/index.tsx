@@ -58,15 +58,14 @@ const QuizFinish: FC = () => {
           <div className="px-2 py-1 bg-title-color text-white w-max rounded-md">{total.price}</div>
         </div>
         <br />
-        {answers.map(
-          answer =>
-            answer && (
-              <div key={answer.questionId}>
-                <div>{answer.title}</div>
-                <div>{answer?.answer?.title}</div>
-              </div>
-            ),
-        )}
+        {answers
+          .filter(it => it.answer)
+          .map(answer => (
+            <div key={answer.questionId} className="mb-2 py-2 border-b-1 border-b-title-color border-solid">
+              <div>{answer.title}</div>
+              <div>{answer?.answer?.title}</div>
+            </div>
+          ))}
       </div>
     </div>
   );
