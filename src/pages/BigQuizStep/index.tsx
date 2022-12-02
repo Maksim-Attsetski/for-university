@@ -7,7 +7,7 @@ import { useTypedSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/useActions';
 
 import { questionIds, routes } from '../../data';
-import { IQuestion, IVariants } from '../../types';
+import { IAnswer, IQuestion, IVariants } from '../../types';
 
 import { Blur, Button, QuizVariant, Title } from '../../components';
 import s from './BigQuizStep.module.scss';
@@ -16,44 +16,38 @@ const BigQuizStep: FC = () => {
   const { action } = useActions();
   const navigate = useNavigate();
 
-  const { answers, quiz, quizKeys, activeQuestion } = useTypedSelector(state => state.quiz);
+  const { answers, index, quizKeys, quiz } = useTypedSelector(state => state.quiz);
   const [activeVariant, setActiveVariant] = useState<IVariants | null>(null);
-  console.log(quizKeys);
+
+  // @ts-ignore
+  const activeQuestion: IQuestion | undefined = useMemo(() => quiz[index], [index]);
 
   const onClickNextQuestion = () => {
     if (!activeVariant || !activeQuestion) {
       return;
     }
-    const { order, title, id } = activeQuestion;
-    console.log(order, quizKeys.length);
 
-    if (order === quizKeys.length) {
+    const { order, title } = activeQuestion;
+
+    action.setNewAnswer({ answer: activeVariant, questionId: order, order, title });
+    if (index === quizKeys.length) {
       action.finishQuiz();
-      navigate(routes.quizBig);
+      navigate(routes.quizFinish);
       return;
     }
 
-    if (order < quizKeys.length) {
-      action.setNewAnswer({ answer: activeVariant, questionId: id, order, title });
-      action.onNextQuestion(activeQuestion);
-      setActiveVariant(null);
+    if (index < quizKeys.length) {
+      changeQuestion();
     }
   };
 
   const onClickPrevQuestion = () => {
-    if (activeQuestion && activeQuestion.order >= 1) {
-      // navigate(routes.quizBig + '/' + (+id - 1));
-      action.onPrevQuestion(activeQuestion);
-      setActiveVariant(null);
-    }
+    changeQuestion(true);
   };
 
-  const onClickDoneQuestion = () => {
-    if (activeQuestion && activeVariant) {
-      const { order, title, id } = activeQuestion;
-
-      action.setNewAnswer({ answer: activeVariant, questionId: id, order, title });
-    }
+  const changeQuestion = (prev: boolean = false) => {
+    setActiveVariant(null);
+    prev ? action.onPrevQuestion() : action.onNextQuestion();
   };
 
   const onSelectVariant = (_id: string) => {
@@ -61,19 +55,25 @@ const BigQuizStep: FC = () => {
     answer && setActiveVariant(answer);
   };
 
-  // useEffect(() => {
-  //   if (id) {
-  //     const currentAnswer = answers.find(item => item.questionId === +id);
-  //     currentAnswer && setActiveVariant(currentAnswer);
-  //   }
-  // }, [id]);
+  useEffect(() => {
+    action.startQuiz();
+  }, []);
 
-  // useEffect(() => {
-  //   if (answers.length === questions.length) {
-  //     alert('Наши поздравления, вы выбрали: ' + answers.map(item => item.text).join(', '));
-  //     navigate(routes.quizBig);
-  //   }
-  // }, [answers, id]);
+  useEffect(() => {
+    if (!activeQuestion || !activeQuestion.condition) {
+      return;
+    }
+
+    const invalidCondition = activeQuestion.condition.some(({ answer, questionId }) => {
+      const currentAnswer: IAnswer | undefined | null = answers.find(el => el?.questionId === +questionId);
+      return !!currentAnswer && currentAnswer.answer.systemId === answer;
+    });
+
+    if (invalidCondition) {
+      action.setNewAnswer(null);
+      changeQuestion();
+    }
+  }, [answers]);
 
   return (
     <div>
@@ -84,19 +84,26 @@ const BigQuizStep: FC = () => {
           <div>
             <Title text={activeQuestion.title} />
             <div>
-              {activeQuestion.variants.map(item => (
-                <QuizVariant onSelectVariant={onSelectVariant} variant={item} activeVariant={activeVariant} />
+              {activeQuestion.variants.map((item, i) => (
+                <QuizVariant
+                  key={item.systemId + i}
+                  onSelectVariant={onSelectVariant}
+                  variant={item}
+                  activeVariant={activeVariant}
+                />
               ))}
             </div>
           </div>
         )}
         <br />
         <>
-          <Button onClick={onClickPrevQuestion} text="prev" disabled={false} className={s.prev} />
-          {/* {+id < questions.length && ( */}
-          <Button onClick={onClickNextQuestion} text="next" disabled={!activeVariant} className={s.next} />
-          {/* )} */}
-          {/* {+id === questions.length && <Button onClick={onClickDoneQuestion} text="done" disabled={!activeVariant} />} */}
+          <Button onClick={onClickPrevQuestion} text="Назад" disabled={index < 2} className={s.prev} />
+          <Button
+            onClick={onClickNextQuestion}
+            text={index === quizKeys.length ? 'Завершить' : 'Далее'}
+            disabled={!activeVariant}
+            className={s.next}
+          />
         </>
       </div>
     </div>

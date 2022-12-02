@@ -1,16 +1,16 @@
 import { IQuiz } from "../types"
 
 export const enum questionIds {
-    first = 'r30904jo29nhr0fnh',
-    second = 'mrlgo2309r2oinhu',
-    third = 'nofw394u0u923j',
-    // fourth = 'pogknrtpojweom',
-    // fifth = '293ur2jofiehwidcnk',
-    // sixth = 'ncoiwe498324iohr2iud',
-    // seventh = '34nt9efjoin',
-    // eighth = 'ascpl209gu0w9r',
-    // ninth = 'v9eu283hiurbh6j50',
-    // tenth = '23948urjdfh65bgiut',
+    first = '1',
+    second = '2',
+    third = '3',
+    // fourth = '4',
+    // fifth = '5',
+    // sixth = '6',
+    // seventh = '7',
+    // eighth = '8',
+    // ninth = '9',
+    // tenth = '10',
 }
 
 export const enum systemsIds {
@@ -31,19 +31,19 @@ export const quiz: IQuiz = {
         variants: [
             {
                 systemId: systemsIds.drenazhLiteKMS,
-                title: 'Сборный фундамент без подвальных или технических этажей?',
+                title: 'Сборный фундамент без подвальных или технических этажей',
             },
             {
                 systemId: systemsIds.fasadEconom,
-                title: 'Сборный фундамент с эксплуатируемым подвальным или техническим этажом?',
+                title: 'Сборный фундамент с эксплуатируемым подвальным или техническим этажом',
             },
             {
                 systemId: systemsIds.fasadSiding,
-                title: 'Монолитный фундамент без подвальных или технических этажей?',
+                title: 'Монолитный фундамент без подвальных или технических этажей',
             },
             {
                 systemId: systemsIds.fasadStandart,
-                title: 'Монолитный фундамент с эксплуатируемым подвальным или техническим этажом?',
+                title: 'Монолитный фундамент с эксплуатируемым подвальным или техническим этажом',
             },
         ],
         condition: null,

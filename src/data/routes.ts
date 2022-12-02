@@ -8,6 +8,8 @@ export enum routes {
   quiz = '/quiz',
   quizSmall = '/quiz/small',
   quizBig = '/quiz/big',
+  quizBigStep = '/quiz/big/step',
+  quizFinish = '/quiz/finish',
   admin = '/admin',
   settings = '/settings',
   contacts = '/contacts',

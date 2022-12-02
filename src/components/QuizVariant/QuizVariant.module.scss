@@ -1,6 +1,6 @@
 
 .variant {
-    @apply relative w-max px-6 py-1 rounded-lg border-1 border-title-color border-solid
+    @apply relative px-6 py-1 rounded-lg border-1 border-title-color border-solid
      text-title-color my-2 capitalize cursor-pointer;
     transition: all 0.2s linear; 
     letter-spacing: 1px;

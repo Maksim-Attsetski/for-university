@@ -11,7 +11,6 @@ import {
   finishQuiz,
   onNextQuestion,
   onPrevQuestion,
-  setLastQuestion,
   setNewAnswer,
   startQuiz,
 } from '../redux/slices/quiz';
@@ -41,7 +40,6 @@ export const useActions = () => {
       clearAnswers,
       startQuiz,
       finishQuiz,
-      setLastQuestion,
       onNextQuestion,
       onPrevQuestion,
     }),

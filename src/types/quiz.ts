@@ -11,10 +11,10 @@ interface IVariants {
 }
 
 interface IAnswer {
-        questionId: questionIds,
-        title: string,
-        order: number,
-        answer: IVariants
+    questionId: questionIds | string | number,
+    title: string,
+    order: number,
+    answer: IVariants
 }
 
 interface IQuestion {

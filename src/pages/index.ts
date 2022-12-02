@@ -14,8 +14,10 @@ import BigQuizStep from './BigQuizStep';
 import Settings from './Settings';
 import Contacts from './Contacts';
 import Catalog from './Catalog';
+import QuizFinish from './QuizFinish';
 
 export const screens = {
+    QuizFinish,
     Catalog,
     Contacts,
     Settings,
