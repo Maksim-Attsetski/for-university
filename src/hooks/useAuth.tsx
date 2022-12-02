@@ -6,7 +6,12 @@ import { useTypedSelector } from './redux';
 import { useActions } from './useActions';
 import { routes } from '../data';
 import { getErrorMsg } from '../utils';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from 'firebase/auth';
 import { checkIsAdmin } from '../utils/checkIsAdmin';
 import { IUser } from '../types';
 
@@ -90,8 +95,35 @@ export const useAuth: IProps = (setForm, setError) => {
     }
   };
 
+  const onGoogleAuth = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      await GoogleAuthProvider.credentialFromResult(result);
+      // const token = credential?.accessToken;
+      // const user = result.user;
+
+      navigate(routes.home);
+      setForm && setForm({ email: '', pass: '' });
+    } catch (error: any) {
+      // Handle Errors here.
+      const errorCode = error?.code;
+      const errorMessage = error?.message;
+      console.log('====================================');
+      console.log(errorCode);
+      console.log(errorMessage);
+      console.log('====================================');
+      // // The email of the user's account used.
+      // const email = error?.customData?.email;
+      // // The AuthCredential type that was used.
+      // const credential = GoogleAuthProvider.credentialFromError(error);
+    }
+  };
+
   return {
     onLogOutBtnClick,
     onAuth,
+    onGoogleAuth,
   };
 };

@@ -13,6 +13,7 @@ interface IProps {
   disabled?: boolean;
   isSecondary?: boolean;
   isDanger?: boolean;
+  image?: string | null;
 }
 
 const Button: FC<IProps> = ({
@@ -23,6 +24,7 @@ const Button: FC<IProps> = ({
   disabled = false,
   isSecondary = false,
   isDanger = false,
+  image = null,
 }) => {
   const navigate = useNavigate();
 
@@ -37,8 +39,9 @@ const Button: FC<IProps> = ({
       onClick={handleClickButton}
       data-secondary={isSecondary}
       data-danger={isDanger}
-      className={`${s.button} ${className}`}
-    >
+      data-image={!!image}
+      className={`${s.button} ${className}`}>
+      {image && <img src={image} className={s.image} alt={image} />}
       {text}
     </button>
   );

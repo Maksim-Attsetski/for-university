@@ -6,11 +6,13 @@ import { useTypedSelector } from '../../hooks/redux';
 import { useAuth } from '../../hooks/useAuth';
 import { routes } from '../../data';
 
-import s from './Header.module.scss';
 import Button from '../Button';
 import NavBar from '../NavBar';
 import Logo from '../Logo';
 import Select, { IOption } from '../Select';
+
+import s from './Header.module.scss';
+import { images } from '../../assets';
 
 interface ILink {
   to: routes;
@@ -20,18 +22,26 @@ interface ILink {
 
 const Header: FC = () => {
   const { pathname } = useLocation();
-  const { isAuth } = useTypedSelector(state => state.auth);
+  const { isAuth, currentUser } = useTypedSelector(state => state.auth);
   const { onLogOutBtnClick } = useAuth();
   const navigate = useNavigate();
   const checkIsActive = (link: routes) => pathname === link;
 
+  const avatar = useMemo(
+    () => (!!currentUser?.photoURL ? currentUser.photoURL : images.profile),
+    [currentUser?.photoURL],
+  );
+
   const links: ILink[] = useMemo(
     () => {
-      const allRoutes: ILink[] = [{ to: routes.about, name: 'О проекте', isActive: checkIsActive(routes.about) }];
+      const allRoutes: ILink[] = [
+        { to: routes.about, name: 'О проекте', isActive: checkIsActive(routes.about) },
+        { to: routes.catalog, name: 'Каталог', isActive: checkIsActive(routes.catalog) },
+        { to: routes.contacts, name: 'Наши контакты', isActive: checkIsActive(routes.contacts) },
+      ];
 
       const privateRoutes: ILink[] = [
-        { to: routes.exchangeRate, name: 'Курсы валют', isActive: checkIsActive(routes.exchangeRate) },
-        { to: routes.contacts, name: 'Наши контакты', isActive: checkIsActive(routes.contacts) },
+        // { to: routes.projects, name: 'Мои проекты', isActive: checkIsActive(routes.projects) },
       ];
 
       return isAuth ? [...allRoutes, ...privateRoutes] : [...allRoutes];
@@ -43,7 +53,8 @@ const Header: FC = () => {
   const options: IOption[] = useMemo(
     () => [
       { title: 'Аккаунт', onClick: () => navigate(routes.profile), icon: null },
-      { title: 'Настройки', onClick: () => navigate(routes.settings), icon: null },
+      { title: 'Мои проекты', onClick: () => navigate(routes.projects), icon: null },
+      { title: 'Курсы валют', onClick: () => navigate(routes.exchangeRate), icon: null },
       { title: 'Выйти', onClick: onLogOutBtnClick, isButton: true, icon: null },
     ],
     [],
@@ -68,7 +79,13 @@ const Header: FC = () => {
           </div>
           {isAuth ? (
             <div className="links">
-              <Select title="Профиль" options={options} containerClassName={s.select} />
+              <Select
+                title={<img src={avatar} alt="profile" />}
+                options={options}
+                containerClassName={s.select}
+                titleClassName={s.selectTitle}
+                optionClassName={'text-center'}
+              />
               <Select title="" options={[]} containerClassName={s.selectDisabled} />
             </div>
           ) : (

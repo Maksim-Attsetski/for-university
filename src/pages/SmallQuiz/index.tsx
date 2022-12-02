@@ -1,12 +1,12 @@
 import { FC, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Button, Toast, Work, WorkCollapse, WorkToast } from '../../components';
+import { Button, Input, Toast, Work, WorkCollapse, WorkToast } from '../../components';
 import { routes } from '../../data';
 import { useTypedSelector } from '../../hooks/redux';
 
 import { IWork, workType } from '../../types';
-import { getWorkPriceAndTime } from '../../utils';
+import { getErrorMsg, getWorkPriceAndTime } from '../../utils';
 import { getCurrentPrice } from '../../utils/getCurrentPrice';
 
 // import s from './Quiz.module.scss';
@@ -60,16 +60,20 @@ const SmallQuiz: FC = () => {
   };
 
   const renderWork = (work: IWork, i: number): JSX.Element => (
-    <Work
-      workItems={workItems}
-      setWorkItems={setWorkItems}
-      key={work.id}
-      work={work}
-      setError={setError}
-      renderBtn={i + 1 !== works.length}
-      selectWorkStatus={selectWorkStatus}
-    />
+    <Work key={work.id} work={work} renderBtn={i + 1 !== works.length} onConfirmWork={onConfirmWork} />
   );
+
+  const onConfirmWork = (order: number): boolean => {
+    const isValidFloor: boolean = !(+workItems.floor > 3 || +workItems.floor === 0);
+    const isValidMeters: boolean = !(+workItems.meter < 1 || +workItems.meter > 1000);
+    const isValid = isValidFloor && isValidMeters;
+
+    !isValidFloor && setError(getErrorMsg('invalid floor'));
+    !isValidMeters && setError(getErrorMsg('invalid meters'));
+
+    isValid && selectWorkStatus(order);
+    return isValid;
+  };
 
   return (
     <div className="container content">
@@ -80,8 +84,23 @@ const SmallQuiz: FC = () => {
         setIsVisible={setIsVisible}
       />
       <Toast data={error} setData={setError} isError />
-      <Button text="Назад" onClick={() => navigate(routes.quiz)} />
-      <br />
+      <div className="flex gap-5 flex-wrap">
+        <Button text="Назад" onClick={() => navigate(routes.quiz)} />
+        <Input
+          max={1500}
+          type="number"
+          placeholder="Кв. метры"
+          text={workItems.meter}
+          setText={meter => setWorkItems({ ...workItems, meter })}
+        />
+        <Input
+          max={3}
+          type="number"
+          placeholder="Этаж"
+          text={workItems.floor}
+          setText={floor => setWorkItems({ ...workItems, floor })}
+        />
+      </div>
       <br />
       <div className="text-2xl font-bold">Выберите на какой работе вы остановились</div>
       <br />

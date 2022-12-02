@@ -16,12 +16,18 @@
 
 .content {
     border-radius: 10%;
-    @apply bg-blur p-8 relative shadow-xl shadow-blur;
+    @apply p-8 relative;
+    @include laptop {
+        @apply bg-blur shadow-blur shadow-xl;
+    }
 
     .blur {
-        @apply absolute top-0 -z-1 left-0 w-full h-full;
+        @apply hidden absolute top-0 -z-1 left-0 w-full h-full;
         border-radius: 10%;
         backdrop-filter: blur(5px);
+        @include laptop {
+            @apply block;
+        }    
     }
 
     .title {

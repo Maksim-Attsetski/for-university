@@ -19,13 +19,21 @@
 .headerBody {
     @apply flex justify-between items-center;
     .headerContent {
-        @apply flex items-center;
+        @apply flex items-end;
     }
 }
 
 .select {
     @apply right-[5%] top-[25%] absolute;
 }
+
+.selectTitle {
+    @apply flex justify-center items-center;
+    img {
+        @apply w-9 h-9 rounded-full;
+    }
+}
+
 .selectDisabled {
     pointer-events: none;
     opacity: 0;

@@ -1,17 +1,48 @@
+@import '../../utils/media.scss';
+$bg: rgba(26, 25, 25, 0.2);
+
+.authPage {}
+
+.logo {
+    @apply absolute top-[15%] left-2/5;
+}
 
 .wrapper {
-    @apply relative flex justify-center items-center flex-col px-3 py-5 rounded-3xl;
-    background-color: rgba(26, 25, 25, 0.2);
+    background-color: $bg;
+    @apply relative top-[15vh] left-[8%] right-[8%] my-auto flex justify-center items-center flex-col 
+    h-[40vh] w-5/6 px-3 py-5 rounded-3xl;
 }
 
 .authForm {
-    @apply flex flex-col items-center gap-4;
-    width: clamp(300px, 70vw, 600px);
+    @apply absolute bg-white -top-[15%] z-30 left-[0%] p-10 pb-8 rounded-3xl flex flex-col items-center gap-4;
+    box-shadow: 2px 2px 10px 10px $bg;
+    width: clamp(300px, 40vw, 450px);
+    @include tablet {
+        left: 20%;
+    }
+    @media (max-width: 500px) {
+        left: -8%;
+    }
     .input {
         width: 100%;
+    }
+    .formQuestion {
+        @apply hidden;
+        @include tablet {
+            @apply block;
+        }    
     }
 }
 
 .buttonsContainer {
-    @apply flex gap-4;
+    @apply absolute flex flex-col justify-center items-center gap-4;
+    @include tablet {
+        @apply hidden;
+    }
+    &.left {
+        @apply left-[5%] top-[43%] z-20;
+    }
+    &.right {
+        @apply right-[5%] top-[43%] z-20;
+    }
 }

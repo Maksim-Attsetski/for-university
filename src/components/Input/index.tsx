@@ -45,21 +45,29 @@ const Input: FC<IProps> = ({
     onBlur();
   };
 
+  const onChange = (text: string) => {
+    if (type === 'number') {
+      setText(text.replace(/\D/, ''));
+    } else {
+      setText(text);
+    }
+  };
+
   return (
     <div className={containerClassName}>
       <label className={`${s.label} ${focus || text.length > 0 ? s.active : ''}`}>
         <span className={s.span}>{label}</span>
         <input
-          type={inputType}
+          type={inputType === 'number' ? 'text' : inputType}
           value={text}
-          onChange={e => setText(e.target.value)}
+          onChange={e => onChange(e.target.value)}
           required={required}
           placeholder={placeholder}
           onFocus={onInputFocus}
           onBlur={onInputBlur}
           autoComplete={isPass ? 'current-password' : ''}
           className={s.input + ' ' + className}
-          max={max || 99999}
+          max={max || 9999}
         />
         {isPass && (
           <span className={s.passIcon} onClick={() => setIsPassShown(prev => !prev)}>

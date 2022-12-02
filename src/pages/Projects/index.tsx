@@ -1,37 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import s from './Projects.module.scss';
 
 import moment from 'moment';
 import { useTypedSelector } from '../../hooks/redux';
 import useProjects from '../../hooks/useProjects';
 
-import { Button, Input, Popup, Title, Toast } from '../../components';
+import { Button, Title, Toast } from '../../components';
 import { IProject } from '../../types';
 import { works } from '../../data';
+import useOutsideMenu from '../../hooks/useOutsideMenu';
+import { CreateProjectModal } from '../../components/modals';
 
 const Projects: FC = () => {
   const { currentUser } = useTypedSelector(state => state.auth);
   const { projects } = useTypedSelector(state => state.projects);
-  const { onAddProject, onDeleteProject, onGetProjects, onUpdateProject, error, setError } = useProjects();
-  const [projectInfo, setProjectInfo] = useState<{ name: string; workId: string }>({
-    name: '',
-    workId: '',
-  });
+  const { onDeleteProject, onGetProjects, onUpdateProject, error, setError } = useProjects();
+  const { isShow, setIsShow } = useOutsideMenu();
 
   const onProjectEnd = (project: IProject): void => {
     const newProject = { id: project.id, isDone: true, workId: works.length } as IProject;
-    onUpdateProject(newProject);
-  };
-
-  const onChangeProjectWork = (project: IProject): void => {
-    const newProject: IProject = {
-      ...project,
-      isDone: works.length === +projectInfo.workId,
-      workId: +projectInfo.workId,
-      name: projectInfo.name,
-    };
-
     onUpdateProject(newProject);
   };
 
@@ -40,52 +28,11 @@ const Projects: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser?.uid]);
 
-  const getProjectForm = (isEdit: boolean = false, project: IProject) => (
-    <Popup
-      buttonText={isEdit ? 'Редактировать' : 'Создать проект +'}
-      renderBody={setIsShow => {
-        return (
-          <div>
-            <Title text={`Форма ${isEdit ? 'редактировния' : 'создания'} проекта`} />
-
-            <div className="my-4">
-              <Input
-                text={projectInfo.name}
-                setText={name => setProjectInfo({ ...projectInfo, name })}
-                placeholder="Название"
-                className="w-full"
-              />
-              <br />
-              <Input
-                text={projectInfo.workId}
-                setText={workId => setProjectInfo({ ...projectInfo, workId })}
-                placeholder="Номер работы"
-                className="w-full"
-              />
-            </div>
-
-            <div className="flex gap-2 justify-between">
-              <Button
-                text={isEdit ? 'Сохранить' : 'Создать'}
-                onClick={() => {
-                  isEdit ? onChangeProjectWork(project) : onAddProject(projectInfo.name, +projectInfo.workId);
-                  setIsShow(false);
-                }}
-              />
-              <Button text="Отмена" isSecondary onClick={() => setIsShow(false)} />
-            </div>
-          </div>
-        );
-      }}
-    />
-  );
-
   return (
     <div>
       <div className="container">
         <Title text="Мои проекты" className="my-4" />
-        {getProjectForm(false, {} as IProject)}
-        <Toast isError data={error} setData={setError} />
+        <Button text="Создать новый проект" onClick={() => setIsShow(true)} />
 
         <div className={s.projectList}>
           {!!projects.length ? (
@@ -100,9 +47,9 @@ const Projects: FC = () => {
 
                 <div className="max-w-xs">Названиe проекта: {project.name}</div>
                 <div>Текущая работа: {project.workId}</div>
-                <div className="my-4">{getProjectForm(true, project)}</div>
 
                 <div className={s.buttonsContainer}>
+                  {/* <Button text="Редактировать" onClick={() => setIsShow(true)} /> */}
                   <Button isDanger text="Удалить" onClick={() => onDeleteProject(project.id)} />
                   {!project.isDone && <Button text="Завершить" onClick={() => onProjectEnd(project)} />}
                 </div>
@@ -115,6 +62,9 @@ const Projects: FC = () => {
           )}
         </div>
       </div>
+
+      <Toast isError data={error} setData={setError} />
+      <CreateProjectModal isShow={isShow} setIsShow={setIsShow} />
     </div>
   );
 };
