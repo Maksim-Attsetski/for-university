@@ -85,6 +85,9 @@ const BigQuizStep: FC = () => {
         <Blur />
         {activeQuestion && (
           <div>
+            <div>
+              {activeQuestion.order} / {quizKeys.length}
+            </div>
             <Title text={activeQuestion.title} />
             <div>
               {activeQuestion.variants.map((item, i) => (
