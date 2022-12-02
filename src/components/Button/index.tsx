@@ -1,8 +1,7 @@
 import { FC, MouseEvent } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-
-import { routeNames } from '../../types';
+import { routes } from '../../data';
 
 import s from './Button.module.scss';
 
@@ -10,7 +9,7 @@ interface IProps {
   text: string;
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   className?: string;
-  to?: routeNames | null;
+  to?: routes | null;
   disabled?: boolean;
   isSecondary?: boolean;
   isDanger?: boolean;

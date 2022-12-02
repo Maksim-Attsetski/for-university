@@ -6,7 +6,15 @@ import { setAuth, setUser, updateUserData } from '../redux/slices/auth';
 import { setExchangeRate, getExchangeRate, setNewWorkCurrency } from '../redux/slices/exchangeRate';
 import { updateWorkAC, updateWorkCurrency } from '../redux/slices/work';
 import { setProjects, deleteProject, addProject, updateProject } from '../redux/slices/projects';
-import { clearAnswers, setNewAnswer } from '../redux/slices/quiz';
+import {
+  clearAnswers,
+  finishQuiz,
+  onNextQuestion,
+  onPrevQuestion,
+  setLastQuestion,
+  setNewAnswer,
+  startQuiz,
+} from '../redux/slices/quiz';
 
 import { useTypedDispatch } from './redux';
 
@@ -31,6 +39,11 @@ export const useActions = () => {
       getExchangeRate,
       setNewAnswer,
       clearAnswers,
+      startQuiz,
+      finishQuiz,
+      setLastQuestion,
+      onNextQuestion,
+      onPrevQuestion,
     }),
     [],
   );

@@ -6,6 +6,7 @@ type errorType =
   | 'empty value'
   | 'auth/email-already-in-use'
   | 'auth/weak-password'
+  | 'auth/too-many-requests'
   | 'auth/invalid-email'
   | 'invalid floor'
   | 'invalid meters'
@@ -28,6 +29,10 @@ const allError: IError[] = [
   {
     type: 'auth/wrong-password',
     msg: 'Неверный пароль',
+  },
+  {
+    type: 'auth/too-many-requests',
+    msg: 'Заебал, много попыток входа',
   },
   {
     type: 'invalid value',

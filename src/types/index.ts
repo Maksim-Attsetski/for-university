@@ -1,10 +1,9 @@
 import { IExchangeRate, Cur_AbbreviationType, defaultExchangeRate } from './exchangeRate';
 import { IUser } from './user';
 import { IProject } from './project';
-import { routeNames } from './routes';
 import { IMaterial, materialName, materialType } from './material';
 import { IWork, workName, workType, workUnitOfMeasure } from './work';
-import { IQuestion, IVariant } from './quiz';
+import { IQuestion, ICondition, IQuiz, IVariants, IAnswer } from './quiz';
 
 export {
   defaultExchangeRate,
@@ -20,9 +19,11 @@ export type {
   materialType,
   IWork,
   workName,
-  routeNames,
   workType,
   workUnitOfMeasure,
   IQuestion, 
-  IVariant
+  ICondition,
+  IQuiz,
+  IVariants,
+  IAnswer,
 };

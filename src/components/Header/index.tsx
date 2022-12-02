@@ -4,7 +4,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { useTypedSelector } from '../../hooks/redux';
 import { useAuth } from '../../hooks/useAuth';
-import { routeNames } from '../../types';
 import { routes } from '../../data';
 
 import s from './Header.module.scss';
@@ -14,7 +13,7 @@ import Logo from '../Logo';
 import Select, { IOption } from '../Select';
 
 interface ILink {
-  to: routeNames;
+  to: routes;
   name: string;
   isActive: boolean;
 }
@@ -24,7 +23,7 @@ const Header: FC = () => {
   const { isAuth } = useTypedSelector(state => state.auth);
   const { onLogOutBtnClick } = useAuth();
   const navigate = useNavigate();
-  const checkIsActive = (link: routeNames) => pathname === link;
+  const checkIsActive = (link: routes) => pathname === link;
 
   const links: ILink[] = useMemo(
     () => {

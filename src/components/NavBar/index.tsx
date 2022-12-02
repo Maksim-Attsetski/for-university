@@ -7,7 +7,7 @@ import { useTypedSelector } from '../../hooks/redux';
 import { useAuth } from '../../hooks/useAuth';
 import useOutsideMenu from '../../hooks/useOutsideMenu';
 
-import { routeNames } from '../../types';
+import { routes } from '../../data';
 
 import s from './NavBar.module.scss';
 import Button from '../Button';
@@ -15,7 +15,7 @@ import Logo from '../Logo';
 import Select, { IOption } from '../Select';
 
 interface ILink {
-  to: routeNames;
+  to: routes;
   name: string;
 }
 
@@ -29,7 +29,7 @@ const NavBar: FC<IProps> = ({ links }) => {
   const { onLogOutBtnClick } = useAuth();
   const navigate = useNavigate();
 
-  const handleClickNavbarLink = async (link: routeNames) => {
+  const handleClickNavbarLink = async (link: routes) => {
     setIsShow(false);
     navigate(link);
   };
@@ -56,8 +56,9 @@ const NavBar: FC<IProps> = ({ links }) => {
 
   const options: IOption[] = useMemo(
     () => [
-      { title: 'Аккаунт', onClick: () => handleClickNavbarLink('/profile'), icon: null },
-      { title: 'Настройки', onClick: () => handleClickNavbarLink('/settings'), icon: null },
+      { title: 'Аккаунт', onClick: () => handleClickNavbarLink(routes.profile), icon: null },
+      { title: 'Мои проекты', onClick: () => handleClickNavbarLink(routes.projects), icon: null },
+      { title: 'Курсы валют', onClick: () => handleClickNavbarLink(routes.exchangeRate), icon: null },
       { title: 'Выйти', onClick: onLogOutBtnClick, isButton: true, icon: null },
     ],
     [],
@@ -81,7 +82,7 @@ const NavBar: FC<IProps> = ({ links }) => {
         animate={sideBarAnimation}
         transition={{ type: 'spring', stiffness: 120, duration: 0.3 }}
         className={s.navbar}>
-        <div onClick={() => handleClickNavbarLink('/')}>
+        <div onClick={() => handleClickNavbarLink(routes.home)}>
           <Logo />
         </div>
         <ul>
@@ -99,7 +100,7 @@ const NavBar: FC<IProps> = ({ links }) => {
               title="Профиль"
             />
           ) : (
-            <Button text="Войти" onClick={() => handleClickNavbarLink('/auth')} />
+            <Button text="Войти" onClick={() => handleClickNavbarLink(routes.auth)} />
           )}
         </ul>
       </motion.div>

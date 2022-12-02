@@ -1,19 +1,40 @@
+import { questionIds, systemsIds } from "../data";
 
-interface IVariant {
-    id: string;
-    text: string;
-    questionId: number;
+interface ICondition {
+    questionId: questionIds,
+    answer: systemsIds; 
+}
+
+interface IVariants {
+    systemId: systemsIds,
+    title: string,
+}
+
+interface IAnswer {
+        questionId: questionIds,
+        title: string,
+        order: number,
+        answer: IVariants
 }
 
 interface IQuestion {
-    id: number;
     title: string;
-    variants: IVariant[]
+    order: number;
+    variants: IVariants[];
+    condition: ICondition[] | null;
 }
 
-
-
-
-export type {
-    IQuestion, IVariant
+interface IQuiz {
+    [questionIds.first]: IQuestion;
+    [questionIds.second]: IQuestion;
+    [questionIds.third]: IQuestion;
+    // [questionIds.fourth]: IQuestion;
+    // [questionIds.fifth]: IQuestion;
+    // [questionIds.sixth]: IQuestion;
+    // [questionIds.seventh]: IQuestion;
+    // [questionIds.eighth]: IQuestion;
+    // [questionIds.ninth]: IQuestion;
+    // [questionIds.tenth]: IQuestion;
 }
+
+export type { IQuiz, IQuestion, IVariants, ICondition, IAnswer }

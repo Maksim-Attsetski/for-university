@@ -1,23 +1,24 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 
+import { useNavigate } from 'react-router-dom';
 import { useTypedSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/useActions';
 
-import { routeNames } from '../../types';
 import { routes } from '../../data';
 
+import { questionIds } from '../../data/quiz';
 import { Button } from '../../components';
 import s from './BigQuiz.module.scss';
 
 const BigQuiz: FC = () => {
-  const { answers, questions } = useTypedSelector(state => state.quiz);
+  const { answers } = useTypedSelector(state => state.quiz);
   const { action } = useActions();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (answers.length === questions.length) {
-      action.clearAnswers();
-    }
-  }, [answers, questions]);
+  const startQuiz = () => {
+    navigate(routes.quizBig + '/' + questionIds.first);
+    action.startQuiz();
+  };
 
   return (
     <div>
@@ -26,7 +27,7 @@ const BigQuiz: FC = () => {
         <div className={s.text}>BigQuiz</div>
         <br />
         <br />
-        <Button to={(routes.quizBig + '/' + 1) as routeNames} text="Start quiz" />
+        <Button onClick={startQuiz} text="Start quiz" />
       </div>
     </div>
   );
