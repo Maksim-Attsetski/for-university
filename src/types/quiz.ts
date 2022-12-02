@@ -28,8 +28,8 @@ interface IQuiz {
     [questionIds.first]: IQuestion;
     [questionIds.second]: IQuestion;
     [questionIds.third]: IQuestion;
-    // [questionIds.fourth]: IQuestion;
-    // [questionIds.fifth]: IQuestion;
+    [questionIds.fourth]: IQuestion;
+    [questionIds.fifth]: IQuestion;
     // [questionIds.sixth]: IQuestion;
     // [questionIds.seventh]: IQuestion;
     // [questionIds.eighth]: IQuestion;

@@ -4,8 +4,8 @@ export const enum questionIds {
     first = '1',
     second = '2',
     third = '3',
-    // fourth = '4',
-    // fifth = '5',
+    fourth = '4',
+    fifth = '5',
     // sixth = '6',
     // seventh = '7',
     // eighth = '8',
@@ -20,8 +20,15 @@ export const enum systemsIds {
     standartUniversal = 'standart-universal',
     drenazhLiteKMS = 'drenazh-lite-kms',
     fasadSiding = 'fasad-siding',
-    fasadEconom = 'fasad-econom',
+    fasadEconom = 'fasad-econom', // <--- not used
     fasadStandart = 'fasad-standart',
+    fasadLiteHauberk = 'fasad-lite-hauberk',
+    reinforcedConcrete = 'reinforced-concrete',
+    monolith = 'monolith',
+    wallTermoPir = 'wall-termo-pir',
+    wallExpress = 'wall-express',
+    wallBeam = 'wall-beam',
+    wallLog = 'wall-log'
 }
 
 export const quiz: IQuiz = {
@@ -34,15 +41,15 @@ export const quiz: IQuiz = {
                 title: 'Сборный фундамент без подвальных или технических этажей',
             },
             {
-                systemId: systemsIds.fasadEconom,
+                systemId: systemsIds.liteMast,
                 title: 'Сборный фундамент с эксплуатируемым подвальным или техническим этажом',
             },
             {
-                systemId: systemsIds.fasadSiding,
+                systemId: systemsIds.standartUniversal,
                 title: 'Монолитный фундамент без подвальных или технических этажей',
             },
             {
-                systemId: systemsIds.fasadStandart,
+                systemId: systemsIds.drenazhLiteKMS,
                 title: 'Монолитный фундамент с эксплуатируемым подвальным или техническим этажом',
             },
         ],
@@ -53,11 +60,11 @@ export const quiz: IQuiz = {
         order: 2,
         variants: [
             {
-                systemId: systemsIds.drenazhLiteKMS,
+                systemId: systemsIds.standartUniversal,
                 title: 'Из блоков',
             },
             {
-                systemId: systemsIds.fasadEconom,
+                systemId: systemsIds.liteMast,
                 title: 'Из кирпича',
             },
         ],
@@ -68,7 +75,7 @@ export const quiz: IQuiz = {
             },
             {
                 questionId: questionIds.first,
-                answer: systemsIds.fasadSiding,
+                answer: systemsIds.standartUniversal,
             },
         ],
     },
@@ -77,16 +84,54 @@ export const quiz: IQuiz = {
         order: 3,
         variants: [
             {
-                systemId: systemsIds.drenazhLiteKMS,
+                systemId: systemsIds.fasadSiding,
                 title: 'Сайдинг',
             },
             {
-                systemId: systemsIds.fasadEconom,
+                systemId: systemsIds.fasadStandart,
                 title: 'Кирпич',
             },
             {
-                systemId: systemsIds.fasadEconom,
+                systemId: systemsIds.fasadLiteHauberk,
                 title: 'Фасадная плитка',
+            },
+        ],
+        condition: null,
+    },
+    [questionIds.fourth]: {
+        title: 'Какой лестничный марш Вы бы хотели?',
+        order: 4,
+        variants: [
+            {
+                systemId: systemsIds.reinforcedConcrete,
+                title: 'Готовый железобетонный',
+            },
+            {
+                systemId: systemsIds.monolith,
+                title: 'Монолитный',
+            },
+        ],
+        condition: null,
+    },
+    [questionIds.fifth]: {
+        title: 'Какие внутренние стены Вы предпочитаете?',
+        order: 5,
+        variants: [
+            {
+                systemId: systemsIds.wallTermoPir,
+                title: 'Из кирпича с дополнительным утеплением и звукоизоляцией',
+            },
+            {
+                systemId: systemsIds.wallExpress,
+                title: 'Из блоков с внутренней звукоизоляцией',
+            },
+            {
+                systemId: systemsIds.wallBeam,
+                title: 'Из бруса с теплоизоляцией',
+            },
+            {
+                systemId: systemsIds.wallLog,
+                title: 'Из бревна с теплоизоляцией',
             },
         ],
         condition: null,
