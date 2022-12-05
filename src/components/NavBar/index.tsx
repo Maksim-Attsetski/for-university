@@ -12,7 +12,6 @@ import { routes } from '../../data';
 import s from './NavBar.module.scss';
 import Button from '../Button';
 import Logo from '../Logo';
-import Select, { IOption } from '../Select';
 
 interface ILink {
   to: routes;
