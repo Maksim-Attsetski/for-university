@@ -9,8 +9,9 @@ import { useActions } from '../../hooks/useActions';
 import { routes } from '../../data';
 import { IAnswer, IQuestion, IVariants } from '../../types';
 
-import { Blur, Button, QuizVariant, Title } from '../../components';
+import { Button, QuizVariant, Title } from '../../components';
 import s from './BigQuiz.module.scss';
+import { images } from '../../assets';
 
 const BigQuiz: FC = () => {
   const { action } = useActions();
@@ -77,15 +78,13 @@ const BigQuiz: FC = () => {
   }, [answers, index]);
 
   return (
-    <div>
+    <div className={s.quizPage}>
       <br />
-      <div className={'container ' + s.quiz}>
-        <Blur />
+      <img src={images.quizBg} alt="quiz background" className={s.bgImage} />
+      <div></div>
+      <div className={s.quiz}>
         {activeQuestion && (
           <div>
-            <div>
-              {activeQuestion.order} / {quizKeys.length}
-            </div>
             <Title text={activeQuestion.title} />
             <div>
               {activeQuestion.variants.map((item, i) => (
@@ -100,15 +99,18 @@ const BigQuiz: FC = () => {
           </div>
         )}
         <br />
-        <>
+        <div className="flex gap-5 items-center">
           <Button onClick={onClickPrevQuestion} text="Назад" disabled={index < 2} className={s.prev} />
+          <div>
+            {activeQuestion?.order} / {quizKeys.length}
+          </div>
           <Button
             onClick={onClickNextQuestion}
             text={index === quizKeys.length ? 'Завершить' : 'Далее'}
             disabled={!activeVariant}
             className={s.next}
           />
-        </>
+        </div>
       </div>
     </div>
   );

@@ -1,10 +1,32 @@
-.text {
+@import '../../utils/media.scss';
+
+$top: 85px;
+
+.quizPage {
+  min-height: calc(100vh - $top + 10px);
+  min-width: 100vw;
+  @apply bg-white absolute top-[$top] left-0 justify-around items-center flex;
+  @include tablet {
+    @apply justify-center h-full;
+  }
+  @media (max-width: 500px) {
+    display: block;
+  }
+}
+
+.bgImage {
+  @apply w-1/2 h-1/2 absolute top-1/2 left-1/3;
+  transform: translate(-50%, -50%);
 }
 
 .quiz {
-  @apply relative px-8 py-4 rounded-xl;
+  @apply px-8 py-4 rounded-xl my-10 flex flex-col items-center;
+  width: clamp(300px, 80vw, 550px);
   background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(6px);
+  @media (max-width: 500px) {
+    transform: translateX(10%);
+  }
 }
 
 .prev,
