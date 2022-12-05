@@ -55,7 +55,7 @@ const QuizFinish: FC = () => {
           <div>
             <strong>Full price</strong>
           </div>
-          <div className="px-2 py-1 bg-title-color text-white w-max rounded-md">{total.price}</div>
+          <div className="px-2 py-1 bg-title-color text-white w-max rounded-md">{total.price.toFixed(4) || 0} $</div>
         </div>
         <br />
         {Object.values(answers).map(answer => {
@@ -65,7 +65,9 @@ const QuizFinish: FC = () => {
               key={answer.questionId}
               className={answer.answer ? `border-b-1 pt-2 pb-3 border-title-color border-solid` : ''}>
               <div>{answer.title}</div>
+              <hr />
               <div>{answer?.answer?.title}</div>
+              <hr />
               {system && (
                 <div className="flex items-center gap-3">
                   <div>{system?.name}</div>
