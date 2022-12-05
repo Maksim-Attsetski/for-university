@@ -66,7 +66,7 @@ const BigQuizStep: FC = () => {
     }
 
     const invalidCondition = activeQuestion.condition.some(({ answer, questionId }) => {
-      const currentAnswer: IAnswer | undefined | null = answers.find(el => el?.questionId === +questionId);
+      const currentAnswer: IAnswer | undefined | null = answers[questionId];
       return !!currentAnswer && currentAnswer.answer?.systemId === answer;
     });
 

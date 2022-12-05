@@ -22,19 +22,20 @@ const QuizFinish: FC = () => {
   const setTotalPrice = () => {
     let systemsInAnswers = [];
 
-    for (let i = 0; i < answers.length; i++) {
-      const answer = answers[i];
+    for (const key in answers) {
+      if (Object.prototype.hasOwnProperty.call(answers, key)) {
+        const answer = answers[key];
 
-      for (let j = 0; j < systems.length; j++) {
-        const system = systems[j];
-        if (system.id === answer.answer?.systemId) {
-          systemsInAnswers.push(system);
+        for (let j = 0; j < systems.length; j++) {
+          const system = systems[j];
+          if (system.id === answer.answer?.systemId) {
+            systemsInAnswers.push(system);
+          }
         }
       }
     }
 
     const price = systemsInAnswers.reduce((prev, cur) => (prev += cur.price), 0);
-
     setTotal(prev => ({ ...prev, price }));
   };
 
@@ -44,7 +45,7 @@ const QuizFinish: FC = () => {
   };
 
   useEffect(() => {
-    answers.length === 0 ? resetQuiz() : setTotalPrice();
+    Object.keys(answers).length === 0 ? resetQuiz() : setTotalPrice();
   }, []);
 
   return (
@@ -58,7 +59,7 @@ const QuizFinish: FC = () => {
           <div className="px-2 py-1 bg-title-color text-white w-max rounded-md">{total.price}</div>
         </div>
         <br />
-        {answers.map(
+        {Object.values(answers).map(
           answer =>
             answer && (
               <div key={answer.questionId}>

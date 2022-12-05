@@ -1,40 +1,50 @@
-import { questionIds, systemsIds } from "../data";
+import { questionIds, systemsIds } from '../data';
+
+type questionId = questionIds | number;
 
 interface ICondition {
-    questionId: questionIds,
-    answer: systemsIds; 
+  questionId: questionId;
+  answer: systemsIds;
 }
 
 interface IVariants {
-    systemId: systemsIds,
-    title: string,
+  systemId: systemsIds;
+  title: string;
 }
 
 interface IAnswer {
-    questionId: questionIds | string | number,
-    title: string | null,
-    order: number | null,
-    answer: IVariants | null,
+  questionId: questionId;
+  title: string | null;
+  order: number | null;
+  answer: IVariants | null;
 }
 
 interface IQuestion {
-    title: string;
-    order: number;
-    variants: IVariants[];
-    condition: ICondition[] | null;
+  title: string;
+  order: questionId;
+  variants: IVariants[];
+  condition: ICondition[] | null;
 }
+
+type typeOfAnswer = {
+  [key: IAnswer['questionId']]: IAnswer;
+};
+
+type typeOfQuestion = {
+  [key: IQuestion['order']]: IQuestion;
+};
 
 interface IQuiz {
-    [questionIds.first]: IQuestion;
-    [questionIds.second]: IQuestion;
-    [questionIds.third]: IQuestion;
-    [questionIds.fourth]: IQuestion;
-    [questionIds.fifth]: IQuestion;
-    // [questionIds.sixth]: IQuestion;
-    // [questionIds.seventh]: IQuestion;
-    // [questionIds.eighth]: IQuestion;
-    // [questionIds.ninth]: IQuestion;
-    // [questionIds.tenth]: IQuestion;
+  [1]: IQuestion;
+  [2]: IQuestion;
+  [3]: IQuestion;
+  [4]: IQuestion;
+  [5]: IQuestion;
+  // [6]: IQuestion;
+  // [7]: IQuestion;
+  // [8]: IQuestion;
+  // [9]: IQuestion;
+  // [10]: IQuestion;
 }
 
-export type { IQuiz, IQuestion, IVariants, ICondition, IAnswer }
+export type { IQuiz, typeOfQuestion, typeOfAnswer, IQuestion, IVariants, ICondition, IAnswer };
