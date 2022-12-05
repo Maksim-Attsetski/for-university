@@ -1,2 +1,13 @@
+.text {
+}
 
-.text {}
+.quiz {
+  @apply relative px-8 py-4 rounded-xl;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+}
+
+.prev,
+.next {
+  @apply mr-3;
+}

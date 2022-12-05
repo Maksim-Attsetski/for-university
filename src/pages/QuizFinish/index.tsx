@@ -39,7 +39,7 @@ const QuizFinish: FC = () => {
   };
 
   const resetQuiz = () => {
-    navigate(routes.quizBig);
+    navigate(routes.quiz);
     action.startQuiz();
   };
 
