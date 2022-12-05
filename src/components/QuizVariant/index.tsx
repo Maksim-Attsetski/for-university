@@ -14,8 +14,12 @@ const QuizVariant: FC<IProps> = ({ activeVariant, onSelectVariant, variant }) =>
     <div
       onClick={() => onSelectVariant(variant.systemId)}
       className={[s.variant, variant.systemId === activeVariant?.systemId ? s.active : ''].join(' ')}>
-      <div className={s.text}>{variant.title}</div>
-      <div className={s.blur} />
+      <div className="flex gap-4 items-center">
+        <div className={s.checkbox}>
+          <span className={s.circle} />
+        </div>
+        <div className={s.text}>{variant.title}</div>
+      </div>
     </div>
   );
 };

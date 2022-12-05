@@ -1,18 +1,26 @@
-
 .variant {
-    @apply relative px-6 py-1 rounded-lg border-1 border-title-color border-solid
-     text-title-color my-2 capitalize cursor-pointer;
-    transition: all 0.2s linear; 
-    letter-spacing: 1px;
-    background-color: #fff;
+  @apply relative my-2 capitalize cursor-pointer;
+  transition: all 0.2s linear;
+  letter-spacing: 1px;
+}
+.checkbox {
+  @apply min-w-[22px] min-h-[22px] flex justify-center items-center rounded-full border-1 border-black border-solid;
+  .circle {
+    @apply min-w-[12px] min-h-[12px] rounded-full bg-black;
+    transition: all linear 0.3s;
+    transform: scale(0);
+  }
+}
+
+.text {
+  transition: all linear 0.15s;
 }
 
 .active {
-    @apply bg-title-color text-white;
+  .text {
+    @apply font-bold;
+  }
+  .circle {
+    transform: scale(1);
+  }
 }
-
-.blur {
-    @apply absolute top-0 left-0 w-full h-full -z-1;
-    backdrop-filter: blur(20px);
-}
-

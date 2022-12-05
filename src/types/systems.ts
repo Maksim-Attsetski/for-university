@@ -1,21 +1,25 @@
 import { Cur_AbbreviationType } from './exchangeRate';
 import { workUnitOfMeasure } from './work';
-import { systemsIds } from "../data"
-
+import { systemsIds } from '../data';
 
 interface IMaterial {
-    id: string;
-    name: string;
-    thickness: number;
-    unitOfMeasure: workUnitOfMeasure;
-    price: number;
-    currency: Cur_AbbreviationType
+  id: string;
+  name: string;
+  thickness: number;
+  unitOfMeasure: workUnitOfMeasure;
+  price: number;
+  currency: Cur_AbbreviationType;
 }
 
 interface ISystem {
-    id: systemsIds,
-    materials: IMaterial[],
-    price: number,
+  id: systemsIds | string;
+  materials: IMaterial[];
+  price: number;
+  name: string;
 }
 
-export type { ISystem, IMaterial }
+type typeOfSystem = {
+  [key: ISystem['id']]: ISystem;
+};
+
+export type { ISystem, IMaterial, typeOfSystem };

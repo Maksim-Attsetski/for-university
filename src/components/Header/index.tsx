@@ -50,6 +50,15 @@ const Header: FC = () => {
     [pathname],
   );
 
+  const otherButtons: ILink[] = useMemo(
+    () => [
+      { to: routes.profile, name: 'Аккаунт', isActive: checkIsActive(routes.profile) },
+      { to: routes.projects, name: 'Мои проекты', isActive: checkIsActive(routes.projects) },
+      { to: routes.exchangeRate, name: 'Курсы валют', isActive: checkIsActive(routes.exchangeRate) },
+    ],
+    [],
+  );
+
   const options: IOption[] = useMemo(
     () => [
       { title: 'Аккаунт', onClick: () => navigate(routes.profile), icon: null },
@@ -75,7 +84,7 @@ const Header: FC = () => {
             ))}
           </div>
           <div className="burger">
-            <NavBar links={links} />
+            <NavBar links={links.concat(otherButtons)} />
           </div>
           {isAuth ? (
             <div className="links">

@@ -12,7 +12,6 @@ import { routes } from '../../data';
 import s from './NavBar.module.scss';
 import Button from '../Button';
 import Logo from '../Logo';
-import Select, { IOption } from '../Select';
 
 interface ILink {
   to: routes;
@@ -54,16 +53,6 @@ const NavBar: FC<IProps> = ({ links }) => {
     [isShow],
   );
 
-  const options: IOption[] = useMemo(
-    () => [
-      { title: 'Аккаунт', onClick: () => handleClickNavbarLink(routes.profile), icon: null },
-      { title: 'Мои проекты', onClick: () => handleClickNavbarLink(routes.projects), icon: null },
-      { title: 'Курсы валют', onClick: () => handleClickNavbarLink(routes.exchangeRate), icon: null },
-      { title: 'Выйти', onClick: onLogOutBtnClick, isButton: true, icon: null },
-    ],
-    [],
-  );
-
   return (
     <>
       <motion.button
@@ -91,17 +80,10 @@ const NavBar: FC<IProps> = ({ links }) => {
               {link.name}
             </li>
           ))}
-          {isAuth ? (
-            <Select
-              containerClassName={s.profile}
-              titleClassName={s.profileTitle}
-              optionClassName={s.profileOption}
-              options={options}
-              title="Профиль"
-            />
-          ) : (
-            <Button text="Войти" onClick={() => handleClickNavbarLink(routes.auth)} />
-          )}
+          <Button
+            text={isAuth ? 'Выйти' : 'Войти'}
+            onClick={() => (isAuth ? onLogOutBtnClick() : handleClickNavbarLink(routes.auth))}
+          />
         </ul>
       </motion.div>
       <motion.div

@@ -25,7 +25,6 @@ const PrivateRoutes: FC = () => {
         <Route path={routes.quizSmall} element={<screens.SmallQuiz />} />
         <Route path={routes.quizBig} element={<screens.BigQuiz />} />
         <Route path={routes.catalog} element={<screens.Catalog />} />
-        <Route path={routes.quizBigStep} element={<screens.BigQuizStep />} />
         <Route path={routes.quizFinish} element={<screens.QuizFinish />} />
         {currentUser?.role === 'admin' && <Route path={routes.admin} element={<screens.Admin />} />}
       </Route>

@@ -10,28 +10,26 @@ import SmallQuiz from './SmallQuiz';
 import Admin from './Admin';
 import Home from './Home';
 import BigQuiz from './BigQuiz';
-import BigQuizStep from './BigQuizStep';
 import Settings from './Settings';
 import Contacts from './Contacts';
 import Catalog from './Catalog';
 import QuizFinish from './QuizFinish';
 
 export const screens = {
-    QuizFinish,
-    Catalog,
-    Contacts,
-    Settings,
-    BigQuizStep,
-    BigQuiz,
-    Admin,
-    SmallQuiz,
-    Projects,
-    Quiz,
-    Home,
-    About,
-    AllRoutes ,
-    NotFound,
-    ExchangeRate,
-    Auth,
-    Profile,
+  QuizFinish,
+  Catalog,
+  Contacts,
+  Settings,
+  BigQuiz,
+  Admin,
+  SmallQuiz,
+  Projects,
+  Quiz,
+  Home,
+  About,
+  AllRoutes,
+  NotFound,
+  ExchangeRate,
+  Auth,
+  Profile,
 };

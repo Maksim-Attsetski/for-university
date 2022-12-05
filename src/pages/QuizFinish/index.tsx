@@ -22,11 +22,12 @@ const QuizFinish: FC = () => {
   const setTotalPrice = () => {
     let systemsInAnswers = [];
 
-    for (let i = 0; i < answers.length; i++) {
-      const answer = answers[i];
+    for (const key in answers) {
+      const answer = answers[key];
 
-      for (let j = 0; j < systems.length; j++) {
-        const system = systems[j];
+      for (const key in systems) {
+        const system = systems[key];
+
         if (system.id === answer.answer?.systemId) {
           systemsInAnswers.push(system);
         }
@@ -34,17 +35,16 @@ const QuizFinish: FC = () => {
     }
 
     const price = systemsInAnswers.reduce((prev, cur) => (prev += cur.price), 0);
-
     setTotal(prev => ({ ...prev, price }));
   };
 
   const resetQuiz = () => {
-    navigate(routes.quizBig);
+    navigate(routes.quiz);
     action.startQuiz();
   };
 
   useEffect(() => {
-    answers.length === 0 ? resetQuiz() : setTotalPrice();
+    Object.keys(answers).length === 0 ? resetQuiz() : setTotalPrice();
   }, []);
 
   return (
@@ -53,19 +53,30 @@ const QuizFinish: FC = () => {
       <div className="container">
         <div className="flex gap-4 flex-wrap items-center">
           <div>
-            <strong>Full price for all custom systems</strong>
+            <strong>Full price</strong>
           </div>
-          <div className="px-2 py-1 bg-title-color text-white w-max rounded-md">{total.price}</div>
+          <div className="px-2 py-1 bg-title-color text-white w-max rounded-md">{total.price.toFixed(4) || 0} $</div>
         </div>
         <br />
-        {answers
-          .filter(it => it.answer)
-          .map(answer => (
-            <div key={answer.questionId} className="mb-2 py-2 border-b-1 border-b-title-color border-solid">
+        {Object.values(answers).map(answer => {
+          const system = answer?.answer?.systemId ? systems[answer?.answer?.systemId] : null;
+          return (
+            <div
+              key={answer.questionId}
+              className={answer.answer ? `border-b-1 pt-2 pb-3 border-title-color border-solid` : ''}>
               <div>{answer.title}</div>
+              <hr />
               <div>{answer?.answer?.title}</div>
+              <hr />
+              {system && (
+                <div className="flex items-center gap-3">
+                  <div>{system?.name}</div>
+                  <div>{system?.price} $</div>
+                </div>
+              )}
             </div>
-          ))}
+          );
+        })}
       </div>
     </div>
   );
