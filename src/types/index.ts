@@ -4,7 +4,7 @@ import { IProject } from './project';
 import { IMaterial, materialName } from './material';
 import { IWork, workName, workType, workUnitOfMeasure } from './work';
 import { IQuestion, ICondition, IQuiz, IVariants, IAnswer, typeOfQuestion, typeOfAnswer } from './quiz';
-import { ISystem } from './systems';
+import { ISystem, typeOfSystem } from './systems';
 
 export { defaultExchangeRate };
 
@@ -27,4 +27,5 @@ export type {
   typeOfAnswer,
   IAnswer,
   ISystem,
+  typeOfSystem,
 };

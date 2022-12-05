@@ -23,14 +23,13 @@ const QuizFinish: FC = () => {
     let systemsInAnswers = [];
 
     for (const key in answers) {
-      if (Object.prototype.hasOwnProperty.call(answers, key)) {
-        const answer = answers[key];
+      const answer = answers[key];
 
-        for (let j = 0; j < systems.length; j++) {
-          const system = systems[j];
-          if (system.id === answer.answer?.systemId) {
-            systemsInAnswers.push(system);
-          }
+      for (const key in systems) {
+        const system = systems[key];
+
+        if (system.id === answer.answer?.systemId) {
+          systemsInAnswers.push(system);
         }
       }
     }
@@ -54,20 +53,28 @@ const QuizFinish: FC = () => {
       <div className="container">
         <div className="flex gap-4 flex-wrap items-center">
           <div>
-            <strong>Full price for all custom systems</strong>
+            <strong>Full price</strong>
           </div>
           <div className="px-2 py-1 bg-title-color text-white w-max rounded-md">{total.price}</div>
         </div>
         <br />
-        {Object.values(answers).map(
-          answer =>
-            answer && (
-              <div key={answer.questionId}>
-                <div>{answer.title}</div>
-                <div>{answer?.answer?.title}</div>
-              </div>
-            ),
-        )}
+        {Object.values(answers).map(answer => {
+          const system = answer?.answer?.systemId ? systems[answer?.answer?.systemId] : null;
+          return (
+            <div
+              key={answer.questionId}
+              className={answer.answer ? `border-b-1 pt-2 pb-3 border-title-color border-solid` : ''}>
+              <div>{answer.title}</div>
+              <div>{answer?.answer?.title}</div>
+              {system && (
+                <div className="flex items-center gap-3">
+                  <div>{system?.name}</div>
+                  <div>{system?.price} $</div>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

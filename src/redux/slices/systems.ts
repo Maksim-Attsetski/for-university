@@ -1,25 +1,26 @@
 import { systems } from './../../data/system';
 import { createSlice } from '@reduxjs/toolkit';
-import { ISystem } from '../../types';
+import { typeOfSystem } from '../../types';
 
 interface IState {
-    systems: ISystem[],
+  systems: typeOfSystem;
+  systemKeys: string[];
 }
 
-const initialState = {
-    systems
-}
-
+const initialState: IState = {
+  systems,
+  systemKeys: Object.keys(systems),
+};
 
 const systemsSlice = createSlice({
-    name: 'systemsSlice',
-    initialState,
-    reducers: {
-        setSystemPrice: (state: IState) => {
-            state.systems = state.systems.map((item) => item);
-        }
-    }
-})
+  name: 'systemsSlice',
+  initialState,
+  reducers: {
+    setSystemPrice: (state: IState) => {
+      state.systems = JSON.parse(JSON.stringify(state.systems));
+    },
+  },
+});
 
-export default systemsSlice.reducer
-export const { setSystemPrice } = systemsSlice.actions
+export default systemsSlice.reducer;
+export const { setSystemPrice } = systemsSlice.actions;

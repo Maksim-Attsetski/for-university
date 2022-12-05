@@ -17,7 +17,7 @@ interface IState {
 const initialState: IState = {
   initialQuiz: quiz,
   quiz,
-  quizKeys: Object.keys(quiz) as (questionIds | string)[],
+  quizKeys: Object.keys(quiz),
   answers: [],
   index: 1,
   lastIndex: 1,
