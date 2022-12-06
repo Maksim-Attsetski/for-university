@@ -1,7 +1,7 @@
 import { FC, useState, useMemo } from 'react';
 
 import s from './Input.module.scss';
-
+import { images } from '../../assets';
 interface IProps {
   type?: string;
   text: string;
@@ -71,7 +71,7 @@ const Input: FC<IProps> = ({
         />
         {isPass && (
           <span className={s.passIcon} onClick={() => setIsPassShown(prev => !prev)}>
-            {isPassShown ? 'O' : '—'}
+            <img src={isPassShown ? images.eyes : images.closeEyes} alt="eye" />
           </span>
         )}
       </label>

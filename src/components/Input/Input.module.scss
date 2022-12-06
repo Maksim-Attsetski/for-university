@@ -2,32 +2,32 @@ $border: #afafaf;
 $borderActive: #696969;
 
 .label {
-    @apply relative;
-    width: inherit;
-    &.active {
-        .input {
-            border: 1px solid $borderActive;
-            &::placeholder {
-                color: $borderActive;
-            }
-        }
-        .span {
-            @apply -top-4 text-xs px-2 bg-white rounded-lg;
-        }
+  @apply relative;
+  width: inherit;
+  &.active {
+    .input {
+      border: 1px solid $borderActive;
+      &::placeholder {
+        color: $borderActive;
+      }
     }
     .span {
-        @apply absolute left-4 top-0 transition-all rounded-sm;
+      @apply -top-4 text-xs px-2 bg-white rounded-lg;
     }
-    
-    .input {
-        border: 1px solid $border;
-        width: inherit;
-        @apply px-4 py-2 rounded-2xl;
-        &::placeholder {
-            color: transparent;
-        }
+  }
+  .span {
+    @apply absolute left-4 top-0 transition-all rounded-sm;
+  }
+
+  .input {
+    border: 1px solid $border;
+    width: inherit;
+    @apply px-4 py-2 rounded-2xl;
+    &::placeholder {
+      color: transparent;
     }
-    .passIcon {
-        @apply absolute top-0 right-2 cursor-pointer;
-    }
+  }
+  .passIcon {
+    @apply absolute top-0 right-2 cursor-pointer w-6 h-full;
+  }
 }

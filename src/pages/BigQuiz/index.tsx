@@ -85,8 +85,8 @@ const BigQuiz: FC = () => {
       <div className={s.quiz}>
         {activeQuestion && (
           <div>
-            <Title text={activeQuestion.title} />
-            <div>
+            <Title text={activeQuestion.title} className={s.questionTitle} />
+            <div className="my-6">
               {activeQuestion.variants.map((item, i) => (
                 <QuizVariant
                   key={item.systemId + i}
@@ -99,16 +99,25 @@ const BigQuiz: FC = () => {
           </div>
         )}
         <br />
-        <div className="flex gap-5 items-center">
-          <Button onClick={onClickPrevQuestion} text="Назад" disabled={index < 2} className={s.prev} />
+        <div className={s.arrowContainer}>
+          <img
+            onClick={index < 2 ? () => {} : onClickPrevQuestion}
+            className={s.quizArrow}
+            data-disabled={index < 2}
+            src={images.quizArrowLeft}
+            alt="quizArrowLeft"
+          />
+          <span className={s.quizLine}></span>
           <div>
             {activeQuestion?.order} / {quizKeys.length}
           </div>
-          <Button
-            onClick={onClickNextQuestion}
-            text={index === quizKeys.length ? 'Завершить' : 'Далее'}
-            disabled={!activeVariant}
-            className={s.next}
+          <span className={s.quizLine}></span>
+          <img
+            className={s.quizArrow}
+            data-disabled={!activeVariant}
+            onClick={!activeVariant ? () => {} : onClickNextQuestion}
+            src={images.quizArrowRight}
+            alt="quizArrowRight"
           />
         </div>
       </div>
