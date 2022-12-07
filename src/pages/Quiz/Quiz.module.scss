@@ -1,0 +1,30 @@
+@mixin custom {
+  @media (max-width: 500px) {
+    @content;
+  }
+}
+
+.quizBlock {
+  @apply flex gap-6 justify-between items-center;
+  @include custom {
+    @apply flex-col;
+  }
+
+  .blockContent {
+    @apply max-w-[50%] justify-self-start;
+    @include custom {
+      @apply max-w-full;
+    }
+  }
+
+  .buttonsContainer {
+    @apply flex flex-col justify-between items-center gap-5;
+  }
+}
+.mainBlock {
+  @apply flex flex-col gap-10;
+}
+.line {
+  @apply w-full h-1;
+  background: linear-gradient(90deg, rgba(246, 162, 10, 1) 0%, rgba(0, 0, 0, 0) 90%);
+}

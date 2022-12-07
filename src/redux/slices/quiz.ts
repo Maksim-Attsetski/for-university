@@ -13,6 +13,8 @@ interface IState {
   index: index;
   lastIndex: index;
   activeQuestion: IQuestion | undefined;
+  meter: number;
+  floor: number;
 }
 
 const initialState: IState = {
@@ -23,6 +25,8 @@ const initialState: IState = {
   index: 1,
   lastIndex: 1,
   activeQuestion: quiz[1],
+  floor: 1,
+  meter: 1,
 };
 
 const quizSlice = createSlice({
@@ -65,8 +69,13 @@ const quizSlice = createSlice({
       // @ts-ignore
       state.activeQuestion = quiz[currentIndex];
     },
+    setQuizInfo: (state: IState, action: PayloadAction<{ floor: number; meter: number }>) => {
+      state.floor = action.payload.floor;
+      state.meter = action.payload.meter;
+    },
   },
 });
 
 export default quizSlice.reducer;
-export const { setNewAnswer, clearAnswers, startQuiz, finishQuiz, onNextQuestion, onPrevQuestion } = quizSlice.actions;
+export const { setNewAnswer, clearAnswers, startQuiz, finishQuiz, setQuizInfo, onNextQuestion, onPrevQuestion } =
+  quizSlice.actions;

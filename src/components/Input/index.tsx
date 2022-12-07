@@ -14,7 +14,8 @@ interface IProps {
   onFocus?: () => void;
   onBlur?: () => void;
   isPass?: boolean;
-  max?: number | null;
+  max?: number;
+  maxLength?: number;
 }
 
 const Input: FC<IProps> = ({
@@ -29,7 +30,8 @@ const Input: FC<IProps> = ({
   onFocus = () => {},
   onBlur = () => {},
   isPass = false,
-  max = null,
+  max = 9999,
+  maxLength = 9999,
 }) => {
   const label: string = useMemo(() => (customLabel ? customLabel : placeholder), [customLabel, placeholder]);
   const [focus, setFocus] = useState<boolean>(false);
@@ -46,11 +48,7 @@ const Input: FC<IProps> = ({
   };
 
   const onChange = (text: string) => {
-    if (type === 'number') {
-      setText(text.replace(/\D/, ''));
-    } else {
-      setText(text);
-    }
+    setText(type === 'number' ? text.replace(/\D/, '') : text);
   };
 
   return (
@@ -67,7 +65,8 @@ const Input: FC<IProps> = ({
           onBlur={onInputBlur}
           autoComplete={isPass ? 'current-password' : ''}
           className={s.input + ' ' + className}
-          max={max || 9999}
+          max={max}
+          maxLength={maxLength}
         />
         {isPass && (
           <span className={s.passIcon} onClick={() => setIsPassShown(prev => !prev)}>

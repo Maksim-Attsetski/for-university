@@ -13,7 +13,7 @@ interface ITotal {
 }
 
 const QuizFinish: FC = () => {
-  const { answers } = useTypedSelector(state => state.quiz);
+  const { answers, floor, meter } = useTypedSelector(state => state.quiz);
   const { systems } = useTypedSelector(state => state.systems);
   const [total, setTotal] = useState<ITotal>({ price: 0 });
   const { action } = useActions();
@@ -34,7 +34,9 @@ const QuizFinish: FC = () => {
       }
     }
 
-    const price = systemsInAnswers.reduce((prev, cur) => (prev += cur.price), 0);
+    const priceFromSystem = systemsInAnswers.reduce((prev, cur) => (prev += cur.price), 0);
+    const price: number = priceFromSystem * meter * floor;
+
     setTotal(prev => ({ ...prev, price }));
   };
 
@@ -51,11 +53,14 @@ const QuizFinish: FC = () => {
     <div>
       <br />
       <div className="container">
-        <div className="flex gap-4 flex-wrap items-center">
-          <div>
-            <strong>Full price</strong>
-          </div>
-          <div className="px-2 py-1 bg-title-color text-white w-max rounded-md">{total.price.toFixed(4) || 0} $</div>
+        <div>
+          Meter: <strong>{meter}</strong>
+        </div>
+        <div>
+          Floor: <strong>{floor}</strong>
+        </div>
+        <div>
+          Full price: <strong>{total.price.toFixed(4) || 0} BYN</strong>
         </div>
         <br />
         {Object.values(answers).map(answer => {
@@ -71,7 +76,7 @@ const QuizFinish: FC = () => {
               {system && (
                 <div className="flex items-center gap-3">
                   <div>{system?.name}</div>
-                  <div>{system?.price} $</div>
+                  <div>{system?.price} BYN</div>
                 </div>
               )}
             </div>

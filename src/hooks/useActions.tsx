@@ -12,6 +12,7 @@ import {
   onNextQuestion,
   onPrevQuestion,
   setNewAnswer,
+  setQuizInfo,
   startQuiz,
 } from '../redux/slices/quiz';
 
@@ -44,6 +45,7 @@ export const useActions = () => {
       onNextQuestion,
       onPrevQuestion,
       setSystemPrice,
+      setQuizInfo,
     }),
     [],
   );

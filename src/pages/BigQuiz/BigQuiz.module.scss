@@ -19,18 +19,18 @@ $top: 85px;
 }
 
 .bgImage {
-  @apply w-1/2 h-1/2 absolute top-1/2 left-1/3;
+  @apply w-1/2 h-[75%] absolute top-1/2 left-1/3;
   transform: translate(-50%, -50%);
   @include tablet {
-    @apply w-full h-full top-1/3;
+    @apply w-full top-1/3;
   }
 }
 
 .quiz {
-  @apply px-8 py-4 rounded-xl my-10 flex flex-col items-center;
-  width: clamp(300px, 80vw, 550px);
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgb(231 228 228 / 70%);
   backdrop-filter: blur(6px);
+  @apply px-8 py-4 rounded-xl my-10 flex flex-col items-center  shadow-dark-btn-active;
+  width: clamp(300px, 80vw, 550px);
   @media (max-width: 500px) {
     transform: translateX(10%);
   }
