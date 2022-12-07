@@ -22,12 +22,12 @@ const Quiz: FC = () => {
 
   const onClickRestart = () => {
     action.startQuiz();
-    setIsShow(false);
-    navigate(routes.quizBig);
+    closeModal();
   };
 
-  const onClickContinue = () => {
+  const closeModal = () => {
     setIsShow(false);
+    document.body.classList.remove('hiddenBody');
     navigate(routes.quizBig);
   };
 
@@ -39,7 +39,7 @@ const Quiz: FC = () => {
         <br />
         <div className="flex gap-4 items-center">
           <Button text="Заново" onClick={onClickRestart} />
-          <Button text="Продолжить" onClick={onClickContinue} />
+          <Button text="Продолжить" onClick={closeModal} />
         </div>
       </Popup>
       <div className="container">
