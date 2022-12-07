@@ -7,9 +7,9 @@ import { useTypedSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/useActions';
 
 import { routes } from '../../data';
-import { IAnswer, IQuestion, IVariants } from '../../types';
+import { IAnswer, IVariants } from '../../types';
 
-import { Button, QuizVariant, Title } from '../../components';
+import { QuizVariant, Title } from '../../components';
 import s from './BigQuiz.module.scss';
 import { images } from '../../assets';
 
@@ -17,11 +17,11 @@ const BigQuiz: FC = () => {
   const { action } = useActions();
   const navigate = useNavigate();
 
-  const { answers, index, quizKeys, quiz, lastIndex } = useTypedSelector(state => state.quiz);
+  const { answers, index, quizKeys, activeQuestion, quiz, lastIndex } = useTypedSelector(state => state.quiz);
   const [activeVariant, setActiveVariant] = useState<IVariants | null>(null);
 
   // @ts-ignore
-  const activeQuestion: IQuestion | undefined = useMemo(() => quiz[index], [index]);
+  const quizLength = useMemo(() => quiz[quizKeys.length - 1].order, [quizKeys]);
 
   const onClickNextQuestion = () => {
     if (!activeVariant || !activeQuestion) {
@@ -29,18 +29,21 @@ const BigQuiz: FC = () => {
     }
 
     const { order, title } = activeQuestion;
-    console.log(activeQuestion);
 
     action.setNewAnswer({ answer: activeVariant, questionId: order, order, title });
     if (index === quizKeys.length) {
-      action.finishQuiz();
-      navigate(routes.quizFinish);
+      onFinishQuiz();
       return;
     }
 
     if (index < quizKeys.length) {
       changeQuestion();
     }
+  };
+
+  const onFinishQuiz = () => {
+    action.finishQuiz();
+    navigate(routes.quizFinish);
   };
 
   const onClickPrevQuestion = () => {
@@ -58,10 +61,6 @@ const BigQuiz: FC = () => {
   };
 
   useEffect(() => {
-    action.startQuiz();
-  }, []);
-
-  useEffect(() => {
     if (!activeQuestion || !activeQuestion.condition) {
       return;
     }
@@ -72,10 +71,14 @@ const BigQuiz: FC = () => {
     });
 
     if (invalidCondition) {
-      action.setNewAnswer({ order: null, title: null, questionId: activeQuestion.order, answer: null });
+      action.setNewAnswer({ order: activeQuestion.order, title: null, questionId: activeQuestion.id, answer: null });
       changeQuestion(lastIndex > index);
     }
   }, [answers, index]);
+
+  useEffect(() => {
+    index > quizKeys.length && onFinishQuiz();
+  }, [index]);
 
   return (
     <div className={s.quizPage}>
@@ -109,7 +112,7 @@ const BigQuiz: FC = () => {
           />
           <span className={s.quizLine}></span>
           <div>
-            {activeQuestion?.order} / {quizKeys.length}
+            {activeQuestion?.order} / {quizLength}
           </div>
           <span className={s.quizLine}></span>
           <img

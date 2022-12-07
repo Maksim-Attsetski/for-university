@@ -1,26 +1,28 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { questionIds, quiz } from '../../data';
-import { IAnswer, IQuiz, typeOfAnswer } from '../../types';
+import { quiz } from '../../data';
+import { IAnswer, IQuestion, IQuiz, typeOfAnswer } from '../../types';
 
-type index = questionIds | string | number;
+type index = string | number;
 
 interface IState {
   initialQuiz: IQuiz;
   quiz: IQuiz;
-  quizKeys: (questionIds | string)[];
+  quizKeys: string[];
   answers: typeOfAnswer;
   index: index;
   lastIndex: index;
+  activeQuestion: IQuestion | undefined;
 }
 
 const initialState: IState = {
   initialQuiz: quiz,
   quiz,
   quizKeys: Object.keys(quiz),
-  answers: [],
+  answers: {},
   index: 1,
   lastIndex: 1,
+  activeQuestion: quiz[1],
 };
 
 const quizSlice = createSlice({
@@ -35,24 +37,33 @@ const quizSlice = createSlice({
         : action.payload;
     },
     clearAnswers: (state: IState) => {
-      state.answers = [];
+      state.answers = {};
     },
     startQuiz: (state: IState) => {
-      state.quiz = state.initialQuiz;
       state.answers = {};
       state.index = 1;
       state.lastIndex = 1;
+      state.activeQuestion = quiz[1];
     },
     finishQuiz: (state: IState) => {
       state.quiz = state.initialQuiz;
     },
     onNextQuestion: (state: IState, action: PayloadAction<number | undefined>) => {
       state.lastIndex = state.index;
-      state.index = action.payload || +state.index + 1;
+      const currentIndex: index = action.payload || +state.index + 1;
+      state.index = currentIndex;
+
+      // @ts-ignore
+      state.activeQuestion = quiz[currentIndex];
     },
     onPrevQuestion: (state: IState, action: PayloadAction<number | undefined>) => {
       state.lastIndex = state.index;
-      state.index = action.payload || +state.index - 1;
+      const currentIndex: index = action.payload || +state.index - 1;
+      state.index = currentIndex;
+
+      state.activeQuestion?.order && delete state.answers[+state.activeQuestion?.order];
+      // @ts-ignore
+      state.activeQuestion = quiz[currentIndex];
     },
   },
 });

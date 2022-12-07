@@ -36,11 +36,6 @@ $top: 85px;
   }
 }
 
-.prev,
-.next {
-  @apply mr-3;
-}
-
 .arrowContainer {
   @apply flex gap-3 items-center;
   .quizLine {

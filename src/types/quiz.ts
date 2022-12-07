@@ -1,6 +1,6 @@
-import { questionIds, systemsIds } from '../data';
+import { systemsIds } from '../data';
 
-type questionId = questionIds | number;
+type questionId = number;
 
 interface ICondition {
   questionId: questionId;
@@ -20,6 +20,7 @@ interface IAnswer {
 }
 
 interface IQuestion {
+  id: number;
   title: string;
   order: questionId;
   variants: IVariants[];
@@ -31,7 +32,7 @@ type typeOfAnswer = {
 };
 
 type typeOfQuestion = {
-  [key: IQuestion['order']]: IQuestion;
+  [key: IQuestion['id']]: IQuestion;
 };
 
 interface IQuiz {
@@ -40,11 +41,15 @@ interface IQuiz {
   [3]: IQuestion;
   [4]: IQuestion;
   [5]: IQuestion;
-  // [6]: IQuestion;
-  // [7]: IQuestion;
-  // [8]: IQuestion;
-  // [9]: IQuestion;
-  // [10]: IQuestion;
+  [6]: IQuestion;
+  [7]: IQuestion;
+  [8]: IQuestion;
+  [9]: IQuestion;
+  [10]: IQuestion;
+  [11]: IQuestion;
+  [12]: IQuestion;
+  [13]: IQuestion;
+  [14]: IQuestion;
 }
 
 export type { IQuiz, typeOfQuestion, typeOfAnswer, IQuestion, IVariants, ICondition, IAnswer };
