@@ -2,11 +2,13 @@ import { FC, useEffect, useMemo } from 'react';
 import s from './WorkToast.module.scss';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTypedSelector } from '../../hooks/redux';
+import { IWorkTotal } from '../../types';
+import { getWorkTime } from '../../utils/getWorkTime';
 
 interface IProps {
   isVisible: boolean;
   setIsVisible: (val: boolean) => void;
-  data: { totalPrice: number; totalTime: number };
+  data: IWorkTotal;
 }
 
 const WorkToast: FC<IProps> = ({ isVisible, setIsVisible, data }) => {
@@ -24,12 +26,7 @@ const WorkToast: FC<IProps> = ({ isVisible, setIsVisible, data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible]);
 
-  const totalTime: string = useMemo(() => {
-    const days: string[] = `${data.totalTime / (24 * 60)}`.split('.'); // ["5", "25555"]
-    const hours: number = Math.floor(+('0.' + days[1]) * 24); // ('0.' + '25555') * 24
-
-    return `${days[0]} дн. ${hours} ч.`;
-  }, [data.totalTime]);
+  const totalTime: string = useMemo(() => (data ? getWorkTime(data) : ''), [data?.time]);
 
   return (
     <AnimatePresence initial={false}>
@@ -41,7 +38,7 @@ const WorkToast: FC<IProps> = ({ isVisible, setIsVisible, data }) => {
           transition={{ type: 'spring', stiffness: 120 }}
           className={s.toast}>
           <div>
-            Денег: {data.totalPrice} {currency?.Cur_Abbreviation}
+            Денег: {data?.price} {currency?.Cur_Abbreviation}
           </div>
           <div>Времени: {totalTime}</div>
         </motion.div>

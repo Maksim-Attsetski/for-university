@@ -11,6 +11,7 @@ import { IProject } from '../../types';
 import { works } from '../../data';
 import useOutsideMenu from '../../hooks/useOutsideMenu';
 import { CreateProjectModal } from '../../components/modals';
+import { getWorkTime } from '../../utils/getWorkTime';
 
 const Projects: FC = () => {
   const { currentUser } = useTypedSelector(state => state.auth);
@@ -35,8 +36,8 @@ const Projects: FC = () => {
         <Button text="Создать новый проект" onClick={() => setIsShow(true)} />
 
         <div className={s.projectList}>
-          {!!projects.length ? (
-            projects.map(project => (
+          {!!Object.keys(projects).length ? (
+            Object.values(projects).map(project => (
               <div className={s.project} key={project.id}>
                 <div className="flex gap-5 items-center justify-between">
                   <div className="italic">{moment(project.createdAt).fromNow()}</div>
@@ -47,6 +48,10 @@ const Projects: FC = () => {
 
                 <div className="max-w-xs">Названиe проекта: {project.name}</div>
                 <div>Текущая работа: {project.workId}</div>
+                <div>
+                  Price: {project.price} {project.currency}
+                </div>
+                <div>time: {getWorkTime({ time: project.time, price: 1 })}</div>
 
                 <div className={s.buttonsContainer}>
                   {/* <Button text="Редактировать" onClick={() => setIsShow(true)} /> */}

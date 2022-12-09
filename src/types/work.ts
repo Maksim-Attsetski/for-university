@@ -1,4 +1,4 @@
-import { Cur_AbbreviationType } from './exchangeRate';
+// import { Cur_AbbreviationType } from './exchangeRate';
 import { materialName } from './material';
 
 export type workName =
@@ -53,6 +53,11 @@ export type workName =
 export type workType = 'excavation' | 'foundation' | 'walls' | 'overlap' | 'opening' | 'roof';
 
 export type workUnitOfMeasure = 'm2' | 'm3' | 'thing' | 'pm' | 'kg';
+
+export type IWorkTotal = {
+  price: number;
+  time: number;
+} | null;
 
 export interface IWork {
   id: number;

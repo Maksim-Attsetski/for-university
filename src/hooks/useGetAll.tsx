@@ -8,11 +8,14 @@ import { useActions } from './useActions';
 import useProjects from '../hooks/useProjects';
 
 export const useGetAll = () => {
-  const { action, getExchangeRate, setSystemPrice } = useActions();
+  const { action, getExchangeRate } = useActions();
   const { onGetProjects } = useProjects();
 
   const getAll = async () => {
-    const [rates] = await Promise.all([getExchangeRate(), onGetProjects(), setSystemPrice()]);
+    const [rates] = await Promise.all([getExchangeRate(), onGetProjects()]);
+    await action.setSystemPrice();
+    await action.setWorks();
+
     action.setExchangeRate(rates);
   };
 

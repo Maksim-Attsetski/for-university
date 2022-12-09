@@ -41,8 +41,8 @@ const Profile: FC = () => {
       action.setIsLoading(true);
       await auth?.currentUser?.delete();
 
-      projects.forEach(async item => {
-        await deleteDoc(doc(fs, 'projects', item.id));
+      Object.keys(projects).forEach(async item => {
+        await deleteDoc(doc(fs, 'projects', item));
       });
 
       action.setUser(null);

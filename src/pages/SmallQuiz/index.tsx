@@ -1,61 +1,40 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, Input, Toast, Work, WorkCollapse, WorkToast } from '../../components';
 import { routes } from '../../data';
 import { useTypedSelector } from '../../hooks/redux';
+import { useActions } from '../../hooks/useActions';
 
-import { IWork, workType } from '../../types';
-import { getErrorMsg, getWorkPriceAndTime } from '../../utils';
-import { getCurrentPrice } from '../../utils/getCurrentPrice';
+import { IWork } from '../../types';
+import { IProjectInfo } from '../../types/project';
+import { getErrorMsg } from '../../utils';
 
 // import s from './Quiz.module.scss';
 
 const SmallQuiz: FC = () => {
-  const { works } = useTypedSelector(state => state.works);
+  const { works, excavationWorks, foundationWorks, openingWorks, overlapWorks, roofWorks, wallsWorks, total } =
+    useTypedSelector(state => state.works);
   const { currency, workCurrency } = useTypedSelector(state => state.exchangeRate);
-  const [total, setTotal] = useState<{ price: number; time: number }>({ price: 0, time: 0 });
-  const [workItems, setWorkItems] = useState<{ meter: string; floor: string }>({
-    floor: '1',
-    meter: '1',
-  });
+  const [workItems, setWorkItems] = useState<IProjectInfo>({ floor: '1', meter: '1' });
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const { excavationWorks, foundationWorks, openingWorks, overlapWorks, roofWorks, wallsWorks } = useMemo(() => {
-    const filterByType = (type: workType) => works.filter(work => work.type === type);
-
-    return {
-      excavationWorks: filterByType('excavation'),
-      foundationWorks: filterByType('foundation'),
-      wallsWorks: filterByType('walls'),
-      overlapWorks: filterByType('overlap'),
-      openingWorks: filterByType('opening'),
-      roofWorks: filterByType('roof'),
-    };
-  }, [works]);
-
+  const { action } = useActions();
   const selectWorkStatus = (order: number) => {
     setIsVisible(false);
-
-    const intermediateWorks = [...foundationWorks, ...openingWorks, ...overlapWorks, ...wallsWorks]; // between excavation and roof
-    const allWorks = [...excavationWorks, ...roofWorks, ...intermediateWorks]; // all works
-
-    const { price: totalPrice, time: totalTime } = getWorkPriceAndTime(allWorks, order, workItems.meter);
-    let price = totalPrice;
-    let time = totalTime; // price and time for all works
-
-    if (+workItems.floor > 1) {
-      const { price: floorPrice, time: floorTime } = getWorkPriceAndTime(intermediateWorks, order, workItems.meter);
-
-      price = price + floorPrice * (+workItems.floor - 1); // total price + price for intermediate works
-      time = time + floorTime * (+workItems.floor - 1); // total time + time for intermediate works
+    if (!currency) {
+      return;
     }
 
-    const priceWithCurrency: number = currency ? getCurrentPrice(workCurrency, price, currency) : price;
+    action.calcTotalProjectInfo({
+      currency,
+      workCurrency,
+      order,
+      info: workItems,
+    });
 
-    setTotal({ price: priceWithCurrency, time });
     setIsVisible(true);
   };
 
@@ -78,11 +57,7 @@ const SmallQuiz: FC = () => {
   return (
     <div className="container content">
       <br />
-      <WorkToast
-        data={{ totalPrice: total.price, totalTime: total.time }}
-        isVisible={isVisible}
-        setIsVisible={setIsVisible}
-      />
+      <WorkToast data={total} isVisible={isVisible} setIsVisible={setIsVisible} />
       <Toast data={error} setData={setError} isError />
       <div className="flex gap-5 flex-wrap">
         <Button text="Назад" onClick={() => navigate(routes.quiz)} />

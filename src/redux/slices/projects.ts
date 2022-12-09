@@ -1,13 +1,14 @@
+import { typeOfProject } from './../../types/project';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProject } from '../../types';
 
 interface IState {
-  projects: IProject[];
+  projects: typeOfProject;
 }
 
 const initialState: IState = {
-  projects: [],
+  projects: {},
 };
 
 const projectsSlice = createSlice({
@@ -15,17 +16,16 @@ const projectsSlice = createSlice({
   initialState,
   reducers: {
     setProjects: (state: IState, action: PayloadAction<IProject[]>) => {
-      state.projects = action.payload;
+      state.projects = action.payload.reduce((prev, cur) => ({ ...prev, [cur.id]: cur }), {} as typeOfProject);
     },
     deleteProject: (state: IState, action: PayloadAction<string>) => {
-      state.projects = [...state.projects].filter(({ id }) => id !== action.payload);
+      delete state.projects[action.payload];
     },
     addProject: (state: IState, action: PayloadAction<IProject>) => {
-      state.projects = [action.payload, ...state.projects];
+      state.projects[action.payload.id] = action.payload;
     },
     updateProject: (state: IState, action: PayloadAction<IProject>) => {
-      state.projects = [...state.projects].map((item) => 
-        item.id === action.payload.id ? {...item, ...action.payload} : item);
+      state.projects[action.payload.id] = { ...state.projects[action.payload.id], ...action.payload };
     },
   },
 });

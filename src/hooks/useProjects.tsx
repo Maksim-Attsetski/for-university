@@ -10,6 +10,9 @@ import { useActions } from './useActions';
 const useProjects = () => {
   const { action } = useActions();
   const { currentUser } = useTypedSelector(state => state.auth);
+  const { floor, meter } = useTypedSelector(state => state.quiz);
+  const { total } = useTypedSelector(state => state.works);
+  const { currency, workCurrency } = useTypedSelector(state => state.exchangeRate);
   const [error, setError] = useState<string | null>(null);
 
   const onGetProjects = async (): Promise<void> => {
@@ -19,7 +22,7 @@ const useProjects = () => {
       // action.setIsLoading(true);
       const projects: IProject[] = [];
 
-      const q = query(collection(fs, 'projects'), where('userUid', '==', currentUser?.uid));
+      const q = query(collection(fs, 'projects'), where('authorUid', '==', currentUser?.uid));
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach(doc => {
@@ -51,29 +54,40 @@ const useProjects = () => {
       if (works.length < +workId) {
         setError('Максимальное значение ' + works.length);
         return false;
-      } else {
-        return true;
       }
+      return true;
     } else {
       throw new Error('invalid value');
     }
   };
 
   const onAddProject = async (name: string, workId: number): Promise<void> => {
-    if (!currentUser) return;
+    if (!currentUser || !currency) return;
     try {
       action.setIsLoading(true);
 
       const isValid = onGetError(name, workId);
 
-      if (isValid) {
+      action.calcTotalProjectInfo({
+        currency,
+        workCurrency,
+        order: workId,
+        info: { floor: '' + floor, meter: '' + meter },
+      });
+
+      if (isValid && total) {
         const newProject: IProject = {
           id: `${currentUser.uid}/${name}/${Math.random()}`,
-          userUid: currentUser.uid,
+          authorUid: currentUser.uid,
           workId,
           name,
           isDone: works.length === workId,
           createdAt: Date.now(),
+          answers: null,
+          price: total.price,
+          time: total.time,
+          info: { floor: '' + floor, meter: '' + meter },
+          currency: currency.Cur_Abbreviation,
         };
 
         const project = await addDoc(collection(fs, 'projects'), newProject);
