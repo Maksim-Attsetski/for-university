@@ -17,6 +17,7 @@ export interface IProject {
   answers: typeOfAnswer | null;
   info: IProjectInfo;
   currency: Cur_AbbreviationType;
+  materialsPrice: number;
 }
 
 export type typeOfProject = {

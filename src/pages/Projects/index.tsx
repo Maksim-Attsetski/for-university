@@ -13,12 +13,13 @@ import { CreateProjectModal } from '../../components/modals';
 import { getWorkTime } from '../../utils/getWorkTime';
 import { images } from '../../assets';
 import useGetWorkInfo from '../../hooks/useGetWorkInfo';
+import { routes } from '../../data';
 
 const Projects: FC = () => {
   const { works } = useTypedSelector(state => state.works);
   const { currentUser } = useTypedSelector(state => state.auth);
   const { floor, meter } = useTypedSelector(state => state.quiz);
-  const { projects } = useTypedSelector(state => state.projects);
+  const { projects, materialsPrice } = useTypedSelector(state => state.projects);
   const [activeWork, setActiveWork] = useState<string | null>(null);
 
   const { isShow, setIsShow } = useOutsideMenu();
@@ -28,9 +29,10 @@ const Projects: FC = () => {
   const onWorkEnd = (project: IProject): void => {
     const workId = project.workId + 1;
     const isDone = workId === works.length;
+    const materialsPrice = Math.round(project.materialsPrice * (workId / works.length));
 
     const total = calcWorkInfo(workId, project.info);
-    const newProject = { id: project.id, workId, isDone } as IProject;
+    const newProject = { id: project.id, workId, isDone, materialsPrice } as IProject;
 
     onUpdateProject(total ? { ...newProject, ...total } : newProject);
   };
@@ -44,11 +46,16 @@ const Projects: FC = () => {
     <div className={s.projectPage}>
       <div className="container">
         <Title text="Мои проекты" className={s.title} />
-        <div className={s.title}>Чтобы создать проект, сначала пройдите викторину "Строительство с нуля"</div>
+        {!materialsPrice && (
+          <div>
+            <div className={s.title}>Чтобы создать проект, сначала пройдите викторину "Строительство с нуля"</div>
+            <Button text="Викторины" to={routes.quiz} />
+          </div>
+        )}
 
         <Button
           text="Создать новый проект"
-          disabled={Object.keys(projects).length >= 3 || floor <= 0 || meter <= 0}
+          disabled={Object.keys(projects).length >= 3 || floor <= 0 || meter <= 0 || !materialsPrice}
           onClick={() => setIsShow(true)}
         />
 
@@ -71,7 +78,7 @@ const Projects: FC = () => {
                   <div className="max-w-xs">Названиe проекта: {project.name}</div>
                   <div>Текущая работа: {project.workId}</div>
                   <div>
-                    Price: {project.price} {project.currency}
+                    Price: {(project.price + project.materialsPrice).toFixed(3)} {project.currency}
                   </div>
                   <div>
                     <div>Additional info:</div>

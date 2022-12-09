@@ -11,6 +11,7 @@ import useGetWorkInfo from './useGetWorkInfo';
 const useProjects = () => {
   const { action } = useActions();
   const { currentUser } = useTypedSelector(state => state.auth);
+  const { materialsPrice } = useTypedSelector(state => state.projects);
   const { floor, meter } = useTypedSelector(state => state.quiz);
   const { currency } = useTypedSelector(state => state.exchangeRate);
 
@@ -64,7 +65,7 @@ const useProjects = () => {
   };
 
   const onAddProject = async (name: string, workId: number): Promise<void> => {
-    if (!currentUser || !currency) return;
+    if (!currentUser || !currency || !materialsPrice) return;
     try {
       action.setIsLoading(true);
 
@@ -84,6 +85,7 @@ const useProjects = () => {
           time: total.time,
           info: { floor: '' + floor, meter: '' + meter },
           currency: currency.Cur_Abbreviation,
+          materialsPrice,
         };
 
         const project = await addDoc(collection(fs, 'projects'), newProject);

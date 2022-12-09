@@ -18,6 +18,7 @@ const BigQuiz: FC = () => {
   const navigate = useNavigate();
 
   const { answers, index, quizKeys, activeQuestion, quiz, lastIndex } = useTypedSelector(state => state.quiz);
+  const { floor, meter } = useTypedSelector(state => state.quiz);
   const [activeVariant, setActiveVariant] = useState<IVariants | null>(null);
 
   // @ts-ignore
@@ -79,6 +80,11 @@ const BigQuiz: FC = () => {
   useEffect(() => {
     index > quizKeys.length && onFinishQuiz();
   }, [index]);
+  useEffect(() => {
+    if (!floor || !meter) {
+      navigate(routes.quiz);
+    }
+  }, []);
 
   return (
     <div className={s.quizPage}>

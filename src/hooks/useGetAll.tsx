@@ -37,11 +37,11 @@ export const useGetAll = () => {
           role: isAdmin ? 'admin' : 'user',
         } as IUser;
 
-        getAll();
         action.setUser(userData);
       } else {
         action.setUser(null);
       }
+      getAll();
 
       action.setAppLoading(false);
       action.setIsLoading(false);

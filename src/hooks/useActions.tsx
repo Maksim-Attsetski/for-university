@@ -5,7 +5,7 @@ import { setAppLoading, setIsLoading } from '../redux/slices/app';
 import { setAuth, setUser, updateUserData } from '../redux/slices/auth';
 import { setExchangeRate, getExchangeRate, setNewWorkCurrency } from '../redux/slices/exchangeRate';
 import { setTotalProjectInfo, setWorks, updateWorkAC, updateWorkCurrency } from '../redux/slices/work';
-import { setProjects, deleteProject, addProject, updateProject } from '../redux/slices/projects';
+import { setProjects, deleteProject, addProject, updateProject, setMaterialsPrice } from '../redux/slices/projects';
 import {
   clearAnswers,
   finishQuiz,
@@ -48,6 +48,7 @@ export const useActions = () => {
       setSystemPrice,
       setQuizInfo,
       setTotalProjectInfo,
+      setMaterialsPrice,
       clearProjectInfo,
       setWorks,
     }),

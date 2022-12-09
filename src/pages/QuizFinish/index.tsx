@@ -37,6 +37,7 @@ const QuizFinish: FC = () => {
     const priceFromSystem = systemsInAnswers.reduce((prev, cur) => (prev += cur.price), 0);
     const price: number = priceFromSystem * meter * floor;
 
+    action.setMaterialsPrice(price);
     setTotal(prev => ({ ...prev, price }));
   };
 
@@ -60,7 +61,10 @@ const QuizFinish: FC = () => {
           Floor: <strong>{floor}</strong>
         </div>
         <div>
-          Full price: <strong>{total.price.toFixed(4) || 0} BYN</strong>
+          Materials price: <strong>{total.price.toFixed(4) || 0} BYN</strong>
+        </div>
+        <div>
+          Materials price: <strong>{total.price.toFixed(4) || 0} BYN</strong>
         </div>
         <br />
         {Object.values(answers).map(answer => {

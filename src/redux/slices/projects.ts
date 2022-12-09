@@ -1,20 +1,25 @@
-import { typeOfProject } from './../../types/project';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { typeOfProject } from './../../types/project';
 import { IProject } from '../../types';
 
 interface IState {
   projects: typeOfProject;
+  materialsPrice: number | null;
 }
 
 const initialState: IState = {
   projects: {},
+  materialsPrice: null,
 };
 
 const projectsSlice = createSlice({
   name: 'projectsSlice',
   initialState,
   reducers: {
+    setMaterialsPrice: (state: IState, action: PayloadAction<number | null>) => {
+      state.materialsPrice = action.payload;
+    },
     setProjects: (state: IState, action: PayloadAction<IProject[]>) => {
       state.projects = action.payload.reduce((prev, cur) => ({ ...prev, [cur.id]: cur }), {} as typeOfProject);
     },
@@ -32,4 +37,4 @@ const projectsSlice = createSlice({
 
 export default projectsSlice.reducer;
 
-export const { setProjects, deleteProject, addProject, updateProject } = projectsSlice.actions;
+export const { setProjects, deleteProject, setMaterialsPrice, addProject, updateProject } = projectsSlice.actions;
