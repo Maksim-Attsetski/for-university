@@ -6,145 +6,145 @@ export const systems: typeOfSystem = {
     id: systemsIds.liteSolo,
     name: 'ТН Фундамент Lite Solo',
     materials: [],
-    price: 694.49, //
+    price: 6.9449, //
   },
   [systemsIds.liteMast]: {
     id: systemsIds.liteMast,
     name: 'ТН-Фундамент Лайт Маст',
     materials: [],
-    price: 830.93, //
+    price: 8.3093, //
   },
   [systemsIds.protectOptima]: {
     id: systemsIds.protectOptima,
     name: 'ТН-Фундамент Протект Оптима',
     materials: [],
-    price: 550.52, //
+    price: 5.5052, //
   },
   [systemsIds.standartUniversal]: {
     id: systemsIds.standartUniversal,
     name: 'ТН-Фундамент Стандарт Универсал',
     materials: [],
-    price: 540.2442, //
+    price: 5.402442, //
   },
   [systemsIds.drenazhLiteKMS]: {
     id: systemsIds.drenazhLiteKMS,
     name: 'ТН-Фундамент Дренаж Лайт КМС',
     materials: [],
-    price: 238.96, //
+    price: 2.3896, //
   },
   [systemsIds.fasadSiding]: {
     id: systemsIds.fasadSiding,
     name: 'ТН-Фасад Сайдинг',
     materials: [],
-    price: 2618.1083, //
+    price: 26.181083, //
   },
   [systemsIds.fasadStandart]: {
     id: systemsIds.fasadStandart,
     name: 'ТН-Фасад Стандарт',
     materials: [],
-    price: 446.9355, //
+    price: 4.469355, //
   },
   [systemsIds.fasadLiteHauberk]: {
     id: systemsIds.fasadLiteHauberk,
     name: 'ТН-Фасад Лайт HAUBERK',
     materials: [],
-    price: 1512.38, //
+    price: 15.1238, //
   },
   [systemsIds.reinforcedConcrete]: {
     id: systemsIds.reinforcedConcrete,
     name: 'ТН-Железобетонный',
     materials: [],
-    price: 1570.54, //
+    price: 15.7054, //
   },
   [systemsIds.monolith]: {
     id: systemsIds.monolith,
     name: 'ТН-Монолит',
     materials: [],
-    price: 1624.44, //
+    price: 16.2444, //
   },
   [systemsIds.wallTermoPir]: {
     id: systemsIds.wallTermoPir,
     name: 'ТН-Стена Термо PIR',
     materials: [],
-    price: 1267.44, //
+    price: 12.6744, //
   },
   [systemsIds.wallExpress]: {
     id: systemsIds.wallExpress,
     name: 'ТН-Стена Экспресс',
     materials: [],
-    price: 442.38, //
+    price: 4.4238, //
   },
   [systemsIds.wallBeam]: {
     id: systemsIds.wallBeam,
     name: 'ТН-Стена Брус',
     materials: [],
-    price: 840.35, //
+    price: 8.4035, //
   },
   [systemsIds.wallLog]: {
     id: systemsIds.wallLog,
     name: 'ТН-Стена Бревно',
     materials: [],
-    price: 927.75, //
+    price: 9.2775, //
   },
   [systemsIds.woodenFloor]: {
     id: systemsIds.woodenFloor,
     name: 'ТН-Деревянное перекрытие',
     materials: [],
-    price: 235.16, //
+    price: 2.3516, //
   },
   [systemsIds.prefabricated]: {
     id: systemsIds.prefabricated,
     name: 'ТН-Сборная',
     materials: [],
-    price: 1763.64, //
+    price: 17.6364, //
   },
   [systemsIds.luskasrdMansarda]: {
     id: systemsIds.luskasrdMansarda,
     name: 'ТН-Люксард Мансарда',
     materials: [],
-    price: 1928.34, //
+    price: 19.2834, //
   },
   [systemsIds.shinglasMansarda]: {
     id: systemsIds.shinglasMansarda,
     name: 'ТН-ШИНГЛАС Мансарда',
     materials: [],
-    price: 683.15, //
+    price: 6.8315, //
   },
   [systemsIds.shinglasClassic]: {
     id: systemsIds.shinglasClassic,
     name: 'ТН-ШИНГЛАС Классик',
     materials: [],
-    price: 6086.99, //
+    price: 60.8699, //
   },
   [systemsIds.krovlyaOptima]: {
     id: systemsIds.krovlyaOptima,
     name: 'ТН-КРОВЛЯ ОПТИМА',
     materials: [],
-    price: 1526.68, //
+    price: 15.2668, //
   },
   [systemsIds.krovlyaGarantPlus]: {
     id: systemsIds.krovlyaGarantPlus,
     name: 'ТН-КРОВЛЯ ГАРАНТ ПЛЮС',
     materials: [],
-    price: 1302.87, //
+    price: 13.0287, //
   },
   [systemsIds.krovlyaGrin]: {
     id: systemsIds.krovlyaGrin,
     name: 'ТН-КРОВЛЯ ГРИН',
     materials: [],
-    price: 1846.62, //
+    price: 18.4662, //
   },
   [systemsIds.krovlyaStandart]: {
     id: systemsIds.krovlyaStandart,
     name: 'ТН-КРОВЛЯ СТАНДАРТ',
     materials: [],
-    price: 1248.81, //
+    price: 12.4881, //
   },
   [systemsIds.krovlyaBarierTrotuar]: {
     id: systemsIds.krovlyaBarierTrotuar,
     name: 'ТН-КРОВЛЯ БАРЬЕР ТРОТУАР',
     materials: [],
-    price: 1551.42, //
+    price: 15.5142, //
   },
   [systemsIds.krovlyaBarierTrotuar]: {
     id: systemsIds.krovlyaBarierTrotuar,
