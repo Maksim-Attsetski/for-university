@@ -11,6 +11,7 @@
 
 .project {
   @apply relative p-4 pt-1 rounded-xl bg-white cursor-pointer;
+  max-width: 300px;
   .content {
     transition: all ease 0.45s;
     pointer-events: none;
@@ -28,7 +29,7 @@
       pointer-events: all;
     }
     .projectHomeIcon {
-      @apply opacity-30 w-3/4 h-3/4;
+      @apply w-[200px] h-[200px] opacity-30;
     }
   }
 }
@@ -38,5 +39,5 @@
 }
 
 .buttonsContainer {
-  @apply mt-3 flex justify-between items-center gap-4;
+  @apply mt-3 flex flex-wrap justify-between items-center gap-4;
 }

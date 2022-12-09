@@ -5,36 +5,32 @@ import s from './Projects.module.scss';
 import moment from 'moment';
 import { useTypedSelector } from '../../hooks/redux';
 import useProjects from '../../hooks/useProjects';
+import useOutsideMenu from '../../hooks/useOutsideMenu';
 
 import { Button, Title, Toast } from '../../components';
-import { IProject } from '../../types';
-import useOutsideMenu from '../../hooks/useOutsideMenu';
-import { CreateProjectModal } from '../../components/modals';
+import { ChangeWorkModal, CreateProjectModal } from '../../components/modals';
 import { getWorkTime } from '../../utils/getWorkTime';
 import { images } from '../../assets';
-import useGetWorkInfo from '../../hooks/useGetWorkInfo';
 import { routes } from '../../data';
+import { IProject } from '../../types';
+
+type IModalType = 'prev' | 'next' | 'end';
 
 const Projects: FC = () => {
-  const { works } = useTypedSelector(state => state.works);
   const { currentUser } = useTypedSelector(state => state.auth);
   const { floor, meter } = useTypedSelector(state => state.quiz);
   const { projects, materialsPrice } = useTypedSelector(state => state.projects);
-  const [activeWork, setActiveWork] = useState<string | null>(null);
+  const [activeWork, setActiveWork] = useState<IProject | null>(null);
 
   const { isShow, setIsShow } = useOutsideMenu();
-  const { onDeleteProject, onGetProjects, onUpdateProject, error, setError } = useProjects();
-  const { calcWorkInfo } = useGetWorkInfo();
+  const [modalType, setModalType] = useState<IModalType>('next');
+  const { isShow: workModalShown, setIsShow: setWorkModalShown } = useOutsideMenu();
+  // const { isShow: nextShow, setIsShow: setNextShow } = useOutsideMenu();
+  const { onDeleteProject, onGetProjects, error, setError } = useProjects();
 
-  const onWorkEnd = (project: IProject): void => {
-    const workId = project.workId + 1;
-    const isDone = workId === works.length;
-    const materialsPrice = Math.round(project.materialsPrice * (workId / works.length));
-
-    const total = calcWorkInfo(workId, project.info);
-    const newProject = { id: project.id, workId, isDone, materialsPrice } as IProject;
-
-    onUpdateProject(total ? { ...newProject, ...total } : newProject);
+  const onModalOpen = (type: IModalType) => {
+    setModalType(type);
+    setWorkModalShown(true);
   };
 
   useEffect(() => {
@@ -63,8 +59,8 @@ const Projects: FC = () => {
           {!!Object.keys(projects).length ? (
             Object.values(projects).map(project => (
               <div
-                onClick={() => setActiveWork(project.id)}
-                className={`${s.project} ${activeWork === project.id ? s.active : ''}`}
+                onClick={() => setActiveWork(project)}
+                className={`${s.project} ${activeWork?.id === project.id ? s.active : ''}`}
                 key={project.id}>
                 <img src={images.projectHomeIcon} className={s.projectHomeIcon} alt="projectHomeIcon" />
                 <div className={s.content}>
@@ -89,7 +85,11 @@ const Projects: FC = () => {
                   <div className={s.buttonsContainer}>
                     {/* <Button text="Редактировать" onClick={() => setIsShow(true)} /> */}
                     <Button isDanger text="Удалить" onClick={() => onDeleteProject(project.id)} />
-                    {!project.isDone && <Button text="Следующая работа" onClick={() => onWorkEnd(project)} />}
+                    {!project.isDone && project.workId !== 1 && (
+                      <Button text="Предыдущая работа" onClick={() => onModalOpen('prev')} />
+                    )}
+                    {!project.isDone && <Button text="Следующая работа" onClick={() => onModalOpen('next')} />}
+                    {!project.isDone && <Button text="Завершить" onClick={() => onModalOpen('end')} />}
                   </div>
                 </div>
               </div>
@@ -104,6 +104,12 @@ const Projects: FC = () => {
 
       <Toast isError data={error} setData={setError} />
       <CreateProjectModal isShow={isShow} setIsShow={setIsShow} />
+      <ChangeWorkModal
+        isShow={workModalShown}
+        setIsShow={setWorkModalShown}
+        project={activeWork}
+        modalType={modalType}
+      />
     </div>
   );
 };
