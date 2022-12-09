@@ -6,6 +6,7 @@ import { Button, Input, Popup, Title, Toast } from '../../components';
 import { routes } from '../../data';
 import { useTypedSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/useActions';
+import { IProjectInfo } from '../../types/project';
 import { getErrorMsg } from '../../utils';
 
 import s from './Quiz.module.scss';
@@ -14,10 +15,7 @@ const Quiz: FC = () => {
   const navigate = useNavigate();
   const { answers } = useTypedSelector(state => state.quiz);
   const { action } = useActions();
-  const [quizInfo, setQuizInfo] = useState<{ meter: string; floor: string }>({
-    floor: '1',
-    meter: '1',
-  });
+  const [quizInfo, setQuizInfo] = useState<IProjectInfo>({ floor: '', meter: '' });
 
   const [isShow, setIsShow] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -91,7 +89,7 @@ const Quiz: FC = () => {
   };
 
   return (
-    <>
+    <div className="">
       <Popup isShow={isShow} setIsShow={setIsShow}>
         <Title text="Вы не кончили в прошлый раз😉" />
         <br />
@@ -112,13 +110,13 @@ const Quiz: FC = () => {
         )}
         <div className={s.line}></div>
         {quizBlock(
-          'Незавершенное строительство',
-          'Здесь можно выбрать на какой стадии остановились работы, а наш калькулятор посчитает стоимость и длительность проекта.',
+          'Строительство с нуля',
+          'Пройдите онлайн опрос где вы сможете самостоятельно выбрать материалы для строительства с последующим расчетом стоимости и длительности проекта.',
           true,
           onBigQuizStart,
         )}
       </div>
-    </>
+    </div>
   );
 };
 export default Quiz;

@@ -1,22 +1,29 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
+import { Button } from '../../components';
 
 import { routes } from '../../data';
 import { useTypedSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/useActions';
+import useGetWorkInfo from '../../hooks/useGetWorkInfo';
+import { getWorkTime } from '../../utils/getWorkTime';
 
 // import s from './QuizFinish.module.scss';
 
 interface ITotal {
   price: number;
+  workPrice: number;
+  workTime: number;
 }
 
 const QuizFinish: FC = () => {
   const { answers, floor, meter } = useTypedSelector(state => state.quiz);
   const { systems } = useTypedSelector(state => state.systems);
-  const [total, setTotal] = useState<ITotal>({ price: 0 });
+  const [total, setTotal] = useState<ITotal>({ price: 0, workPrice: 0, workTime: 0 });
+
   const { action } = useActions();
+  const { calcWorkInfo } = useGetWorkInfo();
   const navigate = useNavigate();
 
   const setTotalPrice = () => {
@@ -37,8 +44,15 @@ const QuizFinish: FC = () => {
     const priceFromSystem = systemsInAnswers.reduce((prev, cur) => (prev += cur.price), 0);
     const price: number = priceFromSystem * meter * floor;
 
+    const total = calcWorkInfo(1, { floor: '' + floor, meter: '' + meter });
+
     action.setMaterialsPrice(price);
-    setTotal(prev => ({ ...prev, price }));
+    setTotal(prev => ({
+      ...prev,
+      price,
+      workPrice: total ? total.price : prev.price,
+      workTime: total ? total.time : prev.workTime,
+    }));
   };
 
   const resetQuiz = () => {
@@ -64,7 +78,16 @@ const QuizFinish: FC = () => {
           Materials price: <strong>{total.price.toFixed(4) || 0} BYN</strong>
         </div>
         <div>
-          Materials price: <strong>{total.price.toFixed(4) || 0} BYN</strong>
+          <div>
+            work price: <strong>{total.workPrice.toFixed(4)} BYN</strong>
+          </div>
+          <div>
+            work time: <strong>{getWorkTime({ time: total.workTime, price: 0 })}</strong>
+          </div>
+        </div>
+        <br />
+        <div>
+          <Button text="Сохранить результаты в проект" to={routes.projects} />
         </div>
         <br />
         {Object.values(answers).map(answer => {

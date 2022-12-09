@@ -80,6 +80,7 @@ const BigQuiz: FC = () => {
   useEffect(() => {
     index > quizKeys.length && onFinishQuiz();
   }, [index]);
+
   useEffect(() => {
     if (!floor || !meter) {
       navigate(routes.quiz);
