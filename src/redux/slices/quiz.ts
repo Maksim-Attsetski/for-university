@@ -25,8 +25,8 @@ const initialState: IState = {
   index: 1,
   lastIndex: 1,
   activeQuestion: quiz[1],
-  floor: 1,
-  meter: 1,
+  floor: 0,
+  meter: 0,
 };
 
 const quizSlice = createSlice({
@@ -42,6 +42,10 @@ const quizSlice = createSlice({
     },
     clearAnswers: (state: IState) => {
       state.answers = {};
+    },
+    clearProjectInfo: (state: IState) => {
+      state.floor = 0;
+      state.meter = 0;
     },
     startQuiz: (state: IState) => {
       state.answers = {};
@@ -77,5 +81,13 @@ const quizSlice = createSlice({
 });
 
 export default quizSlice.reducer;
-export const { setNewAnswer, clearAnswers, startQuiz, finishQuiz, setQuizInfo, onNextQuestion, onPrevQuestion } =
-  quizSlice.actions;
+export const {
+  setNewAnswer,
+  clearProjectInfo,
+  clearAnswers,
+  startQuiz,
+  finishQuiz,
+  setQuizInfo,
+  onNextQuestion,
+  onPrevQuestion,
+} = quizSlice.actions;

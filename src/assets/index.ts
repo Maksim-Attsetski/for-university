@@ -7,6 +7,7 @@ import eyes from './eyes.png';
 import closeEyes from './close-eyes.png';
 import quizArrowLeft from './quiz-arrow-left.png';
 import quizArrowRight from './quiz-arrow-right.png';
+import projectHomeIcon from './projects-home.png';
 
 export const images = {
   google,
@@ -18,4 +19,5 @@ export const images = {
   closeEyes,
   quizArrowLeft,
   quizArrowRight,
+  projectHomeIcon,
 };

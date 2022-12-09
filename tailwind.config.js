@@ -12,6 +12,7 @@ module.exports = {
         'title-color': '#F6A20A',
         'title-color-70': '#F6A20A',
         blur: 'rgba(240, 248, 255, 0.5)',
+        'project-bg': '#E7E7E7',
       },
       boxShadow: {
         'dark-btn': '1px 10px 20px rgba(0, 0, 0, 0.7)',

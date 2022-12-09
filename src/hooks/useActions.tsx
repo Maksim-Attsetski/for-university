@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { setAppLoading, setIsLoading } from '../redux/slices/app';
 import { setAuth, setUser, updateUserData } from '../redux/slices/auth';
 import { setExchangeRate, getExchangeRate, setNewWorkCurrency } from '../redux/slices/exchangeRate';
-import { calcTotalProjectInfo, setWorks, updateWorkAC, updateWorkCurrency } from '../redux/slices/work';
+import { setTotalProjectInfo, setWorks, updateWorkAC, updateWorkCurrency } from '../redux/slices/work';
 import { setProjects, deleteProject, addProject, updateProject } from '../redux/slices/projects';
 import {
   clearAnswers,
@@ -14,6 +14,7 @@ import {
   setNewAnswer,
   setQuizInfo,
   startQuiz,
+  clearProjectInfo,
 } from '../redux/slices/quiz';
 
 import { useTypedDispatch } from './redux';
@@ -46,7 +47,8 @@ export const useActions = () => {
       onPrevQuestion,
       setSystemPrice,
       setQuizInfo,
-      calcTotalProjectInfo,
+      setTotalProjectInfo,
+      clearProjectInfo,
       setWorks,
     }),
     [],

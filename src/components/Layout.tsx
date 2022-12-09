@@ -4,11 +4,8 @@ import Header from './Header';
 
 const Layout: FC = () => {
   return (
-    <div>
+    <div style={{ minHeight: '100vh', paddingTop: '11vh' }}>
       <Header />
-      <br />
-      <br />
-      <br />
       <main>
         <Outlet />
       </main>

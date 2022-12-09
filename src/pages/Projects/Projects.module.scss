@@ -1,15 +1,42 @@
+.projectPage {
+  @apply bg-project-bg pt-5;
+  min-height: inherit;
+}
+.title {
+  @apply text-center mb-4;
+}
 .projectList {
-    @apply flex gap-4 flex-wrap justify-around items-start my-4;
+  @apply flex gap-4 flex-wrap justify-around items-start my-4;
 }
 
 .project {
-    @apply border-[1px] border-slate-600 border-solid p-4 pt-1 rounded-2xl bg-slate-300;
+  @apply relative p-4 pt-1 rounded-xl bg-white cursor-pointer;
+  .content {
+    transition: all ease 0.45s;
+    pointer-events: none;
+    @apply opacity-0 z-1;
+  }
+  .projectHomeIcon {
+    @apply absolute w-[115px] h-[115px] top-1/2 left-1/2 z-0;
+    transform: translate(-50%, -50%);
+    transition: all ease 0.45s;
+  }
+
+  &.active {
+    .content {
+      @apply opacity-100;
+      pointer-events: all;
+    }
+    .projectHomeIcon {
+      @apply opacity-30 w-3/4 h-3/4;
+    }
+  }
 }
 
 .projectState {
-    @apply ml-auto text-white w-max py-1 px-2 rounded-md my-2;
+  @apply ml-auto text-white w-max py-1 px-2 rounded-md my-2;
 }
 
 .buttonsContainer {
-    @apply mt-3 flex justify-between items-center gap-4;
+  @apply mt-3 flex justify-between items-center gap-4;
 }

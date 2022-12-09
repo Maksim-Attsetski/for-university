@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Input, Toast, Work, WorkCollapse, WorkToast } from '../../components';
 import { routes } from '../../data';
 import { useTypedSelector } from '../../hooks/redux';
-import { useActions } from '../../hooks/useActions';
+import useGetWorkInfo from '../../hooks/useGetWorkInfo';
 
 import { IWork } from '../../types';
 import { IProjectInfo } from '../../types/project';
@@ -15,26 +15,21 @@ import { getErrorMsg } from '../../utils';
 const SmallQuiz: FC = () => {
   const { works, excavationWorks, foundationWorks, openingWorks, overlapWorks, roofWorks, wallsWorks, total } =
     useTypedSelector(state => state.works);
-  const { currency, workCurrency } = useTypedSelector(state => state.exchangeRate);
+  const { currency } = useTypedSelector(state => state.exchangeRate);
   const [workItems, setWorkItems] = useState<IProjectInfo>({ floor: '1', meter: '1' });
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  const { calcWorkInfo } = useGetWorkInfo();
   const navigate = useNavigate();
 
-  const { action } = useActions();
   const selectWorkStatus = (order: number) => {
     setIsVisible(false);
     if (!currency) {
       return;
     }
 
-    action.calcTotalProjectInfo({
-      currency,
-      workCurrency,
-      order,
-      info: workItems,
-    });
-
+    calcWorkInfo(order, workItems);
     setIsVisible(true);
   };
 
@@ -63,6 +58,7 @@ const SmallQuiz: FC = () => {
         <Button text="Назад" onClick={() => navigate(routes.quiz)} />
         <Input
           max={1500}
+          maxLength={4}
           type="number"
           placeholder="Кв. метры"
           text={workItems.meter}
@@ -70,6 +66,7 @@ const SmallQuiz: FC = () => {
         />
         <Input
           max={3}
+          maxLength={1}
           type="number"
           placeholder="Этаж"
           text={workItems.floor}

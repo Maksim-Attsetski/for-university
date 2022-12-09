@@ -1,40 +1,40 @@
 .header {
-    @apply fixed top-0 left-0 z-[99] right-0 py-4; 
-    .blur {
-        @apply absolute top-0 left-0 w-full -z-[1] h-full backdrop-blur-md;
-    }
+  @apply fixed top-0 left-0 z-[99] min-h-[11vh] right-0 py-4;
+  .blur {
+    @apply absolute top-0 left-0 w-full -z-[1] h-full backdrop-blur-md;
+  }
 }
 .link {
-    @apply text-lg mr-5 mb-3 pb-1 relative;
+  @apply text-lg mr-5 mb-3 pb-1 relative;
+  .linkLine {
+    @apply absolute top-full left-1/2 w-0 h-[2px] rounded-lg transition-all bg-title-color;
+  }
+  &.active {
+    font-weight: bold;
     .linkLine {
-        @apply absolute top-full left-1/2 w-0 h-[2px] rounded-lg transition-all bg-title-color;
+      @apply left-0 w-full;
     }
-    &.active {
-        font-weight: bold;
-        .linkLine {
-            @apply left-0 w-full;
-        }    
-    }
+  }
 }
 .headerBody {
-    @apply flex justify-between items-center;
-    .headerContent {
-        @apply flex items-end;
-    }
+  @apply flex justify-between items-center;
+  .headerContent {
+    @apply flex items-end;
+  }
 }
 
 .select {
-    @apply right-[5%] top-[25%] absolute;
+  @apply right-[5%] top-[25%] absolute;
 }
 
 .selectTitle {
-    @apply flex justify-center items-center;
-    img {
-        @apply w-9 h-9 rounded-full;
-    }
+  @apply flex justify-center items-center;
+  img {
+    @apply w-9 h-9 rounded-full;
+  }
 }
 
 .selectDisabled {
-    pointer-events: none;
-    opacity: 0;
+  pointer-events: none;
+  opacity: 0;
 }

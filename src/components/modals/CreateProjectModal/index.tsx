@@ -16,10 +16,7 @@ interface IProps {
 }
 
 const CreateProjectModal: FC<IProps> = ({ isShow, setIsShow }) => {
-  const [projectInfo, setProjectInfo] = useState<{ name: string; workId: string }>({
-    name: '',
-    workId: '',
-  });
+  const [projectName, setProjectName] = useState<string>('');
   const { onAddProject, error, setError } = useProjects();
 
   return (
@@ -31,16 +28,10 @@ const CreateProjectModal: FC<IProps> = ({ isShow, setIsShow }) => {
 
           <div className="my-4">
             <Input
-              text={projectInfo.name}
-              setText={name => setProjectInfo({ ...projectInfo, name })}
+              text={projectName}
+              maxLength={25}
+              setText={setProjectName}
               placeholder="Название"
-              className="w-full"
-            />
-            <br />
-            <Input
-              text={projectInfo.workId}
-              setText={workId => setProjectInfo({ ...projectInfo, workId })}
-              placeholder="Номер работы"
               className="w-full"
             />
           </div>
@@ -49,7 +40,7 @@ const CreateProjectModal: FC<IProps> = ({ isShow, setIsShow }) => {
             <Button
               text="Создать"
               onClick={() => {
-                onAddProject(projectInfo.name, +projectInfo.workId);
+                onAddProject(projectName, 1);
                 setIsShow(false);
               }}
             />

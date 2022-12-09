@@ -6,13 +6,15 @@ import { IProject } from '../types';
 import { getErrorMsg } from '../utils';
 import { useTypedSelector } from './redux';
 import { useActions } from './useActions';
+import useGetWorkInfo from './useGetWorkInfo';
 
 const useProjects = () => {
   const { action } = useActions();
   const { currentUser } = useTypedSelector(state => state.auth);
   const { floor, meter } = useTypedSelector(state => state.quiz);
-  const { total } = useTypedSelector(state => state.works);
-  const { currency, workCurrency } = useTypedSelector(state => state.exchangeRate);
+  const { currency } = useTypedSelector(state => state.exchangeRate);
+
+  const { calcWorkInfo } = useGetWorkInfo();
   const [error, setError] = useState<string | null>(null);
 
   const onGetProjects = async (): Promise<void> => {
@@ -67,13 +69,7 @@ const useProjects = () => {
       action.setIsLoading(true);
 
       const isValid = onGetError(name, workId);
-
-      action.calcTotalProjectInfo({
-        currency,
-        workCurrency,
-        order: workId,
-        info: { floor: '' + floor, meter: '' + meter },
-      });
+      const total = calcWorkInfo(workId);
 
       if (isValid && total) {
         const newProject: IProject = {
@@ -92,6 +88,7 @@ const useProjects = () => {
 
         const project = await addDoc(collection(fs, 'projects'), newProject);
         action.addProject({ ...newProject, id: project.id });
+        action.clearProjectInfo();
         setError(null);
       }
     } catch (error) {
