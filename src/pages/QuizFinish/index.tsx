@@ -79,7 +79,7 @@ const QuizFinish: FC = () => {
         </div>
         <div>
           <div>
-            work price: <strong>{total.workPrice.toFixed(4)} BYN</strong>
+            work price: <strong>{'not done'} BYN</strong>
           </div>
           <div>
             work time: <strong>{getWorkTime({ time: total.workTime, price: 0 })}</strong>
@@ -87,7 +87,11 @@ const QuizFinish: FC = () => {
         </div>
         <br />
         <div>
-          <Button text="Сохранить результаты в проект" to={routes.projects} />
+          <div>
+            поздравляем с прохождением викторины, теперь вы можете сохранить свои результаты во вкладке "мои проекты"
+            для отслеживания оставшейся стоимости и длительности
+          </div>
+          <Button text="Перейти в мои проекты" to={routes.projects} />
         </div>
         <br />
         {Object.values(answers).map(answer => {
