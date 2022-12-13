@@ -103,18 +103,13 @@ const Profile: FC = () => {
         </div>
         <br />
         <div className="flex gap-4 mb-2">
-          <Button text="Редактировать" onClick={() => setEditVisible(true)} />
+          {provider?.includes('password') && <Button text="Редактировать" onClick={() => setEditVisible(true)} />}
           <Button text="Удалить аккаунт" onClick={() => setDeleteVisible(true)} />
         </div>
 
         {/* modals */}
         <DeleteProfileModal isShow={deleteVisible} setIsShow={setDeleteVisible} onDeleteAccount={onDeleteAccount} />
-        <EditProfileModal
-          isShow={editVisible}
-          onSaveEdition={onSaveEdition}
-          provider={provider}
-          setIsShow={setEditVisible}
-        />
+        <EditProfileModal isShow={editVisible} onSaveEdition={onSaveEdition} setIsShow={setEditVisible} />
         {/* // toast */}
         <Toast data={error} setData={setError} isError />
       </div>

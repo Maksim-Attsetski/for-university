@@ -7,6 +7,7 @@ type errorType =
   | 'auth/email-already-in-use'
   | 'auth/weak-password'
   | 'auth/too-many-requests'
+  | 'auth/network-request-failed'
   | 'auth/invalid-email'
   | 'invalid floor'
   | 'invalid meters'
@@ -31,8 +32,12 @@ const allError: IError[] = [
     msg: 'Неверный пароль',
   },
   {
+    type: 'auth/network-request-failed',
+    msg: 'Проверьте ваше интернет соединение',
+  },
+  {
     type: 'auth/too-many-requests',
-    msg: 'Заебал, много попыток входа',
+    msg: 'Много попыток входа, попробуйте чуть позже',
   },
   {
     type: 'invalid value',

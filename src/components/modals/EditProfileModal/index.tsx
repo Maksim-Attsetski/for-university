@@ -16,10 +16,9 @@ interface IProps {
   isShow: boolean;
   setIsShow: (val: boolean) => void;
   onSaveEdition: (editItems: IEditItems) => Promise<void>;
-  provider: string | undefined;
 }
 
-const EditProfileModal: FC<IProps> = ({ isShow, onSaveEdition, setIsShow, provider }) => {
+const EditProfileModal: FC<IProps> = ({ isShow, onSaveEdition, setIsShow }) => {
   const [editItems, setEditItems] = useState<IEditItems>({ name: '', pass: '' });
 
   return (
@@ -37,17 +36,15 @@ const EditProfileModal: FC<IProps> = ({ isShow, onSaveEdition, setIsShow, provid
               setText={name => setEditItems({ ...editItems, name })}
             />
           </div>
-          {provider === 'password' && (
-            <div className="w-full">
-              <div className="mb-2">Обновить пароль</div>
-              <Input
-                className="w-full"
-                text={editItems.pass}
-                placeholder={'Пароль'}
-                setText={pass => setEditItems({ ...editItems, pass })}
-              />
-            </div>
-          )}
+          <div className="w-full">
+            <div className="mb-2">Обновить пароль</div>
+            <Input
+              className="w-full"
+              text={editItems.pass}
+              placeholder={'Пароль'}
+              setText={pass => setEditItems({ ...editItems, pass })}
+            />
+          </div>
         </div>
         <div className={s.profileBtns}>
           <Button
