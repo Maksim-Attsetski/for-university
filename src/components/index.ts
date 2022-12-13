@@ -14,22 +14,23 @@ import QuizVariant from './QuizVariant';
 import Blur from './Blur';
 import Select from './Select';
 import Logo from './Logo';
-
-export { 
-    Logo,
-    Select,
-    Blur,
-    QuizVariant,
-    Toast,
-    ToTop,
-    WorkCollapse,
-    Title,
-    Button,
-    NavBar,
-    Popup,
-    Layout,
-    Work,
-    WorkToast,
-    Input,
-    Loader,
+import Arrows from './Arrows';
+export {
+  Arrows,
+  Logo,
+  Select,
+  Blur,
+  QuizVariant,
+  Toast,
+  ToTop,
+  WorkCollapse,
+  Title,
+  Button,
+  NavBar,
+  Popup,
+  Layout,
+  Work,
+  WorkToast,
+  Input,
+  Loader,
 };

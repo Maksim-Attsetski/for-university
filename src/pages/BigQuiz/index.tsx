@@ -9,7 +9,7 @@ import { useActions } from '../../hooks/useActions';
 import { routes } from '../../data';
 import { IAnswer, IVariants } from '../../types';
 
-import { QuizVariant, Title } from '../../components';
+import { Arrows, QuizVariant, Title } from '../../components';
 import s from './BigQuiz.module.scss';
 import { images } from '../../assets';
 
@@ -109,27 +109,14 @@ const BigQuiz: FC = () => {
           </div>
         )}
         <br />
-        <div className={s.arrowContainer}>
-          <img
-            onClick={index < 2 ? () => {} : onClickPrevQuestion}
-            className={s.quizArrow}
-            data-disabled={index < 2}
-            src={images.quizArrowLeft}
-            alt="quizArrowLeft"
-          />
-          <span className={s.quizLine}></span>
-          <div>
-            {activeQuestion?.order} / {quizLength}
-          </div>
-          <span className={s.quizLine}></span>
-          <img
-            className={s.quizArrow}
-            data-disabled={!activeVariant}
-            onClick={!activeVariant ? () => {} : onClickNextQuestion}
-            src={images.quizArrowRight}
-            alt="quizArrowRight"
-          />
-        </div>
+        <Arrows
+          leftDisable={index < 2}
+          onLeftClick={index < 2 ? () => {} : onClickPrevQuestion}
+          order={activeQuestion?.order ? +activeQuestion?.order : 1}
+          lenght={quizLength}
+          onRightClick={!activeVariant ? () => {} : onClickNextQuestion}
+          rightDisable={!activeVariant}
+        />
       </div>
     </div>
   );

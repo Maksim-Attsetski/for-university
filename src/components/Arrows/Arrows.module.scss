@@ -1,0 +1,13 @@
+.arrowContainer {
+  @apply flex gap-3 items-center;
+  .quizLine {
+    @apply h-[2px] w-8 bg-black;
+  }
+  .quizArrow {
+    @apply h-6 w-6 cursor-pointer;
+    transition: all linear 0.2s;
+    &[data-disabled='true'] {
+      @apply opacity-30;
+    }
+  }
+}

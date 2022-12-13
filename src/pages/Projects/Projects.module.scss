@@ -11,11 +11,18 @@
 
 .project {
   @apply relative p-4 pt-1 rounded-xl bg-white cursor-pointer;
-  max-width: 300px;
+  width: 300px;
+  min-height: 250px;
+  .title {
+    @apply pb-3 rounded-[1px] border-solid font-bold border-slate-500 border-b-2 mb-4;
+  }
   .content {
+    @apply opacity-0 relative z-1 flex flex-col gap-y-2 pointer-events-none py-3 px-2;
     transition: all ease 0.45s;
-    pointer-events: none;
-    @apply opacity-0 z-1;
+  }
+  .buttonsContainer {
+    @apply opacity-0 pointer-events-none;
+    transition: all ease 0.45s;
   }
   .projectHomeIcon {
     @apply absolute w-[115px] h-[115px] top-1/2 left-1/2 z-0 pointer-events-none;
@@ -25,6 +32,10 @@
 
   &.active {
     .content {
+      @apply opacity-100;
+      pointer-events: all;
+    }
+    .buttonsContainer {
       @apply opacity-100;
       pointer-events: all;
     }
@@ -39,5 +50,9 @@
 }
 
 .buttonsContainer {
-  @apply mt-3 flex flex-wrap justify-between items-center gap-4;
+  @apply mt-3 w-full flex flex-col flex-wrap justify-between items-center gap-4;
+}
+
+.flexs {
+  @apply flex items-center;
 }

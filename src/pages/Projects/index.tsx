@@ -7,7 +7,7 @@ import { useTypedSelector } from '../../hooks/redux';
 import useProjects from '../../hooks/useProjects';
 import useOutsideMenu from '../../hooks/useOutsideMenu';
 
-import { Button, Title, Toast } from '../../components';
+import { Arrows, Button, Title, Toast } from '../../components';
 import { ChangeWorkModal, CreateProjectModal } from '../../components/modals';
 import { getWorkTime } from '../../utils/getWorkTime';
 import { images } from '../../assets';
@@ -45,7 +45,7 @@ const Projects: FC = () => {
         {!materialsPrice && (
           <div>
             <div className={s.title}>Чтобы создать проект, сначала пройдите викторину "Строительство с нуля"</div>
-            <Button text="Викторины" to={routes.quiz} />
+            <Button text="Викторины" to={routes.quiz} className="mb-3" />
           </div>
         )}
 
@@ -64,31 +64,24 @@ const Projects: FC = () => {
                 key={project.id}>
                 <img src={images.projectHomeIcon} className={s.projectHomeIcon} alt="projectHomeIcon" />
                 <div className={s.content}>
-                  <div className="flex gap-5 items-center justify-between">
-                    <div className="italic">{moment(project.createdAt).fromNow()}</div>
-                    <div className={`${project.isDone ? 'bg-green-500' : 'bg-red-500'} ${s.projectState}`}>
-                      Готов: {project.isDone ? 'Да' : 'Нет'}
-                    </div>
-                  </div>
-
-                  <div className="max-w-xs">Названиe проекта: {project.name}</div>
+                  <div className={s.title}>{project.name}</div>
                   <div>Текущая работа: {project.workId}</div>
                   <div>
-                    Price: {(project.price + project.materialsPrice).toFixed(3)} {project.currency}
+                    Цена: {(project.price + project.materialsPrice).toFixed(3)} {project.currency}
                   </div>
-                  <div>
-                    <div>Additional info:</div>
-                    {project.info.floor} floor, {project.info.meter} meter
-                  </div>
-                  <div>time: {getWorkTime({ time: project.time, price: 1 })}</div>
-
-                  <div className={s.buttonsContainer}>
-                    {/* <Button text="Редактировать" onClick={() => setIsShow(true)} /> */}
-                    <Button isDanger text="Удалить" onClick={() => onDeleteProject(project.id)} />
-                    {!project.isDone && project.workId !== 1 && (
-                      <Button text="Предыдущая работа" onClick={() => onModalOpen('prev')} />
-                    )}
-                    {!project.isDone && <Button text="Следующая работа" onClick={() => onModalOpen('next')} />}
+                  <div>Время: {getWorkTime({ time: project.time, price: 1 })}</div>
+                </div>
+                <div className={s.buttonsContainer}>
+                  <Arrows
+                    leftDisable={project.workId <= 1}
+                    onLeftClick={project.workId <= 1 ? () => {} : () => onModalOpen('prev')}
+                    order={project.workId}
+                    lenght={34}
+                    rightDisable={project.isDone}
+                    onRightClick={project.isDone ? () => {} : () => onModalOpen('next')}
+                  />
+                  <div className={s.flexs}>
+                    <Button isDanger text="Удалить" className="mr-4" onClick={() => onDeleteProject(project.id)} />
                     {!project.isDone && <Button text="Завершить" onClick={() => onModalOpen('end')} />}
                   </div>
                 </div>
