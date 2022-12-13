@@ -65,7 +65,9 @@ const Work: FC<IProps> = ({ work, renderBtn, workClass = '', onConfirmWork = () 
             <div>Длительность: {work.time} мин.</div>
           </div>
         )}
-        {renderBtn && <Button text="На этой" onClick={() => onConfirmWork(activeWork.order)} />}
+        {renderBtn && (
+          <Button className={s.confirmButton} text="На этой" onClick={() => onConfirmWork(activeWork.order)} />
+        )}
       </div>
     </>
   );

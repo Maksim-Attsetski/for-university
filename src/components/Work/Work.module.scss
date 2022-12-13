@@ -1,26 +1,33 @@
 @import '../../utils/media.scss';
 
 .work {
-    @apply p-1 mb-2 transition-all max-w-[75%] rounded-lg;
-    &:last-child {
-        @apply mb-0;
-    }
-    &.active {
-        @apply bg-slate-500 text-white;
-    }
+  @apply p-1 mb-2 transition-all max-w-[75%] rounded-lg;
+  &:last-child {
+    @apply mb-0;
+  }
+  &.active {
+    @apply bg-slate-500 text-white;
+  }
 }
 
 .workCollapse {
-    @apply flex justify-between m-4 bg-white px-8 py-3 rounded-xl;
-    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.205);
-    @include tablet {
-        @apply flex-col gap-3;
-    }
+  @apply flex justify-between m-4 bg-white px-8 py-3 rounded-xl;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.205);
+  @include tablet {
+    @apply flex-col gap-3;
+  }
 }
 
 .popup {
-    @apply flex flex-col gap-y-4;
-    .popupButton {
-        @apply h-max w-max self-center;
-    }
+  @apply flex flex-col gap-y-4;
+  .popupButton {
+    @apply h-max w-max self-center;
+  }
+}
+
+.confirmButton {
+  @apply self-center;
+  @include tablet {
+    @apply self-end;
+  }
 }

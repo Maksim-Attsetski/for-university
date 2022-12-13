@@ -12,9 +12,7 @@ export const useGetAll = () => {
   const { onGetProjects } = useProjects();
 
   const getAll = async () => {
-    const [rates] = await Promise.all([getExchangeRate(), onGetProjects()]);
-    await action.setSystemPrice();
-    await action.setWorks();
+    const [rates] = await Promise.all([getExchangeRate(), onGetProjects(), action.setWorks(), action.setSystemPrice()]);
 
     action.setExchangeRate(rates);
   };

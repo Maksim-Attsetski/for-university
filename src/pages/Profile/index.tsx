@@ -85,6 +85,17 @@ const Profile: FC = () => {
 
   useEffect(() => {
     onGetProjects();
+  }, []);
+
+  useEffect(() => {
+    action.setIsLoading(true);
+    const timer = setTimeout(() => {
+      action.setIsLoading(false);
+    }, 700);
+
+    return () => {
+      clearTimeout(timer);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
