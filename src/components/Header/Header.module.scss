@@ -1,23 +1,23 @@
 .header {
-  @apply fixed top-0 left-0 z-[99] min-h-[11vh] right-0 py-4;
+  @apply fixed top-0 left-0 z-[99] min-h-[11vh] right-0 flex flex-col justify-center items-center;
   .blur {
-    @apply absolute top-0 left-0 w-full -z-[1] h-full backdrop-blur-md;
+    @apply absolute top-0 left-0 w-full -z-1 h-full backdrop-blur-md;
   }
 }
 .link {
-  @apply text-lg mr-5 mb-3 pb-1 relative;
+  @apply text-lg mr-5 mb-3 py-2 relative;
   .linkLine {
     @apply absolute top-full left-1/2 w-0 h-[2px] rounded-lg transition-all bg-title-color;
   }
   &.active {
-    font-weight: bold;
+    @apply font-bold;
     .linkLine {
       @apply left-0 w-full;
     }
   }
 }
 .headerBody {
-  @apply flex justify-between items-center;
+  @apply flex min-h-[inherit] py-5 justify-between items-center;
   .headerContent {
     @apply flex items-end;
   }
@@ -37,4 +37,9 @@
 .selectDisabled {
   pointer-events: none;
   opacity: 0;
+}
+
+.line {
+  @apply w-full h-1;
+  background: linear-gradient(90deg, rgba(246, 162, 10, 1) 0%, rgba(0, 0, 0, 0) 90%);
 }

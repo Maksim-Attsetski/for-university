@@ -102,6 +102,7 @@ const Header: FC = () => {
           )}
         </div>
       </div>
+      <div className={s.line}></div>
     </header>
   );
 };

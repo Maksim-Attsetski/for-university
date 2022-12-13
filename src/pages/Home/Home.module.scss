@@ -1,57 +1,53 @@
 @import '../../utils/media.scss';
 
 .home {
-    .container {
-        min-height: 80vh;
-        @apply flex flex-col justify-center relative;
-    }
-    .homeLine {
-        @apply w-full h-1;
-        background: linear-gradient(90deg, rgba(246,162,10,1) 0%, rgba(0, 0, 0, 0) 90%);
-    }
-    .homeBody {
-        @apply flex justify-between items-center gap-x-7;
-    }
+  .container {
+    min-height: 80vh;
+    @apply flex flex-col justify-center relative;
+  }
+  .homeBody {
+    @apply flex justify-between items-center gap-x-7;
+  }
 }
 
 .content {
+  border-radius: 10%;
+  @apply p-8 relative;
+  @include laptop {
+    @apply bg-blur shadow-blur shadow-xl;
+  }
+
+  .blur {
+    @apply hidden absolute top-0 -z-1 left-0 w-full h-full;
     border-radius: 10%;
-    @apply p-8 relative;
+    backdrop-filter: blur(5px);
     @include laptop {
-        @apply bg-blur shadow-blur shadow-xl;
+      @apply block;
     }
+  }
 
-    .blur {
-        @apply hidden absolute top-0 -z-1 left-0 w-full h-full;
-        border-radius: 10%;
-        backdrop-filter: blur(5px);
-        @include laptop {
-            @apply block;
-        }    
-    }
+  .title {
+    font-weight: 500;
+    font-size: calc(4vmin + 12px);
+  }
 
-    .title {
-        font-weight: 500;
-        font-size: calc(4vmin + 12px);
-    }
-    
-    .text {
-        @apply my-5;
-        font-size: calc(2vmin + 8px);
-    }
+  .text {
+    @apply my-5;
+    font-size: calc(2vmin + 8px);
+  }
 
-    .quizBtn {
-        @apply py-3 px-10;
-    }
+  .quizBtn {
+    @apply py-3 px-10;
+  }
 }
 
 .image {
-    @apply absolute top-1/4 right-[5%] w-2/5 max-h-[50%] -z-10;
-    @include laptop {
-        @apply top-[15%] w-9/12;
-    }
-    @include tablet {
-        right: -50%;
-        width: 150%;
-    }
+  @apply absolute top-1/4 right-[5%] w-2/5 max-h-[50%] -z-10;
+  @include laptop {
+    @apply top-[15%] w-9/12;
+  }
+  @include tablet {
+    right: -50%;
+    width: 150%;
+  }
 }

@@ -4,7 +4,7 @@ import Header from './Header';
 
 const Layout: FC = () => {
   return (
-    <div style={{ minHeight: '100vh', paddingTop: '11vh' }}>
+    <div style={{ minHeight: '100vh', paddingTop: '13vh' }}>
       <Header />
       <main>
         <Outlet />

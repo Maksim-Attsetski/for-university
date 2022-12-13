@@ -15,11 +15,12 @@ body {
   overflow-x: hidden;
   font-family: 'Montserrat', sans-serif;
   background: linear-gradient(111.97deg, rgba(255, 255, 255, 0.4) 29.95%, rgba(0, 0, 0, 0.76) 97.67%);
+
   &.hiddenBody {
     overflow: hidden;
   }
   main {
-    min-height: 89vh;
+    min-height: 87vh;
     height: 100%;
     overflow: hidden;
   }

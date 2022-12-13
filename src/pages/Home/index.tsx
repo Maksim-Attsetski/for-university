@@ -11,7 +11,6 @@ const Home: FC = () => {
   return (
     <div className={s.home}>
       <br />
-      <div className={s.homeLine} />
       <div className={s.container + ' container'}>
         <div className={s.homeBody}>
           <div className={s.content}>
