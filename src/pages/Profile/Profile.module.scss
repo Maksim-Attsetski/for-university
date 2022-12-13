@@ -1,7 +1,14 @@
-
-
+.profilePage {
+  @apply relative bg-black min-h-[inherit] h-[inherit] w-full z-1;
+  .bg {
+    @apply absolute top-0 left-0 h-full w-full z-1;
+  }
+  .body {
+    @apply relative z-10;
+  }
+}
 .info {
-    .infoImg {
-        @apply w-32 h-32 rounded-md;
-    }
+  .infoImg {
+    @apply w-32 h-32 rounded-md;
+  }
 }

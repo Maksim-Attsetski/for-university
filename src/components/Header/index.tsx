@@ -35,7 +35,7 @@ const Header: FC = () => {
   const links: ILink[] = useMemo(
     () => {
       const allRoutes: ILink[] = [
-        { to: routes.about, name: 'О проекте', isActive: checkIsActive(routes.about) },
+        { to: routes.about, name: 'О NumBer', isActive: checkIsActive(routes.about) },
         { to: routes.catalog, name: 'Каталог', isActive: checkIsActive(routes.catalog) },
         { to: routes.contacts, name: 'Наши контакты', isActive: checkIsActive(routes.contacts) },
       ];

@@ -89,8 +89,9 @@ const Profile: FC = () => {
   }, []);
 
   return (
-    <div>
-      <div className="container">
+    <div className={s.profilePage}>
+      <img src={images.profileBg} className={s.bg} alt="profile bg" />
+      <div className={s.body + ' container'}>
         <br />
         <Title text="Профиль" />
         {currentUser?.role === 'admin' && <Button to={routes.admin} text={'Админка'} className="my-3" />}

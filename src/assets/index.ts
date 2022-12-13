@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import profile from './profile.png';
 import mainBgBlock from './main-bg.png';
 import quizBg from './quiz-bg.png';
+import profileBg from './profile-bg.png';
 import eyes from './eyes.png';
 import closeEyes from './close-eyes.png';
 import quizArrowLeft from './quiz-arrow-left.png';
@@ -15,6 +16,7 @@ export const images = {
   logo,
   mainBgBlock,
   quizBg,
+  profileBg,
   eyes,
   closeEyes,
   quizArrowLeft,

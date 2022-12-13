@@ -65,8 +65,10 @@ const useProjects = () => {
   };
 
   const onAddProject = async (name: string, workId: number): Promise<void> => {
-    if (!currentUser || !currency || !materialsPrice) return;
     try {
+      if (!currentUser || !currency || !materialsPrice) {
+        throw new Error('Not all what you need');
+      }
       action.setIsLoading(true);
 
       const isValid = onGetError(name, workId);
