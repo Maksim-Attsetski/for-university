@@ -14,8 +14,10 @@ import Settings from './Settings';
 import Contacts from './Contacts';
 import Catalog from './Catalog';
 import QuizFinish from './QuizFinish';
+import CatalogItem from './CatalogItem';
 
 export const screens = {
+  CatalogItem,
   QuizFinish,
   Catalog,
   Contacts,
