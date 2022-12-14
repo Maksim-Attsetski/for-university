@@ -1,3 +1,4 @@
+import { ICatalogMaterials, ICatalogSize, ICatalogItem } from './catalogItem';
 import { IExchangeRate, Cur_AbbreviationType, defaultExchangeRate } from './exchangeRate';
 import { IUser } from './user';
 import { IProject, typeOfProject } from './project';
@@ -30,4 +31,7 @@ export type {
   ISystem,
   typeOfSystem,
   IWorkTotal,
+  ICatalogItem,
+  ICatalogSize,
+  ICatalogMaterials,
 };

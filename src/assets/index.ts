@@ -10,8 +10,10 @@ import quizArrowLeft from './quiz-arrow-left.png';
 import quizArrowRight from './quiz-arrow-right.png';
 import projectHomeIcon from './projects-home.png';
 import plus from './plus.png';
+import catalogItem1 from './catalog-item-1.png';
 
 export const images = {
+  catalogItem1,
   plus,
   google,
   profile,

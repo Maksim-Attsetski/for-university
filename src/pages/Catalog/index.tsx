@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Title } from '../../components';
 import { routes } from '../../data';
+import { catalog } from '../../data/catalogItem';
 
 import s from './Catalog.module.scss';
 
@@ -24,9 +25,10 @@ const Catalog: FC = () => {
         <br />
         <br />
         <div className={s.productList}>
-          {Array.from([1, 2, 3]).map(item => (
-            <div onClick={() => onOpenProduct(item)} className={s.product}>
-              {item}
+          {catalog.map((item, inx) => (
+            <div key={item.id} onClick={() => onOpenProduct(inx)} className={s.product}>
+              <div className={s.name}>{item.name}</div>
+              <img src={item.image} alt={item.name} />
             </div>
           ))}
         </div>

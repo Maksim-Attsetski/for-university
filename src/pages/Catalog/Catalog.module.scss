@@ -9,5 +9,11 @@
   @apply flex justify-around items-center flex-wrap;
 }
 .product {
-  @apply w-52 h-52 bg-slate-600 text-white rounded-md flex justify-center items-center cursor-pointer;
+  @apply w-52 bg-slate-600 text-white rounded-md flex flex-col justify-center items-center cursor-pointer;
+  .name {
+    @apply my-3;
+  }
+  img {
+    @apply rounded-md;
+  }
 }
