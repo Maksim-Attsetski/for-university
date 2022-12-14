@@ -9,8 +9,10 @@ import closeEyes from './close-eyes.png';
 import quizArrowLeft from './quiz-arrow-left.png';
 import quizArrowRight from './quiz-arrow-right.png';
 import projectHomeIcon from './projects-home.png';
+import plus from './plus.png';
 
 export const images = {
+  plus,
   google,
   profile,
   logo,

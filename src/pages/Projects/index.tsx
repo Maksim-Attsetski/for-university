@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import s from './Projects.module.scss';
 
-import moment from 'moment';
 import { useTypedSelector } from '../../hooks/redux';
 import useProjects from '../../hooks/useProjects';
 import useOutsideMenu from '../../hooks/useOutsideMenu';
@@ -28,6 +27,12 @@ const Projects: FC = () => {
   // const { isShow: nextShow, setIsShow: setNextShow } = useOutsideMenu();
   const { onDeleteProject, onGetProjects, error, setError } = useProjects();
 
+  const projectCount = useMemo(() => Object.keys(projects), [projects]);
+  const addButtonDisable = useMemo(
+    () => projectCount.length >= 3 || floor <= 0 || meter <= 0 || !materialsPrice,
+    [projectCount, floor, meter, materialsPrice],
+  );
+
   const onModalOpen = (type: IModalType) => {
     setModalType(type);
     setWorkModalShown(true);
@@ -49,14 +54,19 @@ const Projects: FC = () => {
           </div>
         )}
 
-        <Button
-          text="Создать новый проект"
-          disabled={Object.keys(projects).length >= 3 || floor <= 0 || meter <= 0 || !materialsPrice}
-          onClick={() => setIsShow(true)}
-        />
-
         <div className={s.projectList}>
-          {!!Object.keys(projects).length ? (
+          <div
+            className={[s.project, s.addButtons].join(' ')}
+            onClick={() => (addButtonDisable ? {} : setIsShow(true))}
+            data-disabled={addButtonDisable}>
+            <div className={s.projectCount}>{projectCount.length} / 3</div>
+            <img src={images.plus} className={s.plus} alt="projectHomeIcon" />
+          </div>
+          <div className={[s.project, s.addButtons].join(' ')}>
+            <div className={s.plus}>No data</div>
+          </div>
+
+          {!!projectCount.length ? (
             Object.values(projects).map(project => (
               <div
                 onClick={() => setActiveWork(project)}
@@ -70,6 +80,10 @@ const Projects: FC = () => {
                     Цена: {(project.price + project.materialsPrice).toFixed(3)} {project.currency}
                   </div>
                   <div>Время: {getWorkTime({ time: project.time, price: 1 })}</div>
+                  <div className="flex justify-between gap-3">
+                    <div>Этажи: {project.info.floor}</div>
+                    <div>Метры: {project.info.meter}</div>
+                  </div>
                 </div>
                 <div className={s.buttonsContainer}>
                   <Arrows
