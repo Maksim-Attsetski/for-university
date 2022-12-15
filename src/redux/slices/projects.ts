@@ -6,11 +6,13 @@ import { IProject } from '../../types';
 interface IState {
   projects: typeOfProject;
   materialsPrice: number | null;
+  limit: number;
 }
 
 const initialState: IState = {
   projects: {},
   materialsPrice: null,
+  limit: 5,
 };
 
 const projectsSlice = createSlice({

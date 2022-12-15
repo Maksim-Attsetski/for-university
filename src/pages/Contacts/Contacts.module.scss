@@ -1,0 +1,29 @@
+@import '../../utils/media.scss';
+
+.contacts {
+  min-height: inherit;
+  @apply relative w-screen h-full bg-white;
+  .bg {
+    @apply absolute right-[10%] bottom-[15%] w-1/2;
+    @include tablet {
+      bottom: 10%;
+      right: 5%;
+      @apply w-3/4;
+    }
+  }
+
+  .info {
+    &_user {
+      @apply flex gap-3 items-center mb-3;
+    }
+  }
+
+  .links {
+    img {
+      @apply relative w-8 h-8 transition-all;
+      &:hover {
+        @apply scale-125;
+      }
+    }
+  }
+}

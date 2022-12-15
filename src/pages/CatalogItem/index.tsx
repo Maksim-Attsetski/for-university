@@ -4,7 +4,7 @@ import { Params, useParams } from 'react-router-dom';
 
 import { Button, Title } from '../../components';
 
-import { catalog } from '../../data/catalogItem';
+import { routes, catalog } from '../../data';
 import { ICatalogItem } from '../../types';
 
 import s from './CatalogItem.module.scss';
@@ -48,9 +48,11 @@ const CatalogItem: FC = () => {
         <div className="container">
           <Title className={s.title} text={catalogItem?.name} />
           <div className={s.product}>
-            <img src={catalogItem.image} alt={catalogItem.name} />
+            <span>
+              <img src={catalogItem.image} alt={catalogItem.name} />
+            </span>
             <div className={s.content}>
-              <Button text="Назад" />
+              <Button text="Назад" to={routes.catalog} />
               <div>
                 <strong>Стоимость:</strong> {catalogItem.price}
               </div>

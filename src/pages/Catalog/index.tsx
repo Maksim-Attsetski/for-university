@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { Title } from '../../components';
-import { routes } from '../../data';
-import { catalog } from '../../data/catalogItem';
+import { routes, catalog } from '../../data';
 
 import s from './Catalog.module.scss';
 
@@ -16,6 +16,7 @@ const Catalog: FC = () => {
   return (
     <div>
       <div className="container">
+        <br />
         <Title text="Каталог" className={s.title} />
         <Title
           text="В данном разделе вы можете выбрать уже готовый вариант, рассчитанный через наш калькулятор."
@@ -27,8 +28,15 @@ const Catalog: FC = () => {
         <div className={s.productList}>
           {catalog.map((item, inx) => (
             <div key={item.id} onClick={() => onOpenProduct(inx)} className={s.product}>
-              <div className={s.name}>{item.name}</div>
-              <img src={item.image} alt={item.name} />
+              <span>
+                <img src={item.image} alt={item.name} />
+              </span>
+              <div className={s.content}>
+                <Title className={s.name} text={item.name} />
+                <div className="my-2"></div>
+                <div>{item.price}</div>
+                <div>{item.size['Кубатура']}</div>
+              </div>
             </div>
           ))}
         </div>
