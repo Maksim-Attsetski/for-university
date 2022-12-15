@@ -36,16 +36,3 @@ button {
   max-width: clamp(300px, 90vw, 1200px);
   margin: 0 auto;
 }
-
-.links {
-  display: block;
-  @include tablet {
-    display: none;
-  }
-}
-.burger {
-  display: none;
-  @include tablet {
-    display: block;
-  }
-}
