@@ -17,9 +17,13 @@ import currencies from './currencies.png';
 import exit from './exit.png';
 import folders from './folders.png';
 import phone from './phone.png';
+import contactsBg from './contacts-bg.png';
+import linkedin from './linkedin.png';
 import catalog from './catalog.png';
 
 export const images = {
+  linkedin,
+  contactsBg,
   phone,
   folders,
   exit,
