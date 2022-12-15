@@ -6,15 +6,16 @@ interface IProps {
   data: null | string;
   setData: (data: null) => void;
   isError?: boolean;
+  expiredTime?: number;
 }
 
-const Toast: FC<IProps> = ({ data, setData, isError = false }) => {
+const Toast: FC<IProps> = ({ data, setData, isError = false, expiredTime = 3000 }) => {
   useEffect(() => {
     if (!data) return;
 
     const timer = setTimeout(() => {
       setData(null);
-    }, 3000);
+    }, expiredTime);
 
     return () => {
       clearTimeout(timer);
@@ -28,11 +29,10 @@ const Toast: FC<IProps> = ({ data, setData, isError = false }) => {
         <motion.div
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          exit={{ x: 100, opacity: 0 }}
+          exit={{ x: 150, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 120 }}
           data-error={isError}
-          className={s.toast}
-        >
+          className={s.toast}>
           {data}
         </motion.div>
       ) : null}

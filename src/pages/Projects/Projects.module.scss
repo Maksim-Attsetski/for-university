@@ -26,6 +26,10 @@
       transform: translate(-50%, -50%);
     }
   }
+  .noData {
+    width: clamp(300px, 60vw, 600px);
+    @apply h-full py-3 px-7;
+  }
 }
 
 .project {

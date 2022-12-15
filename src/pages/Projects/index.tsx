@@ -18,7 +18,7 @@ type IModalType = 'prev' | 'next' | 'end';
 const Projects: FC = () => {
   const { currentUser } = useTypedSelector(state => state.auth);
   const { floor, meter } = useTypedSelector(state => state.quiz);
-  const { projects, materialsPrice } = useTypedSelector(state => state.projects);
+  const { projects, materialsPrice, limit } = useTypedSelector(state => state.projects);
   const [activeWork, setActiveWork] = useState<IProject | null>(null);
 
   const { isShow, setIsShow } = useOutsideMenu();
@@ -29,7 +29,7 @@ const Projects: FC = () => {
 
   const projectCount = useMemo(() => Object.keys(projects), [projects]);
   const addButtonDisable = useMemo(
-    () => projectCount.length >= 3 || floor <= 0 || meter <= 0 || !materialsPrice,
+    () => projectCount.length >= limit || floor <= 0 || meter <= 0 || !materialsPrice,
     [projectCount, floor, meter, materialsPrice],
   );
 
@@ -58,12 +58,12 @@ const Projects: FC = () => {
           <div
             className={[s.project, s.addButtons].join(' ')}
             onClick={() => (addButtonDisable ? {} : setIsShow(true))}
+            title={addButtonDisable ? 'Надо бы викторину пройти' : 'Тыкни, чтобы создать проект'}
             data-disabled={addButtonDisable}>
-            <div className={s.projectCount}>{projectCount.length} / 3</div>
+            <div className={s.projectCount}>
+              {projectCount.length} / {limit}
+            </div>
             <img src={images.plus} className={s.plus} alt="projectHomeIcon" />
-          </div>
-          <div className={[s.project, s.addButtons].join(' ')}>
-            <div className={s.plus}>No data</div>
           </div>
 
           {!!projectCount.length ? (
@@ -102,8 +102,16 @@ const Projects: FC = () => {
               </div>
             ))
           ) : (
-            <div>
-              <Title text="У вас еще нет проектов" />
+            <div className={[s.project, s.addButtons, s.noData].join(' ')}>
+              <Title text="У вас нет проектов" className={s.title} />
+              <p>
+                Чтобы начать работу с калькулятором, нажмите на главной странице кнопку «рассчитать». Выберите и
+                пройдите анкету соответствующую вашим запросами и получите результат.
+                <br />
+                <br />
+                Сохранив его в свои проекты Вы сможете отслеживать процесс в режиме реального времени и следить за
+                расходом денежных средств.
+              </p>
             </div>
           )}
         </div>
