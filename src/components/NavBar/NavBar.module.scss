@@ -1,80 +1,97 @@
-.navbar__btn {
-    @apply w-8 h-6 p-0 relative;
-    &:hover {
-        .firstLine,
-        .secondLine,
-        .thirdLine {
-            @apply w-full;
-        }
-    }
+@import '../../utils/media.scss';
 
-    &[data-open="true"] {
-        .firstLine {
-            transform: translateY(11px) rotateZ(-135deg);
-            @apply top-0;
-        }
-        .secondLine {
-            @apply right-1/2 w-0;
-        }
-        .thirdLine {
-            transform: translateY(-10px) rotateZ(135deg);
-            @apply bottom-0;
-        }
-        .firstLine,
-        .thirdLine {
-            @apply w-full;
-        }
-    }
-    
+.navbar__btn {
+  @apply w-8 h-6 p-0 relative;
+  &:hover {
     .firstLine,
     .secondLine,
     .thirdLine {
-        transition: all linear 0.25s;
-        @apply absolute bottom-0 right-0 w-full h-[13%] bg-title-color rounded-2xl;
+      @apply w-full;
     }
+  }
+
+  &[data-open='true'] {
     .firstLine {
-        @apply top-0;
+      transform: translateY(11px) rotateZ(-135deg);
+      @apply top-0;
     }
     .secondLine {
-        @apply top-[44.5%] w-2/3;
+      @apply right-1/2 w-0;
     }
     .thirdLine {
-        @apply bottom-0 w-1/3;
+      transform: translateY(-10px) rotateZ(135deg);
+      @apply bottom-0;
     }
+    .firstLine,
+    .thirdLine {
+      @apply w-full;
+    }
+  }
+
+  .firstLine,
+  .secondLine,
+  .thirdLine {
+    transition: all linear 0.25s;
+    @apply absolute bottom-0 right-0 w-full h-[13%] bg-title-color rounded-2xl;
+  }
+  .firstLine {
+    @apply top-0;
+  }
+  .secondLine {
+    @apply top-[44.5%] w-2/3;
+  }
+  .thirdLine {
+    @apply bottom-0 w-1/3;
+  }
 }
 
 .navbar {
-    @apply flex flex-col gap-4 absolute z-[999] top-0 -left-1/4
-    w-5/6 h-[150vh] items-center bg-white py-10;   
-    @media (max-width: 500px) {
-        left: -20%;
-        width: 100%;
-    } 
+  @apply flex flex-col gap-4 absolute z-[999] top-0 -left-[10%] w-[50vw] h-[150vh] items-center bg-white py-10;
+  @include tablet {
+    @apply w-[65vw] top-0;
+  }
+  @media (max-width: 500px) {
+    left: -15%;
+    width: 100%;
+  }
+  img {
+    @apply w-6 h-6;
+  }
 }
 .navbar__title {
-    text-transform: capitalize;
-    letter-spacing: 1px;
+  text-transform: capitalize;
+  letter-spacing: 1px;
 }
 .navbarLinks__link {
-    @apply mb-2 cursor-pointer text-lg;
-    letter-spacing: 1px;
+  @apply mb-2 cursor-pointer text-lg flex gap-4;
+  letter-spacing: 1px;
+}
+.underline {
+  @apply bg-[#969696] h-[1px] rounded-md my-6 w-full;
 }
 
-.child[data-open="true"] {
-    @apply pointer-events-auto;
-    background: #0000009a;
+.child[data-open='true'] {
+  @apply pointer-events-auto;
+  background: #0000009a;
 }
-    
+
 .child {
-    @apply absolute z-[990] top-0 left-0 bg-transparent pointer-events-none;
+  @apply absolute z-[990] top-0 left-0 bg-transparent pointer-events-none;
+}
+
+.links {
+  @apply w-1/2;
 }
 
 .profile {
-    @apply p-0;
-    .profileTitle {
-        @apply text-left mt-1 font-normal;
-    }
-    .profileOption {
-        @apply text-left px-0;
-    }
+  @apply flex items-center bg-[#D9D9D94F] gap-4 py-4 px-8 mb-6 rounded-xl;
+  div {
+    @apply text-xl;
+  }
+  // .profileTitle {
+  //   @apply text-left mt-1 font-normal;
+  // }
+  // .profileOption {
+  //   @apply text-left px-0;
+  // }
 }

@@ -14,8 +14,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   font-family: 'Montserrat', sans-serif;
-  background: linear-gradient(111.97deg, rgba(255, 255, 255, 0.4) 29.95%, rgba(0, 0, 0, 0.76) 97.67%);
-
+  background: linear-gradient(326.33deg, #3a3a3a -15%, #d8d8d8 40.06%, #f3f3f3 51.85%, #ffffff 60.44%);
   &.hiddenBody {
     overflow: hidden;
   }
@@ -35,17 +34,4 @@ button {
 .container {
   max-width: clamp(300px, 90vw, 1200px);
   margin: 0 auto;
-}
-
-.links {
-  display: block;
-  @include tablet {
-    display: none;
-  }
-}
-.burger {
-  display: none;
-  @include tablet {
-    display: block;
-  }
 }

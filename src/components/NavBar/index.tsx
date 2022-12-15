@@ -1,7 +1,7 @@
-import { FC, useMemo } from 'react';
+import { FC, Fragment, useMemo } from 'react';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useTypedSelector } from '../../hooks/redux';
 import { useAuth } from '../../hooks/useAuth';
@@ -12,21 +12,54 @@ import { routes } from '../../data';
 import s from './NavBar.module.scss';
 import Button from '../Button';
 import Logo from '../Logo';
+import { images } from '../../assets';
+import React from 'react';
 
 interface ILink {
   to: routes;
   name: string;
+  isActive: boolean;
+  icon: typeof images.profile;
 }
 
-interface IProps {
-  links: ILink[];
-}
-
-const NavBar: FC<IProps> = ({ links }) => {
+const NavBar: FC = () => {
   const { isShow, setIsShow, ref } = useOutsideMenu();
-  const { isAuth } = useTypedSelector(state => state.auth);
+  const { pathname } = useLocation();
+  const { isAuth, currentUser } = useTypedSelector(state => state.auth);
   const { onLogOutBtnClick } = useAuth();
   const navigate = useNavigate();
+
+  const checkIsActive = (link: routes) => pathname === link;
+
+  const avatar = useMemo(
+    () => (!!currentUser?.photoURL ? currentUser.photoURL : images.profile),
+    [currentUser?.photoURL],
+  );
+
+  const links: ILink[] = useMemo(
+    () => {
+      const allRoutes: ILink[] = [
+        { to: routes.about, name: 'О NumBer', isActive: checkIsActive(routes.about), icon: images.aboutUs },
+        { to: routes.catalog, name: 'Каталог', isActive: checkIsActive(routes.catalog), icon: images.catalog },
+        { to: routes.contacts, name: 'Контакты', isActive: checkIsActive(routes.contacts), icon: images.phone },
+      ];
+
+      const privateRoutes: ILink[] = [
+        { to: routes.projects, name: 'Мои проекты', isActive: checkIsActive(routes.projects), icon: images.folders },
+        { to: routes.profile, name: 'Аккаунт', isActive: checkIsActive(routes.profile), icon: images.accountSettings },
+        {
+          to: routes.exchangeRate,
+          name: 'Курсы валют',
+          isActive: checkIsActive(routes.exchangeRate),
+          icon: images.currencies,
+        },
+      ];
+
+      return isAuth ? allRoutes.concat(privateRoutes) : allRoutes;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [pathname],
+  );
 
   const handleClickNavbarLink = async (link: routes) => {
     setIsShow(false);
@@ -74,11 +107,19 @@ const NavBar: FC<IProps> = ({ links }) => {
         <div onClick={() => handleClickNavbarLink(routes.home)}>
           <Logo />
         </div>
-        <ul>
-          {links.map(link => (
-            <li key={link.to} className={s.navbarLinks__link} onClick={() => handleClickNavbarLink(link.to)}>
-              {link.name}
-            </li>
+        <ul className={s.links}>
+          <li className={s.profile}>
+            <img src={avatar} alt="profile" />
+            <div>{isAuth ? currentUser?.displayName : 'Профиль'}</div>
+          </li>
+          {links.map((link, inx) => (
+            <Fragment key={link.to}>
+              <li className={s.navbarLinks__link} onClick={() => handleClickNavbarLink(link.to)}>
+                <img src={link.icon} alt={link.name} />
+                <div>{link.name}</div>
+              </li>
+              {inx % 3 === 2 && <div className={s.underline} />}
+            </Fragment>
           ))}
           <Button
             text={isAuth ? 'Выйти' : 'Войти'}

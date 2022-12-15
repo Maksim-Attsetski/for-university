@@ -16,6 +16,7 @@ const PublicRoutes: FC = () => {
         <Route path={routes.about} element={<screens.About />} />
         <Route path={routes.contacts} element={<screens.Contacts />} />
         <Route path={routes.catalog} element={<screens.Catalog />} />
+        <Route path={routes.catalog + '/:id'} element={<screens.CatalogItem />} />
       </Route>
     </Routes>
   );
