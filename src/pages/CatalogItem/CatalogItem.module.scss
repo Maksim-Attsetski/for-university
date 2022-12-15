@@ -13,8 +13,16 @@
     @apply flex-col items-center;
   }
 
-  img {
-    @apply w-64 rounded-lg;
+  span {
+    @apply min-w-[260px] overflow-hidden;
+    img {
+      @apply transition-all cursor-pointer min-w-[260px] rounded-lg;
+    }
+    &:hover {
+      img {
+        transform: scale(1.25);
+      }
+    }
   }
   .content {
     @apply h-full flex flex-col items-end gap-5;

@@ -6,14 +6,30 @@
 }
 
 .productList {
-  @apply flex justify-around items-center flex-wrap;
+  @apply flex justify-around items-center flex-wrap gap-x-4 gap-y-7 mb-5;
 }
 .product {
-  @apply w-52 bg-slate-600 text-white rounded-md flex flex-col justify-center items-center cursor-pointer;
+  width: clamp(300px, 40vw, 600px);
+  @apply bg-white transition-all rounded-lg flex justify-between items-center cursor-pointer shadow-md border-1 border-solid;
+  &:hover {
+    @apply scale-105;
+  }
   .name {
     @apply my-3;
   }
-  img {
-    @apply rounded-md;
+  .content {
+    @apply w-1/2 flex flex-col items-center justify-between;
+  }
+
+  span {
+    @apply w-1/2 overflow-hidden rounded-lg;
+    img {
+      @apply transition-all cursor-pointer min-w-full;
+    }
+    &:hover {
+      img {
+        transform: scale(1.35);
+      }
+    }
   }
 }
