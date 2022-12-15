@@ -1,0 +1,19 @@
+.about {
+  @apply min-h-[inherit] h-full relative;
+  .bg {
+    @apply absolute top-0 left-0 w-full h-full;
+  }
+  .description {
+    p {
+      @apply mb-5;
+    }
+  }
+  .strengths {
+    img {
+      @apply w-6 h-6;
+    }
+    &_item {
+      @apply flex items-center gap-4 my-4 ml-7;
+    }
+  }
+}

@@ -19,9 +19,13 @@ import folders from './folders.png';
 import phone from './phone.png';
 import contactsBg from './contacts-bg.png';
 import linkedin from './linkedin.png';
+import aboutBg from './about-bg.png';
+import star from './star.png';
 import catalog from './catalog.png';
 
 export const images = {
+  aboutBg,
+  star,
   linkedin,
   contactsBg,
   phone,
