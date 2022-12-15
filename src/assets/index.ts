@@ -11,8 +11,22 @@ import quizArrowRight from './quiz-arrow-right.png';
 import projectHomeIcon from './projects-home.png';
 import plus from './plus.png';
 import catalogItem1 from './catalog-item-1.png';
+import aboutUs from './about-us.png';
+import accountSettings from './account-settings.png';
+import currencies from './currencies.png';
+import exit from './exit.png';
+import folders from './folders.png';
+import phone from './phone.png';
+import catalog from './catalog.png';
 
 export const images = {
+  phone,
+  folders,
+  exit,
+  currencies,
+  catalog,
+  accountSettings,
+  aboutUs,
   catalogItem1,
   plus,
   google,

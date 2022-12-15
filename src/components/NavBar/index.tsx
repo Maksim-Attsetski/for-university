@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, Fragment, useMemo } from 'react';
 
 import { motion, useReducedMotion } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -13,12 +13,13 @@ import s from './NavBar.module.scss';
 import Button from '../Button';
 import Logo from '../Logo';
 import { images } from '../../assets';
+import React from 'react';
 
 interface ILink {
   to: routes;
   name: string;
   isActive: boolean;
-  icon: typeof images.profile | null;
+  icon: typeof images.profile;
 }
 
 const NavBar: FC = () => {
@@ -38,15 +39,20 @@ const NavBar: FC = () => {
   const links: ILink[] = useMemo(
     () => {
       const allRoutes: ILink[] = [
-        { to: routes.about, name: 'О NumBer', isActive: checkIsActive(routes.about), icon: null },
-        { to: routes.contacts, name: 'Наши контакты', isActive: checkIsActive(routes.contacts), icon: null },
-        { to: routes.catalog, name: 'Каталог', isActive: checkIsActive(routes.catalog), icon: null },
+        { to: routes.about, name: 'О NumBer', isActive: checkIsActive(routes.about), icon: images.aboutUs },
+        { to: routes.catalog, name: 'Каталог', isActive: checkIsActive(routes.catalog), icon: images.catalog },
+        { to: routes.contacts, name: 'Контакты', isActive: checkIsActive(routes.contacts), icon: images.phone },
       ];
 
       const privateRoutes: ILink[] = [
-        { to: routes.profile, name: 'Аккаунт', isActive: checkIsActive(routes.profile), icon: null },
-        { to: routes.projects, name: 'Мои проекты', isActive: checkIsActive(routes.projects), icon: null },
-        { to: routes.exchangeRate, name: 'Курсы валют', isActive: checkIsActive(routes.exchangeRate), icon: null },
+        { to: routes.projects, name: 'Мои проекты', isActive: checkIsActive(routes.projects), icon: images.folders },
+        { to: routes.profile, name: 'Аккаунт', isActive: checkIsActive(routes.profile), icon: images.accountSettings },
+        {
+          to: routes.exchangeRate,
+          name: 'Курсы валют',
+          isActive: checkIsActive(routes.exchangeRate),
+          icon: images.currencies,
+        },
       ];
 
       return isAuth ? allRoutes.concat(privateRoutes) : allRoutes;
@@ -101,11 +107,19 @@ const NavBar: FC = () => {
         <div onClick={() => handleClickNavbarLink(routes.home)}>
           <Logo />
         </div>
-        <ul>
-          {links.map(link => (
-            <li key={link.to} className={s.navbarLinks__link} onClick={() => handleClickNavbarLink(link.to)}>
-              {link.name}
-            </li>
+        <ul className={s.links}>
+          <li className={s.profile}>
+            <img src={avatar} alt="profile" />
+            <div>{isAuth ? currentUser?.displayName : 'Профиль'}</div>
+          </li>
+          {links.map((link, inx) => (
+            <Fragment key={link.to}>
+              <li className={s.navbarLinks__link} onClick={() => handleClickNavbarLink(link.to)}>
+                <img src={link.icon} alt={link.name} />
+                <div>{link.name}</div>
+              </li>
+              {inx % 3 === 2 && <div className={s.underline} />}
+            </Fragment>
           ))}
           <Button
             text={isAuth ? 'Выйти' : 'Войти'}

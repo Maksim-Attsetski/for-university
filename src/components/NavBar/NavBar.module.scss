@@ -48,11 +48,14 @@
 .navbar {
   @apply flex flex-col gap-4 absolute z-[999] top-0 -left-[10%] w-[50vw] h-[150vh] items-center bg-white py-10;
   @include tablet {
-    @apply w-4/6;
+    @apply w-[65vw] top-0;
   }
   @media (max-width: 500px) {
-    left: -20%;
+    left: -15%;
     width: 100%;
+  }
+  img {
+    @apply w-6 h-6;
   }
 }
 .navbar__title {
@@ -60,8 +63,11 @@
   letter-spacing: 1px;
 }
 .navbarLinks__link {
-  @apply mb-2 cursor-pointer text-lg;
+  @apply mb-2 cursor-pointer text-lg flex gap-4;
   letter-spacing: 1px;
+}
+.underline {
+  @apply bg-[#969696] h-[1px] rounded-md my-6 w-full;
 }
 
 .child[data-open='true'] {
@@ -73,12 +79,19 @@
   @apply absolute z-[990] top-0 left-0 bg-transparent pointer-events-none;
 }
 
+.links {
+  @apply w-1/2;
+}
+
 .profile {
-  @apply p-0;
-  .profileTitle {
-    @apply text-left mt-1 font-normal;
+  @apply flex items-center bg-[#D9D9D94F] gap-4 py-4 px-8 mb-6 rounded-xl;
+  div {
+    @apply text-xl;
   }
-  .profileOption {
-    @apply text-left px-0;
-  }
+  // .profileTitle {
+  //   @apply text-left mt-1 font-normal;
+  // }
+  // .profileOption {
+  //   @apply text-left px-0;
+  // }
 }
