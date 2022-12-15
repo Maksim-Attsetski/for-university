@@ -1,0 +1,17 @@
+.subTitle {
+  @apply font-normal max-w-[700px] mx-auto my-3;
+}
+
+.active {
+  @apply border-b-1 pt-2 pb-3 border-title-color border-solid;
+}
+
+.question {
+  @apply flex justify-between items-center flex-wrap;
+  &_content {
+    @apply w-1/2;
+  }
+}
+.answer {
+  @apply flex flex-col items-end w-1/3;
+}

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { Button } from '../../components';
+import { Button, Title } from '../../components';
 
 import { routes } from '../../data';
 import { useTypedSelector } from '../../hooks/redux';
@@ -9,7 +9,7 @@ import { useActions } from '../../hooks/useActions';
 import useGetWorkInfo from '../../hooks/useGetWorkInfo';
 import { getWorkTime } from '../../utils/getWorkTime';
 
-// import s from './QuizFinish.module.scss';
+import s from './QuizFinish.module.scss';
 
 interface ITotal {
   price: number;
@@ -67,46 +67,46 @@ const QuizFinish: FC = () => {
   return (
     <div>
       <br />
+      <Title text="Поздавляем с успешным прохождением нашей викторины!" />
+      <Title
+        text='Теперь вы можете сохранить свои результаты во вкладке "мои проекты"
+            для отслеживания оставшейся стоимости и длительности'
+        className={s.subTitle}
+      />
       <div className="container">
         <div>
-          Meter: <strong>{meter}</strong>
+          Метры: <strong>{meter}</strong>
         </div>
         <div>
-          Floor: <strong>{floor}</strong>
+          Этаж: <strong>{floor}</strong>
         </div>
         <div>
-          Materials price: <strong>{total.price.toFixed(4) || 0} BYN</strong>
+          Стоимость материалов: <strong>{total.price.toFixed(4) || 0} BYN</strong>
         </div>
         <div>
           <div>
-            work price: <strong>{'not done'} BYN</strong>
+            Стоимость работ: <strong>{total.workPrice} BYN</strong>
           </div>
           <div>
-            work time: <strong>{getWorkTime({ time: total.workTime, price: 0 })}</strong>
+            Длиельность работ: <strong>{getWorkTime({ time: total.workTime, price: 0 })}</strong>
           </div>
         </div>
         <br />
         <div>
-          <div>
-            поздравляем с прохождением викторины, теперь вы можете сохранить свои результаты во вкладке "мои проекты"
-            для отслеживания оставшейся стоимости и длительности
-          </div>
-          <Button text="Перейти в мои проекты" to={routes.projects} />
+          <Button text="Мои проекты" to={routes.projects} />
         </div>
         <br />
         {Object.values(answers).map(answer => {
           const system = answer?.answer?.systemId ? systems[answer?.answer?.systemId] : null;
           return (
-            <div
-              key={answer.questionId}
-              className={answer.answer ? `border-b-1 pt-2 pb-3 border-title-color border-solid` : ''}>
-              <div>{answer.title}</div>
-              <hr />
-              <div>{answer?.answer?.title}</div>
-              <hr />
+            <div key={answer.questionId} className={`${answer.answer ? s.active : ''} ${s.question}`}>
+              <div className={s.question_content}>
+                <div className="mb-3">{answer.title}</div>
+                <div>{answer?.answer?.title}</div>
+              </div>
               {system && (
-                <div className="flex items-center gap-3">
-                  <div>{system?.name}</div>
+                <div className={s.answer}>
+                  <div className="mb-3">{system?.name}</div>
                   <div>{system?.price} BYN</div>
                 </div>
               )}
