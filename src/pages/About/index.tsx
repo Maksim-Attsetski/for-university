@@ -41,7 +41,7 @@ const About: FC = () => {
           <div className={s.title}>Преимущества нашего сервиса:</div>
           <div>
             {strengths.map(item => (
-              <div className={s.strengths_item}>
+              <div key={item} className={s.strengths_item}>
                 <img src={images.star} alt="star" />
                 <div>{item}</div>
               </div>
