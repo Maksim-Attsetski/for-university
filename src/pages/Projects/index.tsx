@@ -46,13 +46,9 @@ const Projects: FC = () => {
   return (
     <div className={s.projectPage}>
       <div className="container">
+        <br />
         <Title text="Мои проекты" className={s.title} />
-        {!materialsPrice && (
-          <div>
-            <div className={s.title}>Чтобы создать проект, сначала пройдите викторину "Строительство с нуля"</div>
-            <Button text="Викторины" to={routes.quiz} className="mb-3" />
-          </div>
-        )}
+        {addButtonDisable && <Button text="Викторины" to={routes.quiz} className="mb-3" />}
 
         <div className={s.projectList}>
           <div

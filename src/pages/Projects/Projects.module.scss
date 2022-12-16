@@ -1,43 +1,19 @@
 .projectPage {
-  @apply bg-project-bg pt-5;
+  @apply bg-project-bg pt-5 overflow-hidden;
   min-height: inherit;
 }
 .title {
   @apply text-center mb-4;
 }
-.projectList {
-  @apply flex gap-4 flex-wrap justify-around items-start my-4;
-  .addButtons {
-    @apply w-48 h-full;
-    &[data-disabled='true'] {
-      cursor: not-allowed;
-      &:hover {
-        animation: error 1s ease-in;
-      }
-      .plus,
-      .projectCount {
-        @apply opacity-50;
-      }
-    }
-    .plus {
-      @apply absolute w-12 h-12 top-1/2 text-[#969696] left-1/2 z-0 pointer-events-none;
-      transform: translate(-50%, -50%);
-    }
-    .projectCount {
-      @apply absolute text-xl text-[#969696] top-1/4 left-1/2 z-0 pointer-events-none;
-      transform: translate(-50%, -50%);
-    }
-  }
-  .noData {
-    width: clamp(300px, 60vw, 600px);
-    @apply h-full py-3 px-7;
-  }
-}
 
 .project {
-  @apply relative p-4 pt-1 rounded-xl bg-white cursor-pointer;
-  width: 300px;
+  @apply relative p-4 transition-all pt-1 rounded-xl bg-white cursor-pointer shadow-lg;
   min-height: 250px;
+  width: 300px;
+  &:hover {
+    @apply scale-105;
+  }
+
   .title {
     @apply pb-3 rounded-[1px] border-solid font-bold border-slate-500 border-b-2 mb-4;
     word-wrap: break-word;
@@ -68,6 +44,36 @@
     .projectHomeIcon {
       @apply w-[200px] h-[200px] opacity-30;
     }
+  }
+}
+
+.projectList {
+  @apply flex gap-4 gap-y-6 flex-wrap justify-around items-start mt-4 pb-8;
+  .addButtons {
+    @apply w-48 h-full;
+    &[data-disabled='true'] {
+      cursor: not-allowed;
+      &:hover {
+        animation: error 1s ease-in;
+        transform: scale(1);
+      }
+      .plus,
+      .projectCount {
+        @apply opacity-50;
+      }
+    }
+    .plus {
+      @apply absolute w-12 h-12 top-1/2 text-[#969696] left-1/2 z-0 pointer-events-none;
+      transform: translate(-50%, -50%);
+    }
+    .projectCount {
+      @apply absolute text-xl text-[#969696] top-1/4 left-1/2 z-0 pointer-events-none;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .noData {
+    width: clamp(300px, 60vw, 600px);
+    @apply h-full py-3 px-7;
   }
 }
 

@@ -28,3 +28,17 @@
   @apply w-full h-1;
   background: linear-gradient(90deg, rgba(246, 162, 10, 1) 0%, rgba(0, 0, 0, 0) 90%);
 }
+
+.inputContainer {
+  @apply flex flex-wrap gap-4 justify-end;
+  @include custom {
+    @apply justify-center;
+  }
+}
+
+.startButton {
+  @apply self-end;
+  @include custom {
+    @apply self-center;
+  }
+}

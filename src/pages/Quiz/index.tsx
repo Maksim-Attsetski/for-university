@@ -61,7 +61,7 @@ const Quiz: FC = () => {
         </div>
         <div className={`${s.blockContent} ${s.buttonsContainer}`}>
           {needInput ? (
-            <div className="flex flex-wrap gap-4">
+            <div className={s.inputContainer}>
               <Input
                 maxLength={4}
                 max={1000}
@@ -82,7 +82,7 @@ const Quiz: FC = () => {
           ) : (
             <div className="flex flex-wrap gap-4"></div>
           )}
-          <Button text="Начать" onClick={onClick} />
+          <Button text="Начать" onClick={onClick} className={s.startButton} />
         </div>
       </div>
     );
