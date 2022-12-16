@@ -1,4 +1,5 @@
 import { images } from './../assets/index';
+import { Cur_AbbreviationType } from './exchangeRate';
 
 export interface ICatalogItem {
   id: number;
@@ -9,6 +10,7 @@ export interface ICatalogItem {
   description: string;
   size: ICatalogSize;
   materials: ICatalogMaterials;
+  currency: Cur_AbbreviationType;
 }
 
 export interface ICatalogSize {

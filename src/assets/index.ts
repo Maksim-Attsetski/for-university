@@ -11,6 +11,9 @@ import quizArrowRight from './quiz-arrow-right.png';
 import projectHomeIcon from './projects-home.png';
 import plus from './plus.png';
 import catalogItem1 from './catalog-item-1.png';
+import catalogItem2 from './catalog-item-2.png';
+import catalogItem3 from './catalog-item-3.png';
+import catalogItem4 from './catalog-item-4.png';
 import aboutUs from './about-us.png';
 import accountSettings from './account-settings.png';
 import currencies from './currencies.png';
@@ -38,6 +41,9 @@ export const images = {
   accountSettings,
   aboutUs,
   catalogItem1,
+  catalogItem2,
+  catalogItem3,
+  catalogItem4,
   plus,
   google,
   profile,

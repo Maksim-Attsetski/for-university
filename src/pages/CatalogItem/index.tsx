@@ -68,7 +68,7 @@ const CatalogItem: FC = () => {
             <div className={s.size}>
               <Title text="Размеры" className={s.name} />
               {info.sizes.map(item => (
-                <div className="flex gap-4">
+                <div key={item.question} className="flex gap-4">
                   <div>{item.question}:</div>
                   <div>{item.answer}</div>
                 </div>
@@ -77,7 +77,7 @@ const CatalogItem: FC = () => {
             <div className={s.materials}>
               <Title text="Стройматериалы" className={s.name} />
               {info.materials.map(item => (
-                <div className="flex gap-4">
+                <div key={item.question} className="flex gap-4">
                   <div>{item.question}:</div>
                   <div>{item.answer}</div>
                 </div>
