@@ -71,11 +71,17 @@ const Projects: FC = () => {
                 <img src={images.projectHomeIcon} className={s.projectHomeIcon} alt="projectHomeIcon" />
                 <div className={s.content}>
                   <div className={s.title}>{project.name}</div>
-                  <div>Текущая работа: {project.workId}</div>
-                  <div>
-                    Цена: {(project.price + project.materialsPrice).toFixed(3)} {project.currency}
-                  </div>
-                  <div>Время: {getWorkTime({ time: project.time, price: 1 })}</div>
+                  {project.isDone ? (
+                    <div>Проект завершен</div>
+                  ) : (
+                    <>
+                      <div>Текущая работа: {project.workId}</div>
+                      <div>
+                        Цена: {(project.price + project.materialsPrice).toFixed(3)} {project.currency}
+                      </div>
+                      <div>Время: {getWorkTime({ time: project.time, price: 1 })}</div>
+                    </>
+                  )}
                   <div className="flex justify-between gap-3">
                     <div>Этажи: {project.info.floor}</div>
                     <div>Метры: {project.info.meter}</div>
