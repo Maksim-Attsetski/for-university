@@ -34,8 +34,9 @@ const Contacts: FC = () => {
       name: 'Ivanov Kirill',
       job: 'Project manager',
       links: [
-        { icon: images.hh, url: standartLinks.hh + 'e87b2ac8ff0b6edba70039ed1f6d576d647238' },
+        { icon: images.linkedin, url: standartLinks.linkedin + 'xeinazoder' },
         { icon: images.gmail, url: standartLinks.mail + 'xeinazoder@gmail.com' },
+        { icon: images.hh, url: standartLinks.hh + 'e87b2ac8ff0b6edba70039ed1f6d576d647238' },
       ],
     },
     { name: 'Kononova Irina', job: 'UX/UI Desiger', links: [] },
