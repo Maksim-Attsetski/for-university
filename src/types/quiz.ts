@@ -25,6 +25,7 @@ interface IQuestion {
   order: questionId;
   variants: IVariants[];
   condition: ICondition[] | null;
+  description: string[];
 }
 
 type typeOfAnswer = {

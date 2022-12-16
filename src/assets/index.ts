@@ -22,8 +22,10 @@ import linkedin from './linkedin.png';
 import aboutBg from './about-bg.png';
 import star from './star.png';
 import catalog from './catalog.png';
+import returnArrow from './return-arrow.png';
 
 export const images = {
+  returnArrow,
   aboutBg,
   star,
   linkedin,

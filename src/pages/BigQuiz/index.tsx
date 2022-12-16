@@ -20,6 +20,7 @@ const BigQuiz: FC = () => {
   const { answers, index, quizKeys, activeQuestion, quiz, lastIndex } = useTypedSelector(state => state.quiz);
   const { floor, meter } = useTypedSelector(state => state.quiz);
   const [activeVariant, setActiveVariant] = useState<IVariants | null>(null);
+  const [isCardReverse, setIsCardReverse] = useState<boolean>(false);
 
   // @ts-ignore
   const quizLength = useMemo(() => quiz[quizKeys.length - 1].order, [quizKeys]);
@@ -78,6 +79,7 @@ const BigQuiz: FC = () => {
   }, [answers, index]);
 
   useEffect(() => {
+    setIsCardReverse(false);
     index > quizKeys.length && onFinishQuiz();
   }, [index]);
 
@@ -92,31 +94,51 @@ const BigQuiz: FC = () => {
       <br />
       <img src={images.quizBg} alt="quiz background" className={s.bgImage} />
       <div></div>
-      <div className={s.quiz}>
+      <div className={[s.quiestion, isCardReverse ? s.active : ''].join(' ')}>
+        <div className={s.reverseButton} onClick={() => setIsCardReverse(prev => !prev)}>
+          <img src={isCardReverse ? images.returnArrow : images.aboutUs} alt="reverse" />
+        </div>
         {activeQuestion && (
-          <div>
-            <Title text={activeQuestion.title} className={s.questionTitle} />
-            <div className="my-6">
-              {activeQuestion.variants.map((item, i) => (
-                <QuizVariant
-                  key={item.systemId + i}
-                  onSelectVariant={onSelectVariant}
-                  variant={item}
-                  activeVariant={activeVariant}
-                />
-              ))}
-            </div>
-          </div>
+          <>
+            {!isCardReverse ? (
+              <div className={s.front}>
+                <Title text={activeQuestion.title} className={s.questionTitle} />
+                <div className="my-6">
+                  {activeQuestion.variants.map((item, i) => (
+                    <QuizVariant
+                      key={item.systemId + i}
+                      onSelectVariant={onSelectVariant}
+                      variant={item}
+                      activeVariant={activeVariant}
+                    />
+                  ))}
+                </div>
+                <div></div>
+              </div>
+            ) : (
+              <div className={s.back}>
+                {activeQuestion.description.map((content, i) => (
+                  <div className={s.block} key={i}>
+                    <p>{content}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
         )}
-        <br />
-        <Arrows
-          leftDisable={index < 2}
-          onLeftClick={index < 2 ? () => {} : onClickPrevQuestion}
-          order={activeQuestion?.order ? +activeQuestion?.order : 1}
-          lenght={quizLength}
-          onRightClick={!activeVariant ? () => {} : onClickNextQuestion}
-          rightDisable={!activeVariant}
-        />
+        {!isCardReverse && (
+          <>
+            <br />
+            <Arrows
+              leftDisable={index < 2}
+              onLeftClick={index < 2 ? () => {} : onClickPrevQuestion}
+              order={activeQuestion?.order ? +activeQuestion?.order : 1}
+              lenght={quizLength}
+              onRightClick={!activeVariant ? () => {} : onClickNextQuestion}
+              rightDisable={!activeVariant}
+            />
+          </>
+        )}
       </div>
     </div>
   );
