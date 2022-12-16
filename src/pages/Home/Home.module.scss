@@ -42,12 +42,12 @@
 }
 
 .image {
-  @apply absolute top-1/4 right-[5%] w-2/5 max-h-[50%] -z-10;
+  @apply absolute top-[15%] right-[5%] w-2/5 max-h-[50%] -z-10;
   @include laptop {
     @apply top-[15%] w-9/12;
   }
   @include tablet {
-    right: -50%;
-    width: 150%;
+    right: -20%;
+    width: 100%;
   }
 }

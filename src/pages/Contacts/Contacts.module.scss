@@ -19,6 +19,7 @@
   }
 
   .links {
+    @apply flex gap-3 items-center flex-wrap;
     img {
       @apply relative w-8 h-8 transition-all;
       &:hover {

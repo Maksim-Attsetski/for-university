@@ -25,7 +25,7 @@ const About: FC = () => {
         <div className={s.description}>
           <p className="font-semibold">
             Number - универсальный сервис, представляющий собой онлайн калькулятор для расчёта стоимости и длительности
-            строительных работ.
+            строительных работ малоэтажных домов (1-3 этажа).
           </p>
           <p>
             Надежность - наше главное качество, рассчет производится от земляных, до кровли, разработанный по стандартам
@@ -41,7 +41,7 @@ const About: FC = () => {
           <div className={s.title}>Преимущества нашего сервиса:</div>
           <div>
             {strengths.map(item => (
-              <div className={s.strengths_item}>
+              <div key={item} className={s.strengths_item}>
                 <img src={images.star} alt="star" />
                 <div>{item}</div>
               </div>

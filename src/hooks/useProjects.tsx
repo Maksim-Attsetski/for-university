@@ -93,6 +93,7 @@ const useProjects = () => {
         const project = await addDoc(collection(fs, 'projects'), newProject);
         action.addProject({ ...newProject, id: project.id });
         action.clearProjectInfo();
+        action.startQuiz();
         setError(null);
       }
     } catch (error) {

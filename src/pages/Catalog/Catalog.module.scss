@@ -1,3 +1,5 @@
+@import '../../utils/media.scss';
+
 .title {
   @apply my-4 text-center;
 }
@@ -6,29 +8,43 @@
 }
 
 .productList {
-  @apply flex justify-around items-center flex-wrap gap-x-4 gap-y-7 mb-5;
+  @apply flex justify-around items-center flex-wrap gap-x-2 gap-y-7 mb-5;
 }
 .product {
-  width: clamp(300px, 40vw, 600px);
+  width: clamp(300px, 48vw, 500px);
   @apply bg-white transition-all rounded-lg flex justify-between items-center cursor-pointer shadow-md border-1 border-solid;
+
+  @include tablet {
+    @apply flex-col;
+  }
   &:hover {
     @apply scale-105;
   }
+
   .name {
-    @apply my-3;
+    @apply mt-3 mb-5;
+    @include tablet {
+      @apply my-0;
+    }
   }
   .content {
-    @apply w-1/2 flex flex-col items-center justify-between;
+    @apply w-[45%] p-[3%] flex flex-col items-center justify-between;
+    @include tablet {
+      @apply w-full;
+    }
   }
 
   span {
     @apply w-1/2 overflow-hidden rounded-lg;
+    @include tablet {
+      @apply w-3/4;
+    }
     img {
       @apply transition-all cursor-pointer min-w-full;
     }
     &:hover {
       img {
-        transform: scale(1.35);
+        transform: scale(1.15);
       }
     }
   }

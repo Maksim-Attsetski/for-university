@@ -34,8 +34,10 @@ const Catalog: FC = () => {
               <div className={s.content}>
                 <Title className={s.name} text={item.name} />
                 <div className="my-2"></div>
-                <div>{item.price}</div>
-                <div>{item.size['Кубатура']}</div>
+                <div>
+                  Цена: {item.price} {item.currency}
+                </div>
+                <div>Площадь: {item.size['Кубатура']}</div>
               </div>
             </div>
           ))}
