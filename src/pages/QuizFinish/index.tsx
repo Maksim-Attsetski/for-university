@@ -7,6 +7,7 @@ import { routes } from '../../data';
 import { useTypedSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/useActions';
 import useGetWorkInfo from '../../hooks/useGetWorkInfo';
+import { getCurrentPrice } from '../../utils/getCurrentPrice';
 import { getWorkTime } from '../../utils/getWorkTime';
 
 import s from './QuizFinish.module.scss';
@@ -18,8 +19,10 @@ interface ITotal {
 }
 
 const QuizFinish: FC = () => {
+  const { currency, workCurrency } = useTypedSelector(state => state.exchangeRate);
   const { answers, floor, meter } = useTypedSelector(state => state.quiz);
   const { systems } = useTypedSelector(state => state.systems);
+  const { limit, projects } = useTypedSelector(state => state.projects);
   const [total, setTotal] = useState<ITotal>({ price: 0, workPrice: 0, workTime: 0 });
 
   const { action } = useActions();
@@ -27,6 +30,10 @@ const QuizFinish: FC = () => {
   const navigate = useNavigate();
 
   const setTotalPrice = () => {
+    if (!currency) {
+      return;
+    }
+
     let systemsInAnswers = [];
 
     for (const key in answers) {
@@ -42,7 +49,7 @@ const QuizFinish: FC = () => {
     }
 
     const priceFromSystem = systemsInAnswers.reduce((prev, cur) => (prev += cur.price), 0);
-    const price: number = priceFromSystem * meter * floor;
+    const price: number = getCurrentPrice(workCurrency, priceFromSystem * meter * floor, currency);
 
     const total = calcWorkInfo(1, { floor: '' + floor, meter: '' + meter });
 
@@ -50,8 +57,8 @@ const QuizFinish: FC = () => {
     setTotal(prev => ({
       ...prev,
       price,
-      workPrice: total ? total.price : prev.price,
-      workTime: total ? total.time : prev.workTime,
+      workPrice: total?.price || prev.workPrice,
+      workTime: total?.time || prev.workTime,
     }));
   };
 
@@ -62,6 +69,11 @@ const QuizFinish: FC = () => {
 
   useEffect(() => {
     Object.keys(answers).length === 0 ? resetQuiz() : setTotalPrice();
+    return () => {
+      if (Object.keys(projects).length === limit) {
+        action.startQuiz();
+      }
+    };
   }, []);
 
   return (
@@ -81,11 +93,17 @@ const QuizFinish: FC = () => {
           Этаж: <strong>{floor}</strong>
         </div>
         <div>
-          Стоимость материалов: <strong>{total.price.toFixed(4) || 0} BYN</strong>
+          Стоимость материалов:{' '}
+          <strong>
+            {total.price.toFixed(4) || 0} {currency?.Cur_Abbreviation}
+          </strong>
         </div>
         <div>
           <div>
-            Стоимость работ: <strong>{total.workPrice} BYN</strong>
+            Стоимость работ:{' '}
+            <strong>
+              {total.workPrice} {currency?.Cur_Abbreviation}
+            </strong>
           </div>
           <div>
             Длиельность работ: <strong>{getWorkTime({ time: total.workTime, price: 0 })}</strong>
@@ -107,7 +125,9 @@ const QuizFinish: FC = () => {
               {system && (
                 <div className={s.answer}>
                   <div className="mb-3">{system?.name}</div>
-                  <div>{system?.price} BYN</div>
+                  <div>
+                    {system?.price} {currency?.Cur_Abbreviation}
+                  </div>
                 </div>
               )}
             </div>

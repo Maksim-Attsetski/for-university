@@ -91,7 +91,7 @@ const Quiz: FC = () => {
   return (
     <div className="">
       <Popup isShow={isShow} setIsShow={setIsShow}>
-        <Title text="Вы не кончили в прошлый раз😉" />
+        <Title text="Видно вы не закончили викторину в прошлый раз" />
         <br />
         <br />
         <div className="flex gap-4 items-center">
