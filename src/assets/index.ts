@@ -25,10 +25,18 @@ import linkedin from './linkedin.png';
 import aboutBg from './about-bg.png';
 import star from './star.png';
 import catalog from './catalog.png';
+import github from './github.png';
+import gmail from './gmail.png';
+import habr from './habr.png';
+import hh from './hh.png';
 import returnArrow from './return-arrow.png';
 
 export const images = {
   returnArrow,
+  github,
+  gmail,
+  habr,
+  hh,
   aboutBg,
   star,
   linkedin,
