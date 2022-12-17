@@ -22,7 +22,7 @@ const useProjects = () => {
     try {
       if (!currentUser) return;
 
-      // action.setIsLoading(true);
+      action.setIsLoading(true);
       const projects: IProject[] = [];
 
       const q = query(collection(fs, 'projects'), where('authorUid', '==', currentUser?.uid));
@@ -36,7 +36,7 @@ const useProjects = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      // action.setIsLoading(false);
+      action.setIsLoading(false);
     }
   };
 
