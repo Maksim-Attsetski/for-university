@@ -110,7 +110,7 @@ const NavBar: FC = () => {
         <ul className={s.links}>
           <li className={s.profile}>
             <img src={avatar} alt="profile" />
-            <div>{isAuth ? currentUser?.displayName : 'Профиль'}</div>
+            <div>{isAuth && currentUser?.displayName ? currentUser?.displayName : 'Профиль'}</div>
           </li>
           {links.map((link, inx) => (
             <Fragment key={link.to}>

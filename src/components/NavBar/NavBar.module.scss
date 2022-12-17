@@ -54,9 +54,6 @@
     left: -15%;
     width: 100%;
   }
-  img {
-    @apply w-6 h-6;
-  }
 }
 .navbar__title {
   text-transform: capitalize;
@@ -65,6 +62,9 @@
 .navbarLinks__link {
   @apply mb-2 cursor-pointer text-lg flex gap-4;
   letter-spacing: 1px;
+  img {
+    @apply w-6 h-6;
+  }
 }
 .underline {
   @apply bg-[#969696] h-[1px] rounded-md my-6 w-full;
@@ -88,10 +88,7 @@
   div {
     @apply text-xl;
   }
-  // .profileTitle {
-  //   @apply text-left mt-1 font-normal;
-  // }
-  // .profileOption {
-  //   @apply text-left px-0;
-  // }
+  img {
+    @apply w-8 h-8 rounded-md;
+  }
 }

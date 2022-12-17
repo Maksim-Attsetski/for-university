@@ -54,7 +54,7 @@ const CatalogItem: FC = () => {
             <div className={s.content}>
               <Button text="Назад" to={routes.catalog} />
               <div>
-                <strong>Стоимость:</strong> {catalogItem.price}
+                <strong>Стоимость:</strong> {catalogItem.price} {catalogItem.currency}
               </div>
               <div>
                 <strong>Длительность:</strong> {catalogItem.time}
